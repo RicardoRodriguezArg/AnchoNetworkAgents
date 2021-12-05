@@ -1,0 +1,45 @@
+syntax = "proto2";
+
+package agent_interface;
+
+/* 
+Messages header declaration
+*/
+
+message Header{
+    required fixed32 target_agent_id = 1; //Id of the receiver agent
+    required fixed32 source_agent_id = 2; //Id of the sender agent
+    required fixed32 week_number = 3;       //week of year
+    required fixed32 year = 4;              //year
+    required float timestamp = 5;         //timestamp
+}
+
+/* 
+Message Event declaration
+*/
+
+message Event
+{
+    required Header header = 1;
+    required fixed32 id = 2;// Event Id
+}
+
+/* 
+Message Command declaration
+*/
+
+message CommandWithArguments
+{
+enum Arguments {
+    ONE = 0;
+    TWO = 1;
+    THREE = 2;
+    FOUR= 3;
+    TOTAL = 4;
+  }
+    required Header header = 1;
+    required fixed32 id = 2; // Command Id
+    required Arguments number_arg_count = 3; // number of Arguments
+    repeated string arguments = 4;
+
+}
