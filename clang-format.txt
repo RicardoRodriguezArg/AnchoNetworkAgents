@@ -26,6 +26,7 @@ DerivePointerAlignment: false
 IncludeBlocks: Preserve
 IndentWidth: 4
 KeepEmptyLinesAtTheStartOfBlocks: true
+AlwaysBreakTemplateDeclarations: 'Yes'
 ---
 # Make sure language specific settings are below the generic settings to be compatible to all languages.
 Language: Cpp
