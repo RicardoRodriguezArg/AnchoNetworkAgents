@@ -5,6 +5,7 @@
 // x86
 namespace agents {
 namespace server {
+
 enum class ServerType : std::uint8_t { Event, Commands, Data };
 /**
  * @brief      This class describes general agent server in which it will open
