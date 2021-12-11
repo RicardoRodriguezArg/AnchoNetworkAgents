@@ -47,4 +47,5 @@ std::optional<std::string> PackMessageToString(
   return result;
 }
 
-}  // namespace utils
+}
+}// namespace utils
