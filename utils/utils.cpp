@@ -21,6 +21,7 @@ std::optional<std::string> UnpackMessage(const std::string_view input_message) {
       std::numeric_limits<std::uint32_t>::max()) {
     return result;
   }
+  return result;
 }
 
 std::optional<std::string> PackMessageToString(
