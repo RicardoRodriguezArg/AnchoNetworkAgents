@@ -55,7 +55,7 @@ std::optional<std::uint32_t> GetPackectMessageSize(
     return result;
   }
   std::uint32_t enconded_message_size = 0;
-  const auto raw_input_pointer = std::string(input_message).c_str();
+  const auto raw_input_pointer = std::string(packet_message).c_str();
   std::memcpy(&enconded_message_size, raw_input_pointer, MAX_MESSAGE_SIZE);
   result = enconded_message_size;
   return result;
