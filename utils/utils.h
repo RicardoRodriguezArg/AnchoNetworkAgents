@@ -70,9 +70,11 @@ std::optional<std::string> PackMessageToString(
 
   std::string packet_output_string;
   // pack the string into a bigger string
-  std::memcpy(static_cast<void*>(packet_output_string.data()), &message_size, MAX_MESSAGE_SIZE);
-  std::memcpy(static_cast<void *>(packet_output_string.data() + MAX_MESSAGE_SIZE),
-              input_message.data(), message_size);
+  std::memcpy(static_cast<void *>(packet_output_string.data()), &message_size,
+              MAX_MESSAGE_SIZE);
+  std::memcpy(
+      static_cast<void *>(packet_output_string.data() + MAX_MESSAGE_SIZE),
+      input_message.data(), message_size);
   result = std::optional<std::string>{packet_output_string};
   return result;
 }
