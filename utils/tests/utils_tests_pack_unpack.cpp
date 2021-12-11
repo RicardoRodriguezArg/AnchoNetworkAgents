@@ -52,7 +52,7 @@ class UtilsPackUnpackMessage : public ::testing::Test {
 };
 
 // Demonstrate some basic assertions.
-TEST(UtilsPackUnpackMessage, GivenValidInputUnpackIsOk) {
+TEST_F(UtilsPackUnpackMessage, GivenValidInputUnpackIsOk) {
   // Given valid input
   const auto& valid_input =
       CreateInputString(InputStringCase::kValid4BytesInputString);
