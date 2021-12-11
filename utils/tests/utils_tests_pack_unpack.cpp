@@ -58,5 +58,5 @@ TEST_F(UtilsPackUnpackMessage, GivenValidInputUnpackIsOk) {
   const auto result = agents::utils::PackMessageToString(valid_input);
   ASSERT_TRUE(result.has_value());
   const auto& data = result.value();
-  EXPECT_EQ(9U + 4U, data.size());
+  EXPECT_EQ(9U + 4U, GetPackectMessageSize(data));
 }
