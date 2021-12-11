@@ -1,9 +1,9 @@
 cc_test(
     name = "communication_tests",
-    srcs = ["main.cc"],
+    srcs = ["main.cpp"],
     copts = ["-Iexternal/gtest/include"],
     deps = [
-        "//ext_libs/googletest:main",
+        "@com_google_googletest//:gtest_main",
         "//utils:ancho_net_middleware_utils",
     ],
 )
