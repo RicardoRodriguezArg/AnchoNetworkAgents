@@ -9,8 +9,6 @@ using ::testing::TestInfo;
 using ::testing::TestPartResult;
 using ::testing::UnitTest;
 
-
-
 class UtilsPackUnpackMessage : public ::testing::Test {
  public:
   enum class InputStringCase {
@@ -39,13 +37,13 @@ class UtilsPackUnpackMessage : public ::testing::Test {
   std::string CreateInputString(const InputStringCase& test_case) {
     std::string result{};
     switch (test_case) {
-	    case InputStringCase::kEmptyInputString: {
+      case InputStringCase::kEmptyInputString: {
         result.clear();
       }
-	    case InputStringCase::kValid4BytesInputString: {
+      case InputStringCase::kValid4BytesInputString: {
         result = "1234XXXXX";
       }
-      default: { }
+      default: {}
     }
     return result;
   }
@@ -59,4 +57,6 @@ TEST_F(UtilsPackUnpackMessage, GivenValidInputUnpackIsOk) {
   EXPECT_EQ(9U, valid_input.size());
   const auto result = agents::utils::PackMessageToString(valid_input);
   ASSERT_TRUE(result.has_value());
+  const auto& data = result.value();
+  EXPECT_EQ(9U + 4U, data.size());
 }

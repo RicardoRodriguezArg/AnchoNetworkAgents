@@ -48,5 +48,18 @@ std::optional<std::string> PackMessageToString(
   return result;
 }
 
+std::optional<std::uint32_t> GetPackectMessageSize(
+    std::string_view packet_message) {
+  std::optional<std::uint32_t> result{};
+  if (packet_message.empty()) {
+    return result;
+  }
+  std::uint32_t enconded_message_size = 0;
+  const auto raw_input_pointer = std::string(input_message).c_str();
+  std::memcpy(&enconded_message_size, raw_input_pointer, MAX_MESSAGE_SIZE);
+  result = enconded_message_size;
+  return result;
 }
-}// namespace utils
+
+}  // namespace utils
+}  // namespace agents

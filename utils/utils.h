@@ -34,6 +34,17 @@ std::optional<std::string> UnpackMessage(const std::string_view input_message);
  */
 std::optional<std::string> PackMessageToString(
     const std::string_view input_message);
+
+/**
+ * @brief      Gets the packect message size.
+ *
+ * @param[in]  packet_message  The packet message
+ *
+ * @return     The packect message size.
+ */
+std::optional<std::uint32_t> GetPackectMessageSize(
+    std::string_view packet_message);
+
 }  // namespace utils
 
 }  // namespace agents
