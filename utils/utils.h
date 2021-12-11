@@ -24,7 +24,7 @@ static constexpr std::uint8_t MAX_MESSAGE_SIZE = 4U;
  */
 
 std::optional<std::string> UnpackMessage(const std::string_view input_message) {
-  std::optional<std::string_view> result{};
+  std::optional<std::string> result{};
   if (input_message.empty()) {
     return result;
   }
