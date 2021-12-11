@@ -7,8 +7,6 @@
 #include <optional>
 #include <string_view>
 
-#include "../interface/message_interface_idl.pb.h"
-
 namespace agents {
 namespace utils {
 
