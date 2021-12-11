@@ -23,30 +23,7 @@ static constexpr std::uint8_t MAX_MESSAGE_SIZE = 4U;
  * @return     { description_of_the_return_value }
  */
 
-std::optional<std::string> UnpackMessage(const std::string_view input_message) {
-  std::optional<std::string> result{};
-  if (input_message.empty()) {
-    return result;
-  }
-
-  std::uint32_t enconded_message_size = 0;
-  const auto raw_input_pointer = std::string(input_message).c_str();
-  std::memcpy(&enconded_message_size, raw_input_pointer, MAX_MESSAGE_SIZE);
-
-  if ((enconded_message_size) > std::numeric_limits<std::uint32_t>::max()) {
-    return result;
-  }
-
-  if ((enconded_message_size + 4U) >
-      std::numeric_limits<std::uint32_t>::max()) {
-    return result;
-  }
-
-  std::string_view raw_message{};
-  std::memcpy(&raw_message, raw_input_pointer + MAX_MESSAGE_SIZE,
-              input_message.size());
-  return result;
-}
+std::optional<std::string> UnpackMessage(const std::string_view input_message);
 
 /**
  * @brief      Pack Input String view into our protocol
@@ -56,28 +33,7 @@ std::optional<std::string> UnpackMessage(const std::string_view input_message) {
  * @return     { packet message (4 bytes) + size of packet message }
  */
 std::optional<std::string> PackMessageToString(
-    const std::string_view input_message) {
-  std::optional<std::string> result{};
-
-  if (input_message.empty()) {
-    return result;
-  }
-  const auto message_size = input_message.size();
-
-  if ((message_size + 4U) >= 512U) {
-    return result;
-  }
-
-  std::string packet_output_string;
-  // pack the string into a bigger string
-  std::memcpy(static_cast<void *>(packet_output_string.data()), &message_size,
-              MAX_MESSAGE_SIZE);
-  std::memcpy(
-      static_cast<void *>(packet_output_string.data() + MAX_MESSAGE_SIZE),
-      input_message.data(), message_size);
-  result = std::optional<std::string>{packet_output_string};
-  return result;
-}
+    const std::string_view input_message);
 }  // namespace utils
 
 }  // namespace agents
