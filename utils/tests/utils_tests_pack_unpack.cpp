@@ -1,6 +1,16 @@
 #include <gtest/gtest.h>
 #include "utils/utils.h"
 
+using ::testing::EmptyTestEventListener;
+using ::testing::InitGoogleTest;
+using ::testing::Test;
+using ::testing::TestEventListeners;
+using ::testing::TestInfo;
+using ::testing::TestPartResult;
+using ::testing::UnitTest;
+
+
+
 class UtilsPackUnpackMessage : public ::testing::Test {
  public:
   enum class InputStringCase {
@@ -29,13 +39,13 @@ class UtilsPackUnpackMessage : public ::testing::Test {
   std::string CreateInputString(const InputStringCase& test_case) {
     std::string result{};
     switch (test_case) {
-      case kEmptyInputString: {
+	    case InputStringCase::kEmptyInputString: {
         result.clear();
       }
-      case kValid4BytesInputString: {
+	    case InputStringCase::kValid4BytesInputString: {
         result = "xxxx";
       }
-      default: { FAIL(); }
+      default: { }
     }
     return result;
   }
