@@ -68,16 +68,15 @@ std::optional<std::string> PackMessageToString(
     return result;
   }
 
-  std::string packet_output_string{message_size + 4U,''};
+  std::string packet_output_string;
   // pack the string into a bigger string
-  std::memcpy(packet_output_string.c_str(), &message_size, MAX_MESSAGE_SIZE);
-  std::memcpy(packet_output_string.c_str() + MAX_MESSAGE_SIZE,
-              input_message.c_str(), message_size);
+  std::memcpy(static_cast<void*>(packet_output_string.data()), &message_size, MAX_MESSAGE_SIZE);
+  std::memcpy(static_cast<void *>(packet_output_string.data() + MAX_MESSAGE_SIZE),
+              input_message.data(), message_size);
   result = std::optional<std::string>{packet_output_string};
   return result;
 }
 }  // namespace utils
 
-}  // namespace agents
 }  // namespace agents
 #endif
