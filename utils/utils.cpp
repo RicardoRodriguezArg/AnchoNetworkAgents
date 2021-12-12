@@ -65,7 +65,8 @@ std::optional<std::string> GetPackectMessageData(
     return result;
   }
   std::string raw_data{};
-  raw_data.assign(static_cast<char *>(packet_message_iterator), static_cast<int>(message_size));
+  raw_data.assign(static_cast<char *>(packet_message_iterator),
+                  static_cast<int>(message_size));
   result = std::move(raw_data);
   return result;
 }

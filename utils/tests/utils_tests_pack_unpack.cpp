@@ -42,7 +42,7 @@ class UtilsPackUnpackMessage : public ::testing::Test {
   }
 
   void CleanInputBuffer() {
-    //std::fill_n(raw_buffer_, agents::utils::MAX_BUFFER_SIZE, 0);
+    // std::fill_n(raw_buffer_, agents::utils::MAX_BUFFER_SIZE, 0);
     raw_buffer_[511] = '\n';
   }
 
@@ -58,13 +58,26 @@ TEST_F(UtilsPackUnpackMessage, GivenValidInputUnpackIsOk) {
                                                          raw_buffer_.begin());
   ASSERT_TRUE(result);
   // First size at 4 first Bytes
-  const auto data_size = agents::utils::GetPackectMessageSize(raw_buffer_.begin());
+  const auto data_size =
+      agents::utils::GetPackectMessageSize(raw_buffer_.begin());
   ASSERT_TRUE(data_size.has_value());
   const auto enconded_data_size = data_size.value();
   EXPECT_EQ(expected_input_message.size(), enconded_data_size);
   // Check Enconded Message
   const auto encoded_data = agents::utils::GetPackectMessageData(
-      raw_buffer_.begin()+agents::utils::MESSAGE_SIZE_DEFAULT, enconded_data_size);
+      raw_buffer_.begin() + agents::utils::MESSAGE_SIZE_DEFAULT,
+      enconded_data_size);
   ASSERT_TRUE(encoded_data.has_value());
   EXPECT_EQ(expected_input_message, encoded_data.value());
+}
+
+TEST_F(UtilsPackUnpackMessage, GivenInValidInputUnpackNotEncodec) {
+  // Given valid input
+  CleanInputBuffer();
+  const auto& expected_input_message =
+      CreateInputString(InputStringCase::kEmptyInputString);
+
+  const auto result = agents::utils::PackMessageToString(expected_input_message,
+                                                         raw_buffer_.begin());
+  ASSERT_FALSE(result);
 }
