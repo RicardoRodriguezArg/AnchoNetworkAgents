@@ -39,15 +39,13 @@ std::optional<PacketBuffer> PackMessageToString(
   if ((message_size + 4U) >= MAX_BUFFER_SIZE) {
     return result;
   }
-
-  std::string packet_output_string;
   PacketBuffer buffer;
   buffer[511] = '\n';
   // pack the string into a bigger string
   std::memcpy(buffer.begin(), &message_size, MESSAGE_SIZE_DEFAULT);
   std::memcpy((buffer.begin() + MESSAGE_SIZE_DEFAULT), input_message.data(),
               message_size);
-  result = std::optional<PacketBuffer>{packet_output_string};
+  result = std::optional<PacketBuffer>{buffer};
   return result;
 }
 
