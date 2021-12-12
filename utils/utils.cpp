@@ -44,7 +44,8 @@ bool PackMessageToString(const std::string_view input_message,
   std::memcpy(packet_message_iterator, &message_size, MESSAGE_SIZE_DEFAULT);
   std::memcpy((packet_message_iterator + MESSAGE_SIZE_DEFAULT),
               input_message.data(), message_size);
-  result = true return result;
+  result = true;
+  return result;
 }
 
 std::optional<std::uint32_t> GetPackectMessageSize(
@@ -60,10 +61,11 @@ std::optional<std::uint32_t> GetPackectMessageSize(
 std::optional<std::string> GetPackectMessageData(
     PacketBufferIterator packet_message_iterator, MessageSize message_size) {
   std::optional<std::string> result{};
-  std::string data{};
-  std::memcpy(&data.data(), packet_message_iterator + MESSAGE_SIZE_DEFAULT,
+  std::string raw_data{};
+  std::memcpy(raw_data.data(), packet_message_iterator + MESSAGE_SIZE_DEFAULT,
               message_size);
-  result = data;
+  result = std::move(raw_data);
+  return result;
 }
 
 }  // namespace utils

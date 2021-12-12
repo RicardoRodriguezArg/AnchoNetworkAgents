@@ -37,9 +37,9 @@ std::optional<std::string> UnpackMessage(const std::string_view input_message);
  * @param[in]  input_message            The input message
  * @param[in]  packet_message_iterator  The packet message iterator
  *
- * @return     Encoded message with size of the message at first 4 bytes
+ * @return     Return true if could enconded, false otherwise
  */
-std::optional<PacketBuffer> PackMessageToString(
+bool PackMessageToString(
     const std::string_view input_message,
     PacketBufferIterator packet_message_iterator);
 
@@ -61,7 +61,7 @@ std::optional<std::uint32_t> GetPackectMessageSize(
  * @return     The packect message data.
  */
 std::optional<std::string> GetPackectMessageData(
-    PacketBufferIterator packet_message_iterator);
+    PacketBufferIterator packet_message_iterator,MessageSize raw_message_size );
 
 }  // namespace utils
 
