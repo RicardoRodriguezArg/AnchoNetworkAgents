@@ -9,11 +9,13 @@
 
 namespace agents {
 namespace utils {
+
 static constexpr std::uint8_t MESSAGE_SIZE_DEFAULT = 4U;
 static constexpr std::uint32_t MAX_BUFFER_SIZE = 512U;
 using ConstPacketBufferIterator = std::uint8_t const *;
 using PacketBufferIterator = std::uint8_t *;
 using PacketBuffer = std::array<std::uint8_t, MAX_BUFFER_SIZE>;
+using MessageSize = std::uint8_t;
 
 /**
  * @brief      Utils function to unpack a recieved message according
@@ -32,12 +34,14 @@ std::optional<std::string> UnpackMessage(const std::string_view input_message);
  * @brief      Encode input message with define protocol
  *             First 4 Bytes enconde the size of the whole message
  *
- * @param[in]  input_message  The input message
+ * @param[in]  input_message            The input message
+ * @param[in]  packet_message_iterator  The packet message iterator
  *
  * @return     Encoded message with size of the message at first 4 bytes
  */
 std::optional<PacketBuffer> PackMessageToString(
-    const std::string_view input_message);
+    const std::string_view input_message,
+    PacketBufferIterator packet_message_iterator);
 
 /**
  * @brief      Gets the packect message size.
@@ -47,6 +51,16 @@ std::optional<PacketBuffer> PackMessageToString(
  * @return     The packect message size.
  */
 std::optional<std::uint32_t> GetPackectMessageSize(
+    PacketBufferIterator packet_message_iterator);
+
+/**
+ * @brief      Gets the packect message data.
+ *
+ * @param[in]  packet_message_iterator  The packet message iterator
+ *
+ * @return     The packect message data.
+ */
+std::optional<std::string> GetPackectMessageData(
     PacketBufferIterator packet_message_iterator);
 
 }  // namespace utils

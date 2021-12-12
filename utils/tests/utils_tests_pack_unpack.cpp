@@ -17,18 +17,11 @@ class UtilsPackUnpackMessage : public ::testing::Test {
 
   };
 
-  UtilsPackUnpackMessage() {
-    // initialization code here
-  }
+  UtilsPackUnpackMessage() { CleanInputBuffer(); }
 
-  void SetUp() {
-    // code here will execute just before the test ensues
-  }
+  void SetUp() {}
 
-  void TearDown() {
-    // code here will be called just after the test completes
-    // ok to through exceptions from here if need be
-  }
+  void TearDown() { CleanInputBuffer(); }
 
   ~UtilsPackUnpackMessage() {
     // cleanup any pending stuff, but no exceptions allowed
@@ -47,19 +40,32 @@ class UtilsPackUnpackMessage : public ::testing::Test {
     }
     return result;
   }
+
+  void CleanInputBuffer() {
+    std::fill_n(raw_buffer_, agents::utils::MAX_BUFFER_SIZE, 0);
+    raw_buffer_[511] = '\n';
+  }
+
+  agents::utils::PacketBuffer raw_buffer_;
 };
 
-// Demonstrate some basic assertions.
 TEST_F(UtilsPackUnpackMessage, GivenValidInputUnpackIsOk) {
   // Given valid input
-  const auto& valid_input =
+  const auto& expected_input_message =
       CreateInputString(InputStringCase::kValid4BytesInputString);
-  EXPECT_EQ(15U, valid_input.size());
-  const auto result = agents::utils::PackMessageToString(valid_input);
+  EXPECT_EQ(15U, expected_input_message.size());
+  const auto result = agents::utils::PackMessageToString(expected_input_message,
+                                                         raw_buffer_.begin());
   ASSERT_TRUE(result.has_value());
   auto raw_data = result.value();
   // First size at 4 first Bytes
   const auto data_size = agents::utils::GetPackectMessageSize(raw_data.begin());
   ASSERT_TRUE(data_size.has_value());
-  EXPECT_EQ(valid_input.size(), data_size.value());
+  const auto enconded_data_size = data_size.value();
+  EXPECT_EQ(expected_input_message.size(), enconded_data_size);
+  // Check Enconded Message
+  const auto encoded_data = agents::utils::GetPackectMessageData(
+      raw_data.begin(), enconded_data_size);
+  ASSERT_TRUE(encoded_data.has_value());
+  EXPECT_EQ(expected_input_message, encoded_data.value());
 }

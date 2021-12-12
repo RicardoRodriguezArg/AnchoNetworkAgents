@@ -26,9 +26,9 @@ std::optional<std::string> UnpackMessage(const std::string_view input_message) {
   return result;
 }
 
-std::optional<PacketBuffer> PackMessageToString(
-    const std::string_view input_message) {
-  std::optional<PacketBuffer> result{};
+bool PackMessageToString(const std::string_view input_message,
+                         PacketBufferIterator packet_message_iterator) {
+  bool result{false};
 
   if (input_message.empty()) {
     return result;
@@ -39,14 +39,12 @@ std::optional<PacketBuffer> PackMessageToString(
   if ((message_size + 4U) >= MAX_BUFFER_SIZE) {
     return result;
   }
-  PacketBuffer buffer;
-  buffer[511] = '\n';
+
   // pack the string into a bigger string
-  std::memcpy(buffer.begin(), &message_size, MESSAGE_SIZE_DEFAULT);
-  std::memcpy((buffer.begin() + MESSAGE_SIZE_DEFAULT), input_message.data(),
-              message_size);
-  result = std::optional<PacketBuffer>{buffer};
-  return result;
+  std::memcpy(packet_message_iterator, &message_size, MESSAGE_SIZE_DEFAULT);
+  std::memcpy((packet_message_iterator + MESSAGE_SIZE_DEFAULT),
+              input_message.data(), message_size);
+  result = true return result;
 }
 
 std::optional<std::uint32_t> GetPackectMessageSize(
@@ -57,6 +55,15 @@ std::optional<std::uint32_t> GetPackectMessageSize(
               MESSAGE_SIZE_DEFAULT);
   result = enconded_message_size;
   return result;
+}
+
+std::optional<std::string> GetPackectMessageData(
+    PacketBufferIterator packet_message_iterator, MessageSize message_size) {
+  std::optional<std::string> result{};
+  std::string data{};
+  std::memcpy(&data.data(), packet_message_iterator + MESSAGE_SIZE_DEFAULT,
+              message_size);
+  result = data;
 }
 
 }  // namespace utils
