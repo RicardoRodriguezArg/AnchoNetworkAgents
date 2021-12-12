@@ -64,7 +64,7 @@ TEST_F(UtilsPackUnpackMessage, GivenValidInputUnpackIsOk) {
   EXPECT_EQ(expected_input_message.size(), enconded_data_size);
   // Check Enconded Message
   const auto encoded_data = agents::utils::GetPackectMessageData(
-      raw_buffer_.begin(), enconded_data_size);
+      raw_buffer_.begin()+agents::utils::MESSAGE_SIZE_DEFAULT, enconded_data_size);
   ASSERT_TRUE(encoded_data.has_value());
   EXPECT_EQ(expected_input_message, encoded_data.value());
 }

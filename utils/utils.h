@@ -12,9 +12,9 @@ namespace utils {
 
 static constexpr std::uint8_t MESSAGE_SIZE_DEFAULT = 4U;
 static constexpr std::uint32_t MAX_BUFFER_SIZE = 512U;
-using ConstPacketBufferIterator = std::int8_t const *;
-using PacketBufferIterator = std::int8_t *;
-using PacketBuffer = std::array<std::int8_t, MAX_BUFFER_SIZE>;
+using ConstPacketBufferIterator = char const *;
+using PacketBufferIterator = char *;
+using PacketBuffer = std::array<char, MAX_BUFFER_SIZE>;
 using MessageSize = std::uint8_t;
 
 /**
