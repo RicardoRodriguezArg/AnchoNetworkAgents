@@ -12,9 +12,9 @@ namespace utils {
 
 static constexpr std::uint8_t MESSAGE_SIZE_DEFAULT = 4U;
 static constexpr std::uint32_t MAX_BUFFER_SIZE = 512U;
-using ConstPacketBufferIterator = std::uint8_t const *;
-using PacketBufferIterator = std::uint8_t *;
-using PacketBuffer = std::array<std::uint8_t, MAX_BUFFER_SIZE>;
+using ConstPacketBufferIterator = std::int8_t const *;
+using PacketBufferIterator = std::int8_t *;
+using PacketBuffer = std::array<std::int8_t, MAX_BUFFER_SIZE>;
 using MessageSize = std::uint8_t;
 
 /**
@@ -39,9 +39,8 @@ std::optional<std::string> UnpackMessage(const std::string_view input_message);
  *
  * @return     Return true if could enconded, false otherwise
  */
-bool PackMessageToString(
-    const std::string_view input_message,
-    PacketBufferIterator packet_message_iterator);
+bool PackMessageToString(const std::string_view input_message,
+                         PacketBufferIterator packet_message_iterator);
 
 /**
  * @brief      Gets the packect message size.
@@ -61,7 +60,7 @@ std::optional<std::uint32_t> GetPackectMessageSize(
  * @return     The packect message data.
  */
 std::optional<std::string> GetPackectMessageData(
-    PacketBufferIterator packet_message_iterator,MessageSize raw_message_size );
+    PacketBufferIterator packet_message_iterator, MessageSize raw_message_size);
 
 }  // namespace utils
 
