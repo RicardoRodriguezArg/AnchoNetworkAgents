@@ -61,10 +61,14 @@ std::optional<std::uint32_t> GetPackectMessageSize(
 std::optional<std::string> GetPackectMessageData(
     PacketBufferIterator packet_message_iterator, MessageSize message_size) {
   std::optional<std::string> result{};
+  if (message_size == 0U) {
+    return result;
+  }
+
   std::string raw_data{};
   std::memcpy(raw_data.data(), packet_message_iterator + MESSAGE_SIZE_DEFAULT,
               message_size);
-  result = std::move(raw_data);
+  result = raw_data;
   return result;
 }
 
