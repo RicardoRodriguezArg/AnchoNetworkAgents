@@ -41,7 +41,7 @@ class UtilsPackUnpackMessage : public ::testing::Test {
         result.clear();
       }
       case InputStringCase::kValid4BytesInputString: {
-        result = "1234XXXXX";
+        result = "123XXXXXXXXXXXX";
       }
       default: {}
     }
@@ -54,7 +54,7 @@ TEST_F(UtilsPackUnpackMessage, GivenValidInputUnpackIsOk) {
   // Given valid input
   const auto& valid_input =
       CreateInputString(InputStringCase::kValid4BytesInputString);
-  EXPECT_EQ(9U, valid_input.size());
+  EXPECT_EQ(15U, valid_input.size());
   const auto result = agents::utils::PackMessageToString(valid_input);
   ASSERT_TRUE(result.has_value());
   const auto& data = result.value();

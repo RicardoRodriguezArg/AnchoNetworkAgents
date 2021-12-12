@@ -1,4 +1,6 @@
 #include "utils.h"
+#include <iostream>
+#include <array>
 
 namespace agents {
 namespace utils {
@@ -31,20 +33,26 @@ std::optional<std::string> PackMessageToString(
   if (input_message.empty()) {
     return result;
   }
-  const auto message_size = input_message.size();
+  const std::uint32_t message_size = input_message.size();
 
   if ((message_size + 4U) >= 512U) {
     return result;
   }
 
   std::string packet_output_string;
+  std::array<std::uint8_t, 512U> buffer;
+  buffer[511]='\n';
   // pack the string into a bigger string
-  std::memcpy(static_cast<void *>(packet_output_string.data()), &message_size,
-              MAX_MESSAGE_SIZE);
-  std::memcpy(
-      static_cast<void *>(packet_output_string.data() + MAX_MESSAGE_SIZE),
-      input_message.data(), message_size);
+  std::memcpy(buffer.begin(), &message_size, MAX_MESSAGE_SIZE);
+  std::cout << "message size: "<< message_size<< std::endl;
+  std::cout << "packet message size: "<< packet_output_string << std::endl;
+  std::memcpy( (buffer.begin() + MAX_MESSAGE_SIZE), input_message.data(), message_size);
   result = std::optional<std::string>{packet_output_string};
+  for (const auto data: buffer )
+  {
+	  std::cout << std::to_string(data)<< ' ';
+  }
+
   return result;
 }
 
