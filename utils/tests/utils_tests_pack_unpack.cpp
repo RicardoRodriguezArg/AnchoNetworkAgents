@@ -31,18 +31,22 @@ class UtilsPackUnpackMessage : public ::testing::Test {
     std::string result{};
     switch (test_case) {
       case InputStringCase::kEmptyInputString: {
-        result.clear();
+        result= std::string{};
+	
       }
+					       break;
       case InputStringCase::kValid4BytesInputString: {
         result = "123XXXXXXXXXXXX";
       }
+						     break;
       default: {}
+	       break;
     }
     return result;
   }
 
   void CleanInputBuffer() {
-    // std::fill_n(raw_buffer_, agents::utils::MAX_BUFFER_SIZE, 0);
+    std::fill_n(raw_buffer_.begin(), agents::utils::MAX_BUFFER_SIZE, 0);
     raw_buffer_[511] = '\n';
   }
 
@@ -76,7 +80,7 @@ TEST_F(UtilsPackUnpackMessage, GivenInValidInputUnpackNotEncodec) {
   CleanInputBuffer();
   const auto& expected_input_message =
       CreateInputString(InputStringCase::kEmptyInputString);
-
+   ASSERT_TRUE(expected_input_message.empty());
   const auto result = agents::utils::PackMessageToString(expected_input_message,
                                                          raw_buffer_.begin());
   ASSERT_FALSE(result);
