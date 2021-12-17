@@ -5,5 +5,5 @@ cc_library(
     srcs = ["utils.cpp"],
     hdrs = ["utils.h"],
     visibility = ["//agent_server:__pkg__",
-		  "//utils/tests:__pkg__"]
+          "//utils/tests:__pkg__"]
 )

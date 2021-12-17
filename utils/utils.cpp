@@ -5,29 +5,9 @@
 namespace agents {
 namespace utils {
 
-std::optional<std::string> UnpackMessage(const std::string_view input_message) {
-  std::optional<std::string> result{};
-  if (input_message.empty()) {
-    return result;
-  }
-
-  std::uint32_t enconded_message_size = 0;
-  const auto raw_input_pointer = std::string(input_message).c_str();
-  std::memcpy(&enconded_message_size, raw_input_pointer, MESSAGE_SIZE_DEFAULT);
-
-  if ((enconded_message_size) > std::numeric_limits<std::uint32_t>::max()) {
-    return result;
-  }
-
-  if ((enconded_message_size + 4U) >
-      std::numeric_limits<std::uint32_t>::max()) {
-    return result;
-  }
-  return result;
-}
-
 bool PackMessageToString(const std::string_view input_message,
-                         PacketBufferIterator packet_message_iterator) {
+                         PacketBufferIterator packet_message_iterator,
+                         common::MessageType message_type) {
   bool result{false};
 
   if (input_message.empty()) {
@@ -39,11 +19,16 @@ bool PackMessageToString(const std::string_view input_message,
   if ((message_size + 4U) >= MAX_BUFFER_SIZE) {
     return result;
   }
-
-  // pack the string into a bigger string
+  // First 4 bytes pack message size
   std::memcpy(packet_message_iterator, &message_size, MESSAGE_SIZE_DEFAULT);
-  std::memcpy((packet_message_iterator + MESSAGE_SIZE_DEFAULT),
-              input_message.data(), message_size);
+  // Fith 5 byte pack message type
+  std::uint8_t message_type_pack = static_cast<std::uint8_t>(message_type);
+  std::memcpy(packet_message_iterator + MESSAGE_SIZE_DEFAULT,
+              &message_type_pack, MESSAGE_TYPE_SIZE);
+  // pack message to buffer
+  std::memcpy(
+      (packet_message_iterator + MESSAGE_SIZE_DEFAULT + MESSAGE_TYPE_SIZE),
+      input_message.data(), message_size);
   result = true;
   return result;
 }
@@ -69,6 +54,15 @@ std::optional<std::string> GetPackectMessageData(
                   static_cast<int>(message_size));
   result = std::move(raw_data);
   return result;
+}
+
+std::optional<std::uint8_t> GetMessageType(
+    PacketBufferIterator packet_message_iterator) {
+  std::optional<std::uint8_t> result;
+  std::uint8_t message_type;
+  std::memcpy(&message_type, packet_message_iterator + MESSAGE_SIZE_DEFAULT,
+              MESSAGE_TYPE_SIZE);
+  result = message_type;
 }
 
 }  // namespace utils

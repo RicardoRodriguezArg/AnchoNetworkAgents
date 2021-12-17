@@ -12,7 +12,7 @@ enum class ServerType : std::uint8_t { Event, Commands, Data };
  * three sockets one for event input/output one for command input/output one for
  * data to transport input/output.
  */
-template <class MessageHandler>
+
 class AgentServer {
  public:
   explitcit AgentServer(std::uint16_t server_port,
