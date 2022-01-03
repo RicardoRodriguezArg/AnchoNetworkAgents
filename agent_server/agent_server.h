@@ -1,12 +1,15 @@
 #ifndef __AGENT_SERVER_H_
 #define __AGENT_SERVER_H_
-#include <array>
+#include <algorithm>
+#include <atomic>
+
 #include "../ext_libs/netLink-v1.0.0/netLink/include/netlink/socket.h"
+#include "common/commons.h"
+#include "message_handler/message_handler.h"
 // x86
 namespace agents {
 namespace server {
 
-enum class ServerType : std::uint8_t { Event, Commands, Data };
 /**
  * @brief      This class describes general agent server in which it will open
  * three sockets one for event input/output one for command input/output one for
@@ -15,30 +18,35 @@ enum class ServerType : std::uint8_t { Event, Commands, Data };
 
 class AgentServer {
  public:
-  explitcit AgentServer(std::uint16_t server_port,
-                        const MessageHandler &message_handler)
-      : socket_(server_port), message_handler_(message_handler) {
-    server_buffer_[255] = '\0';
+  explicit AgentServer(common::ServerType server_type,
+                       std::uint16_t server_port)
+      : socket_(server_port) {}
+
+  void CleanInputBuffer() {
+    std::fill_n(raw_buffer_.begin(), agents::utils::MAX_BUFFER_SIZE, 0);
+    raw_buffer_[511] = '\0';
   }
+
   void Init() { NL::init(); }
   void Stop() { is_server_operating_ = false; }
   void Start() {
     clientConnection = server.accept();
     while (clientConnection->read(buffer, 255)) {
       // Get Message
-      // Check Protocol
+      // Get Message Type
       // De-Serialize
-      // Send to the message handler
+      // Send to the specific message handler
       // save to DB
     }
   }
 
  private:
-  std::array<256U, char> server_buffer_;
+  agents::utils::PacketBuffer raw_buffer_;
   const NL::Socket socket_;
   const MessageHandler &message_handler_;
   NL::Socket *clientConnection = std::nullptr;
-  volatile bool is_server_operating_ = true;
+  std::atomic<bool> is_server_operating_ = true;
+  common::ServerType server_type;
 };
 }  // namespace server
 }  // namespace agents

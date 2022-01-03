@@ -13,7 +13,7 @@ namespace utils {
 
 static constexpr std::uint8_t MESSAGE_SIZE_DEFAULT = 4U;
 static constexpr std::uint32_t MAX_BUFFER_SIZE = 512U;
-static constexpr std::uint8_t MESSAGE_TYPE_SIZE = 4U;
+static constexpr std::uint8_t MESSAGE_TYPE_SIZE = 1U;
 
 using ConstPacketBufferIterator = char const *;
 using PacketBufferIterator = char *;
@@ -62,7 +62,7 @@ std::optional<std::string> GetPackectMessageData(
  *
  * @return     The message type.
  */
-std::optional<std::uint8_t> GetMessageType(
+std::optional<std::uint8_t> GetPackectMessageType(
     PacketBufferIterator packet_message_iterator);
 
 }  // namespace utils

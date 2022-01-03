@@ -6,12 +6,9 @@ cc_library(
     hdrs = ["agent_server.h"],
     linkopts = ["-lpthread"],
     deps = [
-        "@com_google_googletest//:gtest_main",
-        "//utils:ancho_net_middleware_utils",
-    ],
-)
-
-cc_binary(
-    name = "openwrt_agents_server",
-    srcs = ["main.cpp"],
+            "@com_google_googletest//:gtest_main",
+             "//utils:ancho_net_middleware_utils",
+             "//commons:commons",
+             "//message_handlers:message_handlers",
+           ],
 )

@@ -1,6 +1,7 @@
 ﻿---
 BasedOnStyle: Google
-AccessModifierOffset: -2
+AlignAfterOpenBracket: AlwaysBreak
+
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowShortFunctionsOnASingleLine: Inline
 AllowShortIfStatementsOnASingleLine: false
@@ -19,7 +20,7 @@ BraceWrapping:
   AfterUnion: true
   BeforeCatch: true
   BeforeElse: true
-  IndentBraces: false
+  IndentBraces: true
 BreakBeforeBraces: Custom
 ColumnLimit: 240
 DerivePointerAlignment: false

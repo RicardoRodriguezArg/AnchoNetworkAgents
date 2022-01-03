@@ -56,7 +56,7 @@ std::optional<std::string> GetPackectMessageData(
   return result;
 }
 
-std::optional<std::uint8_t> GetMessageType(
+std::optional<std::uint8_t> GetPacketMessageType(
     PacketBufferIterator packet_message_iterator) {
   std::optional<std::uint8_t> result;
   std::uint8_t message_type;

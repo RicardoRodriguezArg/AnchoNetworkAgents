@@ -2,7 +2,19 @@
 #define __AGENT_COMMONS_H_
 namespace agents {
 namespace common {
-enum class MessageType : std::uint8_t { EVENT, COMAND, DATA, VIDEO };
-}
+
+enum class MessageType : std::uint8_t {
+  EVENT = 0U,
+  COMAND,
+  DATA,
+  VIDEO,
+  COUNT
+};
+
+enum class ServerType : std::uint8_t { TCP, UDP };
+
+using MessageHandlerType = std::function<void(const std::string &)>;
+
+}  // namespace common
 }  // namespace agents
 #endif
