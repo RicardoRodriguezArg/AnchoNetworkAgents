@@ -1,5 +1,7 @@
 #ifndef __AGENT_COMMONS_H_
 #define __AGENT_COMMONS_H_
+#include <functional>
+
 namespace agents {
 namespace common {
 
