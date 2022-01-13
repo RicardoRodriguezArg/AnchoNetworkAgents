@@ -1,12 +1,12 @@
 #ifndef __AGENT_UTILS_H_
 #define __AGENT_UTILS_H_
 
+#include "common/commons.h"
 #include <array>
 #include <cstring>
 #include <limits>
 #include <optional>
 #include <string_view>
-#include "common/commons.h"
 
 namespace agents {
 namespace utils {
@@ -31,7 +31,7 @@ using MessageSize = std::uint8_t;
  *
  * @return     Return true if could enconded, false otherwise
  */
-bool PackMessageToString(const std::string_view input_message,
+bool PackMessageToString(std::string_view input_message,
                          PacketBufferIterator packet_message_iterator,
                          common::MessageType message_type);
 
@@ -42,8 +42,8 @@ bool PackMessageToString(const std::string_view input_message,
  *
  * @return     The packect message size.
  */
-std::optional<std::uint32_t> GetPackectMessageSize(
-    PacketBufferIterator packet_message_iterator);
+std::optional<std::uint32_t>
+GetPackectMessageSize(PacketBufferIterator packet_message_iterator);
 
 /**
  * @brief      Gets the packect message data.
@@ -52,8 +52,9 @@ std::optional<std::uint32_t> GetPackectMessageSize(
  *
  * @return     The packect message data.
  */
-std::optional<std::string> GetPackectMessageData(
-    PacketBufferIterator packet_message_iterator, MessageSize raw_message_size);
+std::optional<std::string>
+GetPackectMessageData(PacketBufferIterator packet_message_iterator,
+                      MessageSize raw_message_size);
 
 /**
  * @brief      Gets the message type.
@@ -62,10 +63,10 @@ std::optional<std::string> GetPackectMessageData(
  *
  * @return     The message type.
  */
-std::optional<std::uint8_t> GetPackectMessageType(
-    PacketBufferIterator packet_message_iterator);
+std::optional<std::uint8_t>
+GetPackectMessageType(PacketBufferIterator packet_message_iterator);
 
-}  // namespace utils
+} // namespace utils
 
-}  // namespace agents
+} // namespace agents
 #endif

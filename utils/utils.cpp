@@ -1,6 +1,7 @@
 #include "utils.h"
 #include <array>
 #include <iostream>
+#include <string_view>
 
 namespace agents {
 namespace utils {
@@ -33,8 +34,8 @@ bool PackMessageToString(const std::string_view input_message,
   return result;
 }
 
-std::optional<std::uint32_t> GetPackectMessageSize(
-    PacketBufferIterator packet_message_iterator) {
+std::optional<std::uint32_t>
+GetPackectMessageSize(PacketBufferIterator packet_message_iterator) {
   std::optional<std::uint32_t> result{};
   std::uint32_t enconded_message_size = 0;
   std::memcpy(&enconded_message_size, packet_message_iterator,
@@ -43,8 +44,9 @@ std::optional<std::uint32_t> GetPackectMessageSize(
   return result;
 }
 
-std::optional<std::string> GetPackectMessageData(
-    PacketBufferIterator packet_message_iterator, MessageSize message_size) {
+std::optional<std::string>
+GetPackectMessageData(PacketBufferIterator packet_message_iterator,
+                      MessageSize message_size) {
   std::optional<std::string> result{};
   if (message_size == 0U) {
     return result;
@@ -56,8 +58,8 @@ std::optional<std::string> GetPackectMessageData(
   return result;
 }
 
-std::optional<std::uint8_t> GetPacketMessageType(
-    PacketBufferIterator packet_message_iterator) {
+std::optional<std::uint8_t>
+GetPackectMessageType(PacketBufferIterator packet_message_iterator) {
   std::optional<std::uint8_t> result;
   std::uint8_t message_type;
   std::memcpy(&message_type, packet_message_iterator + MESSAGE_SIZE_DEFAULT,
@@ -65,5 +67,5 @@ std::optional<std::uint8_t> GetPacketMessageType(
   result = message_type;
 }
 
-}  // namespace utils
-}  // namespace agents
+} // namespace utils
+} // namespace agents
