@@ -19,7 +19,12 @@ using ConstPacketBufferIterator = char const *;
 using PacketBufferIterator = char *;
 using PacketBuffer = std::array<char, MAX_BUFFER_SIZE>;
 using MessageSize = std::uint8_t;
-
+/**
+ * TODO: aricardorodriguez@hotmail.com: Need to improve this interface, as the
+ * tests has a highly dependence on the input iterator so, the method should:
+ * 1.- Validate the iterator
+ * 2.- Do not allow arithmetic validation on the input interface
+ */
 /**
  * @brief      Encode input message with define protocol
  *             First 4 Bytes enconde the size of the whole message
