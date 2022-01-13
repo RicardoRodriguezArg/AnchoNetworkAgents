@@ -62,8 +62,7 @@ std::optional<std::uint8_t>
 GetPackectMessageType(PacketBufferIterator packet_message_iterator) {
   std::optional<std::uint8_t> result;
   std::uint8_t message_type;
-  std::memcpy(&message_type, packet_message_iterator + MESSAGE_SIZE_DEFAULT,
-              MESSAGE_TYPE_SIZE);
+  std::memcpy(&message_type, packet_message_iterator, MESSAGE_TYPE_SIZE);
   result = message_type;
 }
 

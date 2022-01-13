@@ -71,7 +71,6 @@ TEST_F(UtilsPackUnpackMessage, GivenValidInputUnpackIsOk) {
       raw_buffer_.begin() + agents::utils::MESSAGE_SIZE_DEFAULT);
   ASSERT_TRUE(message_type_opt.has_value());
   const auto x = message_type_opt.value();
-  std::cout << "Value: " << std::to_string(static_cast<int>(x)) << std::endl;
   EXPECT_EQ(static_cast<common::MessageType>(message_type_opt.value()),
             common::MessageType::EVENT);
 
