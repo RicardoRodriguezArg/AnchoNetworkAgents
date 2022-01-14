@@ -3,8 +3,8 @@
 #include <algorithm>
 #include <atomic>
 
-#include "../ext_libs/netLink-v1.0.0/netLink/include/netlink/socket.h"
 #include "common/commons.h"
+#include "eth_layer/socket.h"
 #include "message_handler/message_handler.h"
 // x86
 namespace agents {
@@ -17,7 +17,7 @@ namespace server {
  */
 
 class AgentServer {
- public:
+public:
   explicit AgentServer(common::ServerType server_type,
                        std::uint16_t server_port)
       : socket_(server_port) {}
@@ -40,14 +40,14 @@ class AgentServer {
     }
   }
 
- private:
+private:
   agents::utils::PacketBuffer raw_buffer_;
-  const NL::Socket socket_;
+  const agents::communication::Socket socket_;
   const MessageHandler &message_handler_;
-  NL::Socket *clientConnection = std::nullptr;
+  agents::communication::Socket *clientConnection = std::nullptr;
   std::atomic<bool> is_server_operating_ = true;
   common::ServerType server_type;
 };
-}  // namespace server
-}  // namespace agents
+} // namespace server
+} // namespace agents
 #endif

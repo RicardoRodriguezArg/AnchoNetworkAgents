@@ -1,22 +1,20 @@
 #ifndef _ETH_LAYER_UTILS_H__
 #define _ETH_LAYER_UTILS_H__
-#include <chrono>
+
 #include <cstdint>
 
 namespace agents {
 namespace communication {
 
-template <typename Type>
-Type GetMaxValue(Type first, Type second) {
-  return std::max(first, second);
-}
+std::int32_t CreateUDPFileDescriptor();
+bool IsValidSocketFileDescriptor(std::int32_t socket_file_descriptor);
+void FillUDPServerInfo(struct sockaddr_info *socket_info, std::uint16_t port);
+bool FillUDPClientWithServerInfo(struct sockaddr_info *socket_info,
+                                 const std::string &server_port,
+                                 std::uint16_t port);
+bool BindFileDescriptorSocketWithAddressInfo(
+    struct sockaddr_info *socket_info, std::int32_t socket_file_descriptor);
 
-std::uint64_t GetCurrentTime() {
-  using namespace std::chrono;
-  return duration_cast<milliseconds>(system_clock::now().time_since_epoch())
-      .count();
-}
-
-}  // namespace communication
-}  // namespace agents
+} // namespace communication
+} // namespace agents
 #endif

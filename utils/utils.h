@@ -25,6 +25,7 @@ using MessageSize = std::uint8_t;
  * 1.- Validate the iterator
  * 2.- Do not allow arithmetic validation on the input interface
  */
+
 /**
  * @brief      Encode input message with define protocol
  *             First 4 Bytes enconde the size of the whole message
