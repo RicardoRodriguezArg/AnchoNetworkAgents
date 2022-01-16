@@ -10,7 +10,7 @@ public:
   explicit Server(std::uint16_t port);
   ~Server();
   void InitServer();
-  void ReadFromAllClients();
+  void StopServer();
   std::int32_t ReadFromAllClients(char *buffer,
                                   std::size_t max_message_size) const;
 

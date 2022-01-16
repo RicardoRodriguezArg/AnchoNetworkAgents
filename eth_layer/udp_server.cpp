@@ -42,10 +42,12 @@ std::int32_t Server::ReadFromAllClients(char *buffer,
   return last_message_byte;
 }
 
-Server::~Server() {
+Server::StopServer() {
   ::freeaddrinfo(server_address_);
   ::close(socket_);
 }
+
+Server::~Server() { StopServer() }
 
 } // namespace udp
 } // namespace communication

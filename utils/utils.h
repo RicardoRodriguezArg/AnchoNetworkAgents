@@ -12,7 +12,7 @@ namespace agents {
 namespace utils {
 
 static constexpr std::uint8_t MESSAGE_SIZE_DEFAULT = 4U;
-static constexpr std::uint32_t MAX_BUFFER_SIZE = 512U;
+static constexpr std::uint32_t MAX_BUFFER_SIZE = 1024U;
 static constexpr std::uint8_t MESSAGE_TYPE_SIZE = 1U;
 
 using ConstPacketBufferIterator = char const *;

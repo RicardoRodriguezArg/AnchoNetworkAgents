@@ -1,36 +1,12 @@
 ﻿---
 BasedOnStyle: Google
-AlignAfterOpenBracket: AlwaysBreak
-
-AllowAllParametersOfDeclarationOnNextLine: false
-AllowShortFunctionsOnASingleLine: Inline
-AllowShortIfStatementsOnASingleLine: false
-AllowShortLoopsOnASingleLine: false
-BinPackArguments: false
-BinPackParameters: false
-BraceWrapping:
-  AfterCaseLabel: true
-  AfterClass: true
-  AfterControlStatement: true
-  AfterEnum: true
-  AfterFunction: true
-  AfterNamespace: true
-  AfterObjCDeclaration: true
-  AfterStruct: true
-  AfterUnion: true
-  BeforeCatch: true
-  BeforeElse: true
-  IndentBraces: true
-BreakBeforeBraces: Custom
-ColumnLimit: 240
-DerivePointerAlignment: false
-IncludeBlocks: Preserve
-IndentWidth: 4
-KeepEmptyLinesAtTheStartOfBlocks: true
+AlwaysBreakAfterDefinitionReturnType: TopLevel
+AlwaysBreakBeforeMultilineStrings: 'true'
 AlwaysBreakTemplateDeclarations: 'Yes'
----
-# Make sure language specific settings are below the generic settings to be compatible to all languages.
-Language: Cpp
-Standard: c++14
+BreakBeforeBraces: GNU
+Cpp11BracedListStyle: 'true'
+SpaceBeforeRangeBasedForLoopColon: 'true'
+TabWidth: '4'
+UseTab: Never
 
 ...
