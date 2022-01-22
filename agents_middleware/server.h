@@ -1,5 +1,5 @@
-#ifndef __AGENT_SERVER_H_
-#define __AGENT_SERVER_H_
+#ifndef __AGENTS_MIDDLEWARE_SERVER_H_
+#define __AGENTS_MIDDLEWARE_SERVER_H_
 #include <algorithm>
 
 #include "common/commons.h"
@@ -8,7 +8,7 @@
 #include "utils/utils.h"
 // x86
 namespace agents {
-namespace server {
+namespace middleware {
 
 /**
  * @brief      This class describes general agent server in which it will open
@@ -16,10 +16,10 @@ namespace server {
  * data to transport input/output. Implementation of the REACTOR Pattern
  */
 
-class AgentServer {
+class Server {
 public:
-  explicit AgentServer(const handlers::MessageHandlerManger &message_hanlder,
-                       std::uint16_t server_port)
+  explicit Server(const handlers::MessageHandlerManger &message_hanlder,
+                  std::uint16_t server_port)
       : message_hanlder_(message_handler), udp_socket_(server_port) {}
 
   void CleanInputBuffer() {
@@ -27,7 +27,7 @@ public:
     raw_message_copy[agents::utils::MAX_BUFFER_SIZE - 1U] = '\0';
   }
 
-  ~AgentServer() { Stop(); }
+  ~Server() { Stop(); }
 
   void Init() {
     CleanInputBuffer();
@@ -64,6 +64,6 @@ private:
   bool is_server_operating_ = true;
   communication::udp udp_socket_;
 };
-} // namespace server
+} // namespace middleware
 } // namespace agents
 #endif

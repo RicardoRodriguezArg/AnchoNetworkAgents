@@ -1,11 +1,14 @@
-﻿---
-BasedOnStyle: Google
+---
+BasedOnStyle: LLVM
 AlwaysBreakAfterDefinitionReturnType: TopLevel
 AlwaysBreakBeforeMultilineStrings: 'true'
 AlwaysBreakTemplateDeclarations: 'Yes'
 BreakBeforeBraces: GNU
 Cpp11BracedListStyle: 'true'
 SpaceBeforeRangeBasedForLoopColon: 'true'
+AlignAfterOpenBracket: BAS_Align
+AlwaysBreakTemplateDeclarations: 'true'
+ColumnLimit: 80
 TabWidth: '4'
 UseTab: Never
 
