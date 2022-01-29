@@ -3,20 +3,20 @@
 #include <functional>
 
 namespace agents {
-namespace common {
+  namespace common {
 
-enum class MessageType : std::uint8_t {
-  EVENT = 0U,
-  COMAND,
-  DATA,
-  VIDEO,
-  COUNT
-};
+    enum class MessageType : std::uint8_t {
+      EVENT = 0U,
+      COMAND,
+      DATA,
+      VIDEO,
+      COUNT
+    };
 
-enum class ServerType : std::uint8_t { TCP, UDP };
+    enum class ServerType : std::uint8_t { TCP, UDP };
 
-using MessageHandlerType = std::function<void(const std::string &)>;
+    using MessageHandlerType = std::function<void(const std::string&)>;
 
-}  // namespace common
-}  // namespace agents
+  } // namespace common
+} // namespace agents
 #endif

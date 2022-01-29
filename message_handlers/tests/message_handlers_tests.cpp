@@ -1,5 +1,5 @@
-#include <gtest/gtest.h>
 #include "message_handlers/message_handlers.h"
+#include <gtest/gtest.h>
 
 using ::testing::EmptyTestEventListener;
 using ::testing::InitGoogleTest;
@@ -10,13 +10,13 @@ using ::testing::TestPartResult;
 using ::testing::UnitTest;
 
 namespace {
-class MessageHandlerFixture : public ::testing::Test {
- public:
-  void SetUp() {}
+  class MessageHandlerFixture : public ::testing::Test {
+  public:
+    void SetUp() {}
 
-  void TearDown() {}
-};
+    void TearDown() {}
+  };
 
-TEST_F(MessageHandlerFixture, GivenValidInputUnpackIsOk) {}
+  TEST_F(MessageHandlerFixture, GivenValidInputUnpackIsOk) {}
 
-}  // namespace
+} // namespace
