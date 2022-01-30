@@ -5,7 +5,12 @@ namespace agents {
   namespace middleware {
     namespace commnands {
 
-      enum class State : std::uint8_t { Executed, Failed, Waiting };
+      enum class State : std::uint8_t {
+        Executed,
+        Failed,
+        Waiting,
+        CommandNotFound
+      };
 
       enum class Id : std::uint32_t {
         StopDevice = 0,                // Stop Device ID=0

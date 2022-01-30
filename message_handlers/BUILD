@@ -15,5 +15,3 @@ cc_library(
                   "//message_handlers/tests:__pkg__"
                   ],
 )
-
-
