@@ -13,7 +13,7 @@ namespace agents {
           message_array_(std::move(array_from_factory)) {}
 
       std::optional<MessageType> GetMessageFromDictionary(
-        const std::uint16_t message_id) {
+        const std::uint32_t message_id) {
         // TODO:
         std::optional<MessageType> result{};
         if (message_id > 0 && message_id < MAX_MESSAGE_COUNT) {
