@@ -1,9 +1,12 @@
 #include "builder/builder.h"
-#include "communication/server.h"
 
 #include <type_traits>
 
 int main() {
+  // TODO: Add command line argument parser
+  // TODO: Add Logger
+
+  // Create all commandas
   const auto& commands_ids_lists = GetAllCommandsIDsFromDataBase();
   auto nano_commands_list = CreateAllNanoCommands(commands_ids_lists);
   auto internal_commands_list = CreateAllInternalCommands(commands_ids_lists);

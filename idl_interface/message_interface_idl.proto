@@ -22,6 +22,7 @@ message Event
 {
     required Header header = 1;
     required fixed32 id = 2;// Event Id
+    required string description = 3;
 }
 
 /* 
@@ -38,8 +39,21 @@ enum Arguments {
     TOTAL = 4;
   }
     required Header header = 1;
-    required fixed32 id = 2; // Command Id
+    required fixed32 id = 2; // Event Id
     required Arguments number_arg_count = 3; // number of Arguments
-    repeated string arguments = 4;
+    repeated string name = 4;
+    repeated string value = 4;
+
+}
+
+/* 
+Message Data declaration
+*/
+message Telemetry
+{
+    required Header header = 1;
+    required fixed32 id = 2; // data Id
+    repeated string name = 3;
+    repeated string value = 4;
 
 }
