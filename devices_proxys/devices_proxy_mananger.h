@@ -30,6 +30,32 @@ namespace agents {
                          })
         }
 
+        commnands::State RequestCurrentStatus(std::uint32_t device_id) {
+          // TODO: Specify formal protocol in a Jira Document
+          // https://galileo-belly.atlassian.net/browse/EZI-38
+          commnands::State command_execution_state{
+            commnands::State::CommandNotExecutedDeviceNotFound};
+          const auto device = GetDeviceById(device_id);
+          if (device != proxy_list_.end()) {
+            command_execution_state = device->ExecuteCommand(
+              static_cast<std::uint32_t>(commnands::Id::RequestCurrentStatus));
+            // Here we should notify to Events/Telemtry Manager to update device
+            // status/info from this commands also if the commands was requesting
+            // ACK
+          }
+          return result;
+        }
+
+        std::vector<std::tuple<std::uint32_t, DeviceProxy>>::iterator
+        GetDeviceById(std::uint32_t device_id) {
+          const auto iterator = std::find_if(
+            proxy_list_.cbegin(), proxy_list_.cend(),
+            [&device_id](const auto& tuple_proxy_info) {
+              return std::get<std::uint32_t>(tuple_proxy_info) == device_id;
+            });
+          return iterator;
+        }
+
         std::vector<std::tuple<std::uint32_t, DeviceProxy>> proxy_list_ = {};
       };
     } // namespace proxys

@@ -9,7 +9,8 @@ namespace agents {
         Executed,
         Failed,
         Waiting,
-        CommandNotFound
+        CommandNotFound,
+        CommandNotExecutedDeviceNotFound
       };
 
       enum class Id : std::uint32_t {

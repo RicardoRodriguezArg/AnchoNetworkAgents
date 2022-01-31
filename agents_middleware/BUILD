@@ -1,7 +1,7 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_library(
-    name = "agents_middleware",
+    name = "agents_middleware_server",
     srcs = glob(["*.cpp"]),
     hdrs = glob(["*.h"]),
     linkopts = ["-lpthread"],
