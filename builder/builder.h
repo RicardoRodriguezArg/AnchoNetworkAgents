@@ -4,7 +4,9 @@
 #include "commands/commands.h"
 #include "interface/message_interface_idl.pb.h"
 // devices proxys
+#include "common/commons.h"
 #include "communication/server.h"
+#include "data_processors/data_messages.h"
 #include "factory/devices_proxy_mananger.h"
 
 #include <vector>
@@ -20,12 +22,12 @@ namespace agents {
       MessageDictionary<::agent_interface_CommandWithArguments>;
     using EventMessageDict = MessageDictionary<::agent_interface_Event>;
     // Commands
-    std::vector<std::uint8_t> GetAllCommandsIDsFromDataBase();
-    InternalCommandsHandler CreateAllInternalCommands(
-      const std::vector<std::uint8_t>& commands_ids_input_list);
-
+    std::vector<std::uint8_t> GetAllCommandsIDsFromDataBase(); // Done
     CommandMessageDict CreateAllNanoCommands(
       const std::vector<std::uint8_t>& commands_ids_input_list);
+    InternalCommandsHandler CreateInternalCommandsHandlers(
+      const std::vector<std::uint8_t>& commands_ids_input_list);
+
     // Device Proxy List
     std::vector<std::uint32_t> LoadDevicesIdsFromConfig();
     proxys::ProxyManager CreateProxyManagerFromConfig(
