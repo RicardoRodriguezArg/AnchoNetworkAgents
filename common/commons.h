@@ -6,6 +6,8 @@ namespace agents {
   namespace common {
     enum class DeviceType : std::uint8_t { UdpServer, RouterTpLink, Camera };
 
+    enum class DeviceId : std::uint8_t { MainUdpServer };
+
     enum class MessageType : std::uint8_t {
       EVENT = 0U,
       COMAND,

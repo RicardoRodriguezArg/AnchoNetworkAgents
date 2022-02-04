@@ -59,50 +59,67 @@ namespace agents {
         }
 
       } // namespace
-      std::vector<std::uint8_t> GetAllCommandsIDsFromDataBase() {
-        // TODO: Temporary workaround until DB is defined
-        std::vector<std::uint8_t> commands_id{0U, 1U, 2U, 3U, 4U, 5U};
-        return commands_id;
-      }
+      namespace builder {
 
-      CommandMessageDict CreateAllNanoCommands(
-        const std::vector<std::uint8_t>& commands_ids_input_list) {
-        std::array<::agent_interface_CommandWithArguments, MAX_MESSAGE_COUNT>
-          array_from_factory{};
-        std::transform(commands_ids_input_list.cbegin(),
-                       commands_ids_input_list.cend(),
-                       std::back_inserter(array_from_factory),
-                       [](const internal_commnad_id) {
-                         return CreateNanoCommandFromId(internal_commnad_id);
-                       })
+        std::vector<std::uint8_t> GetAllCommandsIDsFromDataBase() {
+          // TODO: Temporary workaround until DB is defined
+          std::vector<std::uint8_t> commands_id{0U, 1U, 2U, 3U, 4U, 5U};
+          return commands_id;
+        }
 
-          CommandMessageDict result{std::move(array_from_factory)};
-        return result;
-      }
+        CommandMessageDict CreateAllNanoCommands(
+          const std::vector<std::uint8_t>& commands_ids_input_list) {
+          std::array<::agent_interface_CommandWithArguments, MAX_MESSAGE_COUNT>
+            array_from_factory{};
+          std::transform(commands_ids_input_list.cbegin(),
+                         commands_ids_input_list.cend(),
+                         std::back_inserter(array_from_factory),
+                         [](const internal_commnad_id) {
+                           return CreateNanoCommandFromId(internal_commnad_id);
+                         })
 
-      std::vector<std::uint32_t> LoadDevicesIdsFromConfig() { return {0U}; }
+            CommandMessageDict result{std::move(array_from_factory)};
+          return result;
+        }
 
-      proxys::ProxyManager CreateProxyManagerFromConfig(
-        const std::vector<std::uint32_t>& device_proxy_list) {
-        proxys::ProxyManager proxy_manager;
-        return proxy_manager;
-      }
+        std::vector<std::uint32_t> LoadDevicesIdsFromConfig() { return {0U}; }
 
-      InternalCommandsHandler CreateInternalCommandsHandlers(
-        const std::shared_ptr<DeviceManager>& device_manager_ptr) {
-        commnands::StartAllDevices start_all_devices{device_manager_ptr};
-        commnands::StopDevice stop_device{device_manager_ptr};
-        commnands::RequestCurrentStatus request_current_status{
-          device_manager_ptr};
-        commnands::RequestStatusOfAllDevices request_status_all_devices{
-          device_manager_ptr};
-        commnands::ResetDevice reset_device{device_manager_ptr};
-        commnands::StartDevice start_device{device_manager_ptr};
+        proxys::ProxyManager CreateProxyManagerFromConfig(
+          const std::vector<std::uint32_t>& device_proxy_list) {
+          proxys::ProxyManager proxy_manager;
+          return proxy_manager;
+        }
 
-        return std::make_tuple(start_all_devices, start_device, reset_device,
-                               request_status_all_devices,
-                               request_current_status, stop_device);
-      }
+        InternalCommandsHandler CreateInternalCommandsHandlers(
+          const std::shared_ptr<DeviceManager>& device_manager_ptr) {
+          commnands::StartAllDevices start_all_devices{device_manager_ptr};
+          commnands::StopDevice stop_device{device_manager_ptr};
+          commnands::RequestCurrentStatus request_current_status{
+            device_manager_ptr};
+          commnands::RequestStatusOfAllDevices request_status_all_devices{
+            device_manager_ptr};
+          commnands::ResetDevice reset_device{device_manager_ptr};
+          commnands::StartDevice start_device{device_manager_ptr};
+
+          return std::make_tuple(start_all_devices, start_device, reset_device,
+                                 request_status_all_devices,
+                                 request_current_status, stop_device);
+        }
+
+        handlers::MessageHandlerManger BuildMessageHandler() {
+          handlers::MessageHandlerManger message_handler{};
+          return message_handler;
+        }
+
+        options::ServerOptions LoadServerOptions() { return {}; }
+
+        Server CreateAndConfigureMainServerFromConfig(
+          const handlers::MessageHandlerManger& message_handler,
+          const options::ServerOptions& server_options) {
+          Server server{message_handler, server_options.server_port_};
+          return server;
+        }
+      } // namespace builder
 
     } // namespace middleware
   }   // namespace middleware
