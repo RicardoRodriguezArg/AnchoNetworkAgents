@@ -69,13 +69,39 @@ namespace agents {
         const std::vector<std::uint8_t>& commands_ids_input_list) {
         std::array<::agent_interface_CommandWithArguments, MAX_MESSAGE_COUNT>
           array_from_factory{};
-        MessageDictionary<::agent_interface_CommandWithArguments> result;
+        std::transform(commands_ids_input_list.cbegin(),
+                       commands_ids_input_list.cend(),
+                       std::back_inserter(array_from_factory),
+                       [](const internal_commnad_id) {
+                         return CreateNanoCommandFromId(internal_commnad_id);
+                       })
+
+          CommandMessageDict result{std::move(array_from_factory)};
         return result;
       }
 
-      InternalCommandsHandler CreateAllInternalCommands() {
-        InternalCommandsHandler internal_commands;
-        return internal_commands;
+      std::vector<std::uint32_t> LoadDevicesIdsFromConfig() { return {0U}; }
+
+      proxys::ProxyManager CreateProxyManagerFromConfig(
+        const std::vector<std::uint32_t>& device_proxy_list) {
+        proxys::ProxyManager proxy_manager;
+        return proxy_manager;
+      }
+
+      InternalCommandsHandler CreateInternalCommandsHandlers(
+        const std::shared_ptr<DeviceManager>& device_manager_ptr) {
+        commnands::StartAllDevices start_all_devices{device_manager_ptr};
+        commnands::StopDevice stop_device{device_manager_ptr};
+        commnands::RequestCurrentStatus request_current_status{
+          device_manager_ptr};
+        commnands::RequestStatusOfAllDevices request_status_all_devices{
+          device_manager_ptr};
+        commnands::ResetDevice reset_device{device_manager_ptr};
+        commnands::StartDevice start_device{device_manager_ptr};
+
+        return std::make_tuple(start_all_devices, start_device, reset_device,
+                               request_status_all_devices,
+                               request_current_status, stop_device);
       }
 
     } // namespace middleware

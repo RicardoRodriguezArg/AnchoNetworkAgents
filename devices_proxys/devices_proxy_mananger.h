@@ -9,9 +9,6 @@ namespace agents {
   namespace middleware {
     namespace proxys {
       struct ProxyManager {
-        explicit ProxyManager() :
-            command_dispatcher_callback_(command_dispatcher_callback),
-            message_command_dict_(message_command_dict) {}
 
         void BuildProxyDevicesFromInputList(
           const std::vector<std::uint32_t> proxy_id_list,
@@ -40,8 +37,8 @@ namespace agents {
             command_execution_state = device->ExecuteCommand(
               static_cast<std::uint32_t>(commnands::Id::RequestCurrentStatus));
             // Here we should notify to Events/Telemtry Manager to update device
-            // status/info from this commands also if the commands was requesting
-            // ACK
+            // status/info from this commands also if the commands was
+            // requesting ACK
           }
           return result;
         }

@@ -1,5 +1,6 @@
 #ifndef __AGENTS_MIDDLEWARE_DATA_TYPES_H_
 #define __AGENTS_MIDDLEWARE_DATA_TYPES_H_
+#include "devices_proxys/devices_proxy_mananger.h"
 #include <memory>
 namespace agents {
   namespace middleware {
@@ -25,41 +26,35 @@ namespace agents {
       template <typename DerivedCommand>
       struct BaseCommandPattern : DerivedCommand {
 
-        State Execute() {
-          static_cast<&DerivedCommand>(*this)->Interface(helper_class);
+        State Execute(std::uint32_t device_id) {
+          static_cast<&DerivedCommand>(*this)->Interface(device_id);
         }
       };
 
+      // Internal Command Definition
       struct StopDevice : BaseCommandPattern<StopDeviceCommand> {
-        explicit(std::shared_ptr<DeviceManager> device_manager,
-                 const std::uint32_t device_id) :
-            device_manager_(device_manager),
-            device_id_(device_id) {}
+        explicit(std::shared_ptr<DeviceManager> device_manager) :
+            device_manager_(device_manager) {}
 
-        State Interface() {
-          const State status = device_manager_->StopDevice(device_id_);
+        State Interface(std::uint32_t device_id) {
+          const State status = device_manager_->StopDevice(device_id);
           return status;
         }
 
         std::shared_ptr<DeviceManager> device_manager_;
-        const std::uint32_t device_id_;
         const Id command_id_ = Ids::StopDevice;
       };
 
       struct RequestCurrentStatus : BaseCommandPattern<StopDeviceCommand> {
-        explicit(std::shared_ptr<DeviceManager> device_manager,
-                 const std::uint32_t device_id) :
-            device_manager_(device_manager),
-            device_id_(device_id) {}
+        explicit(std::shared_ptr<DeviceManager> device_manager) :
+            device_manager_(device_manager) {}
 
-        State Interface() {
-          const State status =
-            device_manager_->RequestCurrentStatus(device_id_);
+        State Interface(std::uint32_t device_id) {
+          const State status = device_manager_->RequestCurrentStatus(device_id);
           return status;
         }
 
         std::shared_ptr<DeviceManager> device_manager_;
-        const std::uint32_t device_id_;
         const Id command_id_ = Ids::RequestCurrentStatus;
       };
       //
@@ -67,7 +62,7 @@ namespace agents {
         explicit(std::shared_ptr<DeviceManager> device_manager) :
             device_manager_(device_manager) {}
 
-        State Interface() {
+        State Interface(std::uint32_t) {
           const State status = device_manager_->RequestStatusOfAllDevices();
           return status;
         }
@@ -76,43 +71,36 @@ namespace agents {
       };
       //
       struct ResetDevice : BaseCommandPattern<StopDeviceCommand> {
-        explicit(std::shared_ptr<DeviceManager> device_manager,
-                 const std::uint32_t device_id) :
-            device_manager_(device_manager),
-            device_id_(device_id) {}
+        explicit(std::shared_ptr<DeviceManager> device_manager) :
+            device_manager_(device_manager) {}
 
-        State Interface() {
+        State Interface(std::uint32_t device_id) {
           const State status = device_manager_->ResetDevice(device_id);
           return status;
         }
 
         std::shared_ptr<DeviceManager> device_manager_;
-        const std::uint32_t device_id_;
         const Id command_id_ = Ids::ResetDeviceCommand;
       };
       //
       struct StartDevice : BaseCommandPattern<StopDeviceCommand> {
-        explicit(std::shared_ptr<DeviceManager> device_manager,
-                 const std::uint32_t device_id) :
-            device_manager_(device_manager),
-            device_id_(device_id) {}
+        explicit(std::shared_ptr<DeviceManager> device_manager) :
+            device_manager_(device_manager), {}
 
-        State Interface() {
+        State Interface(std::uint32_t device_id) {
           const State status = device_manager_->StartDevice(device_id);
           return status;
         }
 
         std::shared_ptr<DeviceManager> device_manager_;
-        const std::uint32_t device_id_;
-
         const Id command_id_ = Ids::StartDevice;
       };
 
       struct StartAllDevices : BaseCommandPattern<StopDeviceCommand> {
         explicit(std::shared_ptr<DeviceManager> device_manager) :
-            device_manager_(device_manager), device_id_(device_id) {}
+            device_manager_(device_manager) {}
 
-        State Interface() {
+        State Interface(std::uint32_t) {
           const State status = device_manager_->StartAllDevices();
           return status;
         }

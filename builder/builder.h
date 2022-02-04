@@ -15,7 +15,7 @@ namespace agents {
   namespace middleware {
     using agents::middleware::commands;
     using InternalCommandsHandler =
-      std::tuple<StopDeviceCommand, StartAllDevices, StartDevice, ResetDevice,
+      std::tuple<StartAllDevices, StartDevice, ResetDevice,
                  RequestStatusOfAllDevices, RequestCurrentStatus, StopDevice>;
     using InternalEventHandler = std::tuple<std::uint32_t>;
     using CommandMessageDict =
@@ -24,16 +24,17 @@ namespace agents {
     // Commands
     std::vector<std::uint8_t> GetAllCommandsIDsFromDataBase(); // Done
     CommandMessageDict CreateAllNanoCommands(
-      const std::vector<std::uint8_t>& commands_ids_input_list);
-    InternalCommandsHandler CreateInternalCommandsHandlers(
-      const std::vector<std::uint8_t>& commands_ids_input_list);
+      const std::vector<std::uint8_t>& commands_ids_input_list); // Done
 
     // Device Proxy List
-    std::vector<std::uint32_t> LoadDevicesIdsFromConfig();
+    std::vector<std::uint32_t> LoadDevicesIdsFromConfig(); // Done
     proxys::ProxyManager CreateProxyManagerFromConfig(
-      const std::vector<std::uint32_t>& device_proxy_list);
+      const std::vector<std::uint32_t>& device_proxy_list); // Done
+    // Proxy Command Handler
+    InternalCommandsHandler CreateInternalCommandsHandlers(
+      std::shared_ptr<DeviceManager>& device_manager_ptr); // Done
     // Events
-    std::vector<std::uint32_t> LoadEventsIdsFromConfig();
+    /*std::vector<std::uint32_t> LoadEventsIdsFromConfig();
     EventMessageDict CreateNanoEventsFromConfig(
       const std::vector<std::uint32_t>&);
     InternalEventHandler CreateInternalEventFromConfig(
@@ -45,6 +46,7 @@ namespace agents {
       const std::vector<std::uint32_t>&);
     InternalEventHandler CreateInternalDataTelemetryFromConfig(
       const std::vector<std::uint32_t>&);
+      */
     // Message Handler
     handlers::MessageHandlerManger CreateAndConfigureMessageHandler();
     // Configure Server
