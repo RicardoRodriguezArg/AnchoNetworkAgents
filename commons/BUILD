@@ -7,5 +7,8 @@ cc_library(
     visibility = ["//agent_server:__pkg__",
                   "//utils/tests:__pkg__",
                   "//utils:__pkg__",
+                  "//message_handlers:__pkg__",
+                  "//agents_middleware:__pkg__",
+                  "//devices_proxys:__pkg__",
                  ]
             )
