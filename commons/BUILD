@@ -10,5 +10,8 @@ cc_library(
                   "//message_handlers:__pkg__",
                   "//agents_middleware:__pkg__",
                   "//devices_proxys:__pkg__",
+                  "//eth_layer:__pkg__",
+                  "//builder:__pkg__",
+                  "//communication:__pkg__",
                  ]
             )

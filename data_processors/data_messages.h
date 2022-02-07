@@ -1,6 +1,6 @@
 #ifndef __AGENTS_MIDDLEWARE_DATA_PROCESSOR_DATA_MESSAGES_H_
 #define __AGENTS_MIDDLEWARE_DATA_PROCESSOR_DATA_MESSAGES_H_
-#include "data_processors_commons.h"
+#include "data_processors/data_processor_commons.h"
 #include <array>
 #include <optional>
 namespace agents {

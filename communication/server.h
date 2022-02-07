@@ -2,9 +2,9 @@
 #define __AGENTS_MIDDLEWARE_SERVER_H_
 #include <algorithm>
 
-#include "common/commons.h"
+#include "commons/commons.h"
 #include "eth_layer/udp_server.h"
-#include "message_handler/message_handler.h"
+#include "message_handlers/message_handlers.h"
 #include "utils/utils.h"
 // x86
 namespace agents {

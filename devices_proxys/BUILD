@@ -8,9 +8,13 @@ cc_library(
                   "//utils:__pkg__",
                   "//message_handlers:__pkg__",
                   "//agents_middleware:__pkg__",
+                  "//commons:__pkg__",
+                  "//builder:__pkg__",
                  ],
     deps = [
              "//data_processors:data_processors",
              "//commons:commons",
+             "//commands:commands",
+             "//interface:nano_interface",
            ]
             )

@@ -11,6 +11,8 @@ cc_library(
            ],
     visibility = ["//agents_middleware:__pkg__",
                   "//utils:__pkg__",
-                  "//message_handlers/tests:__pkg__"
+                  "//message_handlers/tests:__pkg__",
+                  "//builder:__pkg__",
+                  "//communication:__pkg__"
                   ],
 )

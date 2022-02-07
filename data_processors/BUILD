@@ -7,5 +7,7 @@ cc_library(
     linkopts = ["-lpthread"],
     visibility = ["//agents_middleware:__pkg__",
                   "//devices_proxys:__pkg__",
+                  "//commons:__pkg__",
+                  "//builder:__pkg__",
                  ]
             )

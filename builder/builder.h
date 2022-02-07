@@ -4,10 +4,10 @@
 #include "commands/commands.h"
 #include "interface/message_interface_idl.pb.h"
 // devices proxys
-#include "common/commons.h"
-#include "communication/server.h"
+#include "commons/commons.h"
 #include "data_processors/data_messages.h"
-#include "factory/devices_proxy_mananger.h"
+#include "devices_proxys/devices_proxy_mananger.h"
+#include "eth_layer/udp_server.h"
 // Server
 #include "communication/server.h"
 #include "communication/server_options.h"

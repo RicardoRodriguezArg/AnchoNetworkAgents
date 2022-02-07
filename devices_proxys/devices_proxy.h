@@ -1,8 +1,7 @@
 #ifndef __AGENTS_MIDDLEWARE_DEVICES_PROXYS_H_
 #define __AGENTS_MIDDLEWARE_DEVICES_PROXYS_H_
+#include "commands/commands.h"
 #include "commons/commons.h"
-#include "data_sender/command_dispatcher.h"
-#include "data_types/commands.h"
 #include <functional>
 #include <memory>
 

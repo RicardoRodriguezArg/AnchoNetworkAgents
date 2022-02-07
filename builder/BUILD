@@ -3,10 +3,17 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_library(
     name = "builder",
     hdrs = ["builder.h"],
-    visibility = ["//agent_server:__pkg__",
-                  "//utils/tests:__pkg__",
-                  "//utils:__pkg__",
-                  "//message_handlers:__pkg__",
-                  "//agents_middleware:__pkg__",
-                 ]
+    visibility = ["//agents_middleware:__pkg__",
+                 ],
+    deps = [
+             "//utils:ancho_net_middleware_utils",
+             "//commons:commons",
+             "//message_handlers:message_handlers",
+             "//commands:commands",
+             "//devices_proxys:devices_proxys",
+             "//data_processors:data_processors",
+             "//eth_layer:eth_layer",
+             "//communication:server",
+           ],
+
             )

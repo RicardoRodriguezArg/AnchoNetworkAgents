@@ -8,5 +8,8 @@ cc_library(
                   "//utils:__pkg__",
                   "//message_handlers:__pkg__",
                   "//agents_middleware:__pkg__",
+                  "//devices_proxys:__pkg__",
+                  "//commons:__pkg__",
+                  "//builder:__pkg__",
                  ]
             )
