@@ -1,5 +1,7 @@
 #ifndef _ETH_LAYER_SOCKET_UDP_SERVER_H__
 #define _ETH_LAYER_SOCKET_UDP_SERVER_H__
+#include "util.h"
+#include <cstdint>
 
 namespace agents {
   namespace communication {
@@ -17,11 +19,11 @@ namespace agents {
       private:
         void CreateSocketFileDescriptor();
         void CreateBasicConfigServerSetup();
-        void CreateBasicConfigServerSetup();
+        void BindSocketWithServerAddress();
 
         std::int32_t socket_;
         std::uint16_t port_;
-        struct sockaddr_in* server_address_ = nullptr;
+        struct addrinfo server_address_;
       };
 
     } // namespace udp

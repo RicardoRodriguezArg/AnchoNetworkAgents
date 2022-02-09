@@ -2,7 +2,7 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 
 cc_library(
     name = "eth_layer",
-   srcs = glob(["*.cpp"]),
+    srcs = glob(["*.cpp"]),
     hdrs = glob(["*.h"]),
     linkopts = ["-lpthread"],
      visibility = ["//agent_server:__pkg__",

@@ -1,5 +1,7 @@
 #include "udp_server.h"
-#include "utils/utils.h"
+#include "util.h"
+#include <exception>
+#include <stdexcept>
 
 namespace agents {
   namespace communication {
@@ -17,13 +19,13 @@ namespace agents {
       }
 
       void Server::CreateBasicConfigServerSetup() {
-        agents::communication::FillUDPServerInfo(server_address_, port_);
+        agents::communication::FillUDPServerInfo(&server_address_, port_);
       }
 
       void Server::BindSocketWithServerAddress() {
         const auto could_bind_file_descriptor =
           agents::communication::BindFileDescriptorSocketWithAddressInfo(
-            server_address_, socket_);
+            &server_address_, socket_);
         if (!could_bind_file_descriptor) {
           throw std::invalid_argument(
             "could not bind FD Socket with Server Address");
@@ -44,12 +46,9 @@ namespace agents {
         return last_message_byte;
       }
 
-      Server::StopServer() {
-        ::freeaddrinfo(server_address_);
-        ::close(socket_);
-      }
+      void Server::StopServer() { CloseSock(socket_, &server_address_); }
 
-      Server::~Server() { StopServer() }
+      Server::~Server() { StopServer(); }
 
     } // namespace udp
   }   // namespace communication
