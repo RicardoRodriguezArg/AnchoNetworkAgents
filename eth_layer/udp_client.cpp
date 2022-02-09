@@ -17,7 +17,7 @@ namespace agents {
           throw std::invalid_argument("could not create UDP Client FD socket");
         }
         const bool result = agents::communication::FillUDPClientWithServerInfo(
-          client_address_info_, server_address_, port_);
+          &client_address_info_, server_address_, port_);
         if (!result) {
           throw std::invalid_argument("could not retreive server information");
         }
