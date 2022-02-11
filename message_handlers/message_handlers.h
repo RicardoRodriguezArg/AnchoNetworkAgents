@@ -7,6 +7,7 @@ namespace agents {
      * @brief      { struct_description }
      */
     struct MessageHandlerManger {
+      using MessageHandlerType = agents::common::MessageHandlerType;
       /**
        * @brief      { function_description }
        *
@@ -22,8 +23,14 @@ namespace agents {
         common::MessageType message_type,
         const std::function<void(const std::string_view&)>&
           specific_message_handler) {
-        message_handler_container_[static_cast<std::uint8_t>(message_type)] =
-          specific_message_handler;
+        const auto message_type_index = static_cast<std::uint8_t>(message_type);
+        bool result = false;
+        if (message_type_index < message_handler_container_.size()) {
+          message_handler_container_[message_type_index] =
+            specific_message_handler;
+          result = true;
+        }
+        return result;
       }
 
       void HandleMessage(common::MessageType message_type,
@@ -35,8 +42,8 @@ namespace agents {
         }
       }
 
-      std::array<static_cast<std::uint8_t>(common::MessageType::COUNT),
-                 std::optional<MessageHandlerType>>
+      std::array<std::optional<MessageHandlerType>,
+                 static_cast<std::uint8_t>(common::MessageType::COUNT)>
         message_handler_container_;
     };
 

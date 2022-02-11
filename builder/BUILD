@@ -3,6 +3,7 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 cc_library(
     name = "builder",
     hdrs = ["builder.h"],
+    srcs = ["builder.cpp"],
     visibility = ["//agents_middleware:__pkg__",
                  ],
     deps = [

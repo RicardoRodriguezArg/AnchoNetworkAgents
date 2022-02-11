@@ -19,6 +19,7 @@ namespace agents {
     enum class ServerType : std::uint8_t { TCP, UDP };
 
     using MessageHandlerType = std::function<void(const std::string&)>;
+    static constexpr std::uint16_t MAX_MESSAGE_COUNT{500U};
 
   } // namespace common
 } // namespace agents

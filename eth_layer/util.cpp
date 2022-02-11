@@ -5,7 +5,8 @@ namespace agents {
   namespace communication {
     // TODO: this is the value of AF_UNSPE=, this socket will accept all
     // protocol
-    std::int32_t CreateUDPFileDescriptor(int ai_family = 0) {
+    std::int32_t CreateUDPFileDescriptor() {
+      int ai_family = 0;
       return ::socket(ai_family, ::SOCK_DGRAM | ::SOCK_CLOEXEC, ::IPPROTO_UDP);
     }
 

@@ -18,14 +18,18 @@ namespace agents {
   namespace middleware {
     namespace builders {
 
-      using agents::middleware::commands;
+      using namespace agents::middleware::commands;
       using InternalCommandsHandler =
-        std::tuple<StartAllDevices, StartDevice, ResetDevice,
-                   RequestStatusOfAllDevices, RequestCurrentStatus, StopDevice>;
+        std::tuple<StopDevice, StartAllDevices, StartDevice, ResetDevice,
+                   RequestStatusOfAllDevices, RequestCurrentStatus>;
       using InternalEventHandler = std::tuple<std::uint32_t>;
       using CommandMessageDict =
         MessageDictionary<::agent_interface_CommandWithArguments>;
+      using ServerOptionsType =
+        agents::middleware::options::ServerConfiguration;
       using EventMessageDict = MessageDictionary<::agent_interface_Event>;
+
+      using ProxyManagerType = agents::middleware::proxys::ProxyManager;
       // Commands
       std::vector<std::uint8_t> GetAllCommandsIDsFromDataBase(); // Done
       CommandMessageDict CreateAllNanoCommands(
@@ -33,11 +37,11 @@ namespace agents {
 
       // Device Proxy List
       std::vector<std::uint32_t> LoadDevicesIdsFromConfig(); // Done
-      proxys::ProxyManager CreateProxyManagerFromConfig(
+      ProxyManagerType CreateProxyManagerFromConfig(
         const std::vector<std::uint32_t>& device_proxy_list); // Done
       // Proxy Command Handler
       InternalCommandsHandler CreateInternalCommandsHandlers(
-        std::shared_ptr<DeviceManager>& device_manager_ptr); // Done
+        std::shared_ptr<ProxyManagerType>& device_manager_ptr); // Done
       // Events
       /*std::vector<std::uint32_t> LoadEventsIdsFromConfig();
       EventMessageDict CreateNanoEventsFromConfig(
@@ -54,10 +58,10 @@ namespace agents {
         */
       // Message Handler
       handlers::MessageHandlerManger BuildMessageHandler();
-      options::ServerOptions LoadServerOptions();
+      ServerOptionsType LoadServerOptions();
       // Configure Server
       Server CreateAndConfigureMainServerFromConfig(
-        const options::ServerOptions& server_options);
+        const ServerOptionsType& server_options);
     } // namespace builders
 
   } // namespace middleware

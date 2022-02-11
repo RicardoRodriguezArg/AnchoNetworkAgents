@@ -27,11 +27,12 @@ namespace agents {
           agent_message_dictionay_.GetMessageFromDictionary(
             nano_message_type.id);
         if (command_to_execute.has_value()) {
-          (*command_to_execute).execute();
+          (*command_to_execute).Execute();
         }
       }
 
       DataDecoder data_decoder_;
+      // Nano Command to Internal Command Map Handler
       MessageDictionary<AgentMessage> agent_message_dictionay_;
       ;
     };

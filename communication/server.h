@@ -19,53 +19,56 @@ namespace agents {
 
     class Server {
     public:
-      explicit Server(const handlers::MessageHandlerManger& message_hanlder,
-                      std::uint16_t server_port) :
-          message_hanlder_(message_handler),
-          udp_socket_(server_port) {}
+      using MessageHandlerMangerType = agents::handlers::MessageHandlerManger;
+      using UdpServerType = agents::communication::udp::Server;
+      explicit Server(
+        const agents::handlers::MessageHandlerManger& message_handler,
+        std::uint16_t server_port) :
+          message_handler_(message_handler),
+          udp_server_(server_port) {}
 
       void CleanInputBuffer() {
-        std::fill_n(
-          raw_message_copy.begin(), agents::utils::MAX_BUFFER_SIZE, 0);
-        raw_message_copy[agents::utils::MAX_BUFFER_SIZE - 1U] = '\0';
+        std::fill_n(buffer_.begin(), agents::utils::MAX_BUFFER_SIZE, 0);
+        buffer_[agents::utils::MAX_BUFFER_SIZE - 1U] = '\0';
       }
 
       ~Server() { Stop(); }
 
       void Init() {
         CleanInputBuffer();
-        udp_socket_.InitServer();
+        udp_server_.InitServer();
       }
 
       void Stop() {
         is_server_operating_ = false;
-        udp_socket_.StopServer();
+        udp_server_.StopServer();
         CleanInputBuffer();
       }
 
       void Start() {
         is_server_operating_ = true;
         while (is_server_operating_) {
-          const auto number_of_bytes = udp_socket_->ReadFromAllClients(
-            buffer_.begin(), agents::utils::MAX_BUFFER_SIZE)
-                                       // Get Message Type
-                                       const auto message_type_opt =
-            agents::utils::GetPackectMessageType(
-              raw_buffer_.begin() + agents::utils::MESSAGE_SIZE_DEFAULT);
+          const auto number_of_bytes = udp_server_.ReadFromAllClients(
+            buffer_.begin(), agents::utils::MAX_BUFFER_SIZE);
+          // Get Message Type
+          const auto message_type_opt = agents::utils::GetPackectMessageType(
+            buffer_.begin() + agents::utils::MESSAGE_SIZE_DEFAULT);
           if (message_type_opt.has_value()) {
             std::string raw_message_copy{
               buffer_.begin(), buffer_.begin() + number_of_bytes};
-            message_handler_.HandleMessage(
-              message_type_opt.value(), raw_message_copy);
+            // TODO:Create Function to handle this transformation
+            const auto message_type = static_cast<agents::common::MessageType>(
+              message_type_opt.value());
+            message_handler_.HandleMessage(message_type, raw_message_copy);
           }
         }
       }
 
     private:
       agents::utils::PacketBuffer buffer_;
-      const MessageHandler& message_handler_;
+      MessageHandlerMangerType message_handler_;
       bool is_server_operating_ = true;
-      communication::udp udp_socket_;
+      UdpServerType udp_server_;
     };
   } // namespace middleware
 } // namespace agents

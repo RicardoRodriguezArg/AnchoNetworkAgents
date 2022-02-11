@@ -5,14 +5,13 @@
 int main() {
   // TODO: Add command line argument parser
   // TODO: Add Logger
+  using namespace agents::middleware::builders;
 
   // Create all commandas
-  const auto& commands_ids_lists = builder::GetAllCommandsIDsFromDataBase();
-  auto nano_commands_list = builder::CreateAllNanoCommands(commands_ids_lists);
-  auto internal_commands_list =
-    builder::CreateAllInternalCommands(commands_ids_lists);
-
-  static_assert(nano_commands_list.size() == internal_commands_list.size());
+  const auto& commands_ids_lists = GetAllCommandsIDsFromDataBase();
+  auto nano_commands_list = CreateAllNanoCommands(commands_ids_lists);
+  auto all_device_id = LoadDevicesIdsFromConfig();
+  [&commands_ids_lists, &nano_commands_list, &all_device_id] {}();
 
   return 0;
 }

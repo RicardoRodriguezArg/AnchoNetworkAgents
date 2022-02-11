@@ -11,7 +11,7 @@ namespace agents {
         // TODO: Add assert about port length 0-65536
       }
 
-      void Server::CreateSocketFileDescriptor() {
+      void Server::InitSocketFileDescriptor() {
         socket_ = agents::communication::CreateUDPFileDescriptor();
         if (!agents::communication::IsValidSocketFileDescriptor(socket_)) {
           throw std::invalid_argument("could not create UDP Server FD socket");
@@ -33,7 +33,7 @@ namespace agents {
       }
 
       void Server::InitServer() {
-        CreateSocketFileDescriptor();
+        InitSocketFileDescriptor();
         CreateBasicConfigServerSetup();
         BindSocketWithServerAddress();
       }

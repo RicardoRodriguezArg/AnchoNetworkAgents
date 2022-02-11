@@ -1,7 +1,9 @@
 #ifndef __AGENTS_MIDDLEWARE_DEVICES_PROXYS_H_
 #define __AGENTS_MIDDLEWARE_DEVICES_PROXYS_H_
 #include "commands/commands.h"
+#include "commands/definitions.h"
 #include "commons/commons.h"
+#include "data_processors/data_messages.h"
 #include <functional>
 #include <memory>
 
@@ -16,18 +18,21 @@ namespace agents {
         LAGGING
       };
 
+      using CommandMessageDictionary =
+        MessageDictionary<::agent_interface_CommandWithArguments>;
+
       struct DeviceProxy {
+
         explicit DeviceProxy(
           std::function<bool(const std::string&)> command_dispatcher_callback,
-          std::shared_ptr<agents::middleware::CommandMessageDict>
-            message_command_dict) :
+          std::shared_ptr<CommandMessageDictionary> message_command_dict) :
             command_dispatcher_callback_(command_dispatcher_callback),
             message_command_dict_(message_command_dict) {}
 
         // TODO:: Add Argument parameter to increase functionality
-        commnands::State ExecuteCommand(std::uint32_t command_id_to_execute) {
-          commnands::State result = commnands::State::CommandNotFound;
-
+        // TODO: change to proper error propagation and handling
+        std::int32_t ExecuteCommand(std::uint32_t command_id_to_execute) {
+          std::int32_t result = -1;
           const auto nano_commnand_opt =
             message_command_dict_->GetMessageFromDictionary(
               command_id_to_execute);
@@ -52,8 +57,7 @@ namespace agents {
         State current_proxy_state_ = State::NON_CONNECTED;
         State previous_proxy_state_ = State::NON_CONNECTED;
         std::function<bool(const std::string&)> command_dispatcher_callback_;
-        std::shared_ptr<agents::middleware::CommandMessageDict>
-          message_command_dict_;
+        std::shared_ptr<CommandMessageDictionary> message_command_dict_;
         middleware::DataDecoder data_encoder_;
       };
     } // namespace proxys

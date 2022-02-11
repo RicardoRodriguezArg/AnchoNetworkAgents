@@ -17,7 +17,7 @@ namespace agents {
                                         std::size_t max_message_size) const;
 
       private:
-        void CreateSocketFileDescriptor();
+        void InitSocketFileDescriptor();
         void CreateBasicConfigServerSetup();
         void BindSocketWithServerAddress();
 

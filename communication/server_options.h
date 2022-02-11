@@ -8,8 +8,9 @@ namespace agents {
     namespace options {
       struct ServerConfiguration {
         std::uint16_t server_port_ = 9999U;
-      }
+      };
 
-    }; // namespace options
-  }    // namespace middleware
+    } // namespace options
+  }   // namespace middleware
 } // namespace agents
+#endif
