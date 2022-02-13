@@ -19,29 +19,30 @@ namespace agents {
     namespace builders {
 
       using namespace agents::middleware::commands;
-      using InternalCommandsHandler =
-        std::tuple<StopDevice, StartAllDevices, StartDevice, ResetDevice,
-                   RequestStatusOfAllDevices, RequestCurrentStatus>;
+      using InternalCommandsHandler = std::tuple<StopDevice, StartAllDevices, StartDevice, ResetDevice,
+                                                 RequestStatusOfAllDevices, RequestCurrentStatus>;
       using InternalEventHandler = std::tuple<std::uint32_t>;
-      using CommandMessageDict =
-        MessageDictionary<::agent_interface_CommandWithArguments>;
-      using ServerOptionsType =
-        agents::middleware::options::ServerConfiguration;
+      using CommandMessageDict = MessageDictionary<::agent_interface_CommandWithArguments>;
+      using ServerOptionsType = agents::middleware::options::ServerConfiguration;
       using EventMessageDict = MessageDictionary<::agent_interface_Event>;
 
       using ProxyManagerType = agents::middleware::proxys::ProxyManager;
       // Commands
-      std::vector<std::uint8_t> GetAllCommandsIDsFromDataBase(); // Done
-      CommandMessageDict CreateAllNanoCommands(
-        const std::vector<std::uint8_t>& commands_ids_input_list); // Done
+      std::vector<std::uint8_t> GetAllCommandsIDsFromDataBase();                                          // Done
+      CommandMessageDict CreateAllNanoCommands(const std::vector<std::uint8_t>& commands_ids_input_list); // Done
 
       // Device Proxy List
       std::vector<std::uint32_t> LoadDevicesIdsFromConfig(); // Done
-      ProxyManagerType CreateProxyManagerFromConfig(
-        const std::vector<std::uint32_t>& device_proxy_list); // Done
-      // Proxy Command Handler
-      InternalCommandsHandler CreateInternalCommandsHandlers(
-        std::shared_ptr<ProxyManagerType>& device_manager_ptr); // Done
+      ProxyManagerType CreateProxyManagerFromConfig();       // Done
+
+      InternalCommandsHandler CreateAllInternalCommandsHandlers(
+        const std::shared_ptr<ProxyManagerType>& device_manager_ptr); // Done
+      handlers::MessageHandlerManger BuildMessageHandler();
+      handlers::MessageHandlerManger ConfigureMessageHandler(handlers::MessageHandlerManger message_handler);
+      ServerOptionsType LoadServerOptions();
+      // Configure Server
+      Server CreateAndConfigureMainServerFromConfig(const handlers::MessageHandlerManger& message_handler,
+                                                    const ServerOptionsType& server_options);
       // Events
       /*std::vector<std::uint32_t> LoadEventsIdsFromConfig();
       EventMessageDict CreateNanoEventsFromConfig(
@@ -57,11 +58,7 @@ namespace agents {
         const std::vector<std::uint32_t>&);
         */
       // Message Handler
-      handlers::MessageHandlerManger BuildMessageHandler();
-      ServerOptionsType LoadServerOptions();
-      // Configure Server
-      Server CreateAndConfigureMainServerFromConfig(
-        const ServerOptionsType& server_options);
+
     } // namespace builders
 
   } // namespace middleware

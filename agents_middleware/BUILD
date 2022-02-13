@@ -6,6 +6,9 @@ cc_binary(
     linkopts = ["-lpthread"],
     deps = [
             "@com_google_googletest//:gtest_main",
+            "@com_github_google_glog//:glog",
+            "@com_github_gflags_gflags//:gflags",
+            
              "//utils:ancho_net_middleware_utils",
              "//commons:commons",
              "//message_handlers:message_handlers",

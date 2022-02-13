@@ -18,17 +18,13 @@ namespace agents {
         }
       }
 
-      void Server::CreateBasicConfigServerSetup() {
-        agents::communication::FillUDPServerInfo(&server_address_, port_);
-      }
+      void Server::CreateBasicConfigServerSetup() { agents::communication::FillUDPServerInfo(&server_address_, port_); }
 
       void Server::BindSocketWithServerAddress() {
         const auto could_bind_file_descriptor =
-          agents::communication::BindFileDescriptorSocketWithAddressInfo(
-            &server_address_, socket_);
+          agents::communication::BindFileDescriptorSocketWithAddressInfo(&server_address_, socket_);
         if (!could_bind_file_descriptor) {
-          throw std::invalid_argument(
-            "could not bind FD Socket with Server Address");
+          throw std::invalid_argument("could not bind FD Socket with Server Address");
         }
       }
 
@@ -36,19 +32,26 @@ namespace agents {
         InitSocketFileDescriptor();
         CreateBasicConfigServerSetup();
         BindSocketWithServerAddress();
+        is_operating_ = true;
       }
 
-      std::int32_t Server::ReadFromAllClients(
-        char* buffer, std::size_t max_message_size) const {
-        const auto last_message_byte =
-          ::recv(socket_, buffer, max_message_size, 0);
+      std::int32_t Server::ReadFromAllClients(char* buffer, std::size_t max_message_size) const {
+        const auto last_message_byte = ::recv(socket_, buffer, max_message_size, 0);
         buffer[last_message_byte] = '\0';
         return last_message_byte;
       }
 
-      void Server::StopServer() { CloseSock(socket_, &server_address_); }
+      void Server::StopServer() {
+        if (is_operating_) {
+          CloseSock(socket_, &server_address_);
+        }
+      }
 
-      Server::~Server() { StopServer(); }
+      Server::~Server() {
+        if (is_operating_) {
+          StopServer();
+        }
+      }
 
     } // namespace udp
   }   // namespace communication

@@ -47,7 +47,7 @@ namespace agents {
 
       const auto was_successed = (result == 0);
       return was_successed;
-    } // namespace communication
+    }
 
     void CloseSock(std::int32_t socket, struct addrinfo* sock_address) {
       ::freeaddrinfo(sock_address);

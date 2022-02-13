@@ -5,6 +5,7 @@ cc_library(
     hdrs = ["message_handlers.h"],
     linkopts = ["-lpthread"],
     deps = [
+            "@com_github_google_glog//:glog",
             "@com_google_googletest//:gtest_main",
             "//utils:ancho_net_middleware_utils",
             "//commons:commons",

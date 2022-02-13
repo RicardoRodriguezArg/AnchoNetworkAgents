@@ -4,9 +4,9 @@ AccessModifierOffset: '-2'
 AllowShortFunctionsOnASingleLine: Inline
 BreakBeforeBraces: Custom
 BreakConstructorInitializers: AfterColon
-ColumnLimit: '80'
+ColumnLimit: '120'
 AlwaysBreakTemplateDeclarations: 'Yes'
-ConstructorInitializerIndentWidth: '4'
+ConstructorInitializerIndentWidth: '2'
 ContinuationIndentWidth: '2'
 IndentWidth: '2'
 Language: Cpp

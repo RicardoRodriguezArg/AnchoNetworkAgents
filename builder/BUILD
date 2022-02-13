@@ -7,6 +7,7 @@ cc_library(
     visibility = ["//agents_middleware:__pkg__",
                  ],
     deps = [
+             "@com_github_google_glog//:glog",
              "//utils:ancho_net_middleware_utils",
              "//commons:commons",
              "//message_handlers:message_handlers",

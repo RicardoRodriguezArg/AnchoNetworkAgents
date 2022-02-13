@@ -13,8 +13,7 @@ namespace agents {
         ~Server();
         void InitServer();
         void StopServer();
-        std::int32_t ReadFromAllClients(char* buffer,
-                                        std::size_t max_message_size) const;
+        std::int32_t ReadFromAllClients(char* buffer, std::size_t max_message_size) const;
 
       private:
         void InitSocketFileDescriptor();
@@ -24,6 +23,7 @@ namespace agents {
         std::int32_t socket_;
         std::uint16_t port_;
         struct addrinfo server_address_;
+        bool is_operating_ = false;
       };
 
     } // namespace udp
