@@ -1,6 +1,7 @@
 #include "udp_server.h"
 #include "util.h"
 #include <exception>
+#include <glog/logging.h>
 #include <stdexcept>
 
 namespace agents {
@@ -12,25 +13,27 @@ namespace agents {
       }
 
       void Server::InitSocketFileDescriptor() {
+        LOG(INFO) << "Creating udp file descriptor";
         socket_ = agents::communication::CreateUDPFileDescriptor();
-        if (!agents::communication::IsValidSocketFileDescriptor(socket_)) {
+        if (agents::communication::IsValidSocketFileDescriptor(socket_)) {
+          LOG(INFO) << "Throwing Exception!";
           throw std::invalid_argument("could not create UDP Server FD socket");
         }
       }
 
-      void Server::CreateBasicConfigServerSetup() { agents::communication::FillUDPServerInfo(&server_address_, port_); }
-
       void Server::BindSocketWithServerAddress() {
         const auto could_bind_file_descriptor =
-          agents::communication::BindFileDescriptorSocketWithAddressInfo(&server_address_, socket_);
+          agents::communication::BindFileDescriptorSocketWithAddressInfo(&server_address_in_, socket_);
+        LOG(INFO) << "Bind result: " << std::to_string(could_bind_file_descriptor);
         if (!could_bind_file_descriptor) {
           throw std::invalid_argument("could not bind FD Socket with Server Address");
         }
       }
 
       void Server::InitServer() {
+        LOG(INFO) << "ETH Init sockets files descriptors";
         InitSocketFileDescriptor();
-        CreateBasicConfigServerSetup();
+        server_address_in_ = CreateServerAddressInfo(port_, server_ip_address_);
         BindSocketWithServerAddress();
         is_operating_ = true;
       }
@@ -43,13 +46,15 @@ namespace agents {
 
       void Server::StopServer() {
         if (is_operating_) {
-          CloseSock(socket_, &server_address_);
+          CloseOnlySockDescriptor(socket_);
         }
+        is_operating_ = false;
       }
 
       Server::~Server() {
         if (is_operating_) {
           StopServer();
+          is_operating_ = true;
         }
       }
 

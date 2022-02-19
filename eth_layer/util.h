@@ -3,6 +3,7 @@
 
 #include <arpa/inet.h>
 #include <cstdint>
+#include <glog/logging.h>
 #include <netdb.h>
 #include <netinet/in.h>
 #include <signal.h>
@@ -21,14 +22,13 @@ namespace agents {
     std::int32_t CreateUDPFileDescriptor();
     bool IsValidSocketFileDescriptor(std::int32_t socket_file_descriptor);
     void FillUDPServerInfo(struct addrinfo* socket_info, std::uint16_t port);
-    bool FillUDPClientWithServerInfo(struct addrinfo* socket_info,
-                                     const std::string& server_port,
-                                     std::uint16_t port);
+    struct ::sockaddr_in CreateServerAddressInfo(std::uint16_t port, const std::string& server_addr);
 
-    bool BindFileDescriptorSocketWithAddressInfo(
-      struct addrinfo* socket_info, std::int32_t socket_file_descriptor);
+    bool FillUDPClientWithServerInfo(struct addrinfo* socket_info, const std::string& server_port, std::uint16_t port);
 
-    void CloseSock(std::int32_t socket, struct addrinfo* sock_address);
+    bool BindFileDescriptorSocketWithAddressInfo(struct sockaddr_in* socket_info, std::int32_t socket_file_descriptor);
+
+    void CloseOnlySockDescriptor(std::int32_t socket);
 
   } // namespace communication
 } // namespace agents

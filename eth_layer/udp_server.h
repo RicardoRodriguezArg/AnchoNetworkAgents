@@ -22,8 +22,10 @@ namespace agents {
 
         std::int32_t socket_;
         std::uint16_t port_;
-        struct addrinfo server_address_;
         bool is_operating_ = false;
+        std::string server_ip_address_{"127.0.0.1"};
+
+        struct ::sockaddr_in server_address_in_;
       };
 
     } // namespace udp

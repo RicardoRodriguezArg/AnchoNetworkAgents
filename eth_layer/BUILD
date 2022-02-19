@@ -11,5 +11,6 @@ cc_library(
     deps = [
              "//commons:commons",
              "//utils:ancho_net_middleware_utils",
+             "@com_github_google_glog//:glog",
            ],
 )

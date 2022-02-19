@@ -50,16 +50,17 @@ namespace agents {
         LOG(INFO) << "Starting Server";
         is_server_operating_ = true;
         while (is_server_operating_) {
-          const auto number_of_bytes = udp_server_.ReadFromAllClients(buffer_.begin(), agents::utils::MAX_BUFFER_SIZE);
-          // Get Message Type
-          const auto message_type_opt =
-            agents::utils::GetPackectMessageType(buffer_.begin() + agents::utils::MESSAGE_SIZE_DEFAULT);
-          if (message_type_opt.has_value()) {
-            std::string raw_message_copy{buffer_.begin(), buffer_.begin() + number_of_bytes};
-            // TODO:Create Function to handle this transformation
-            const auto message_type = static_cast<agents::common::MessageType>(message_type_opt.value());
-            message_handler_.HandleMessage(message_type, raw_message_copy);
-          }
+          // const auto number_of_bytes = udp_server_.ReadFromAllClients(buffer_.begin(),
+          // agents::utils::MAX_BUFFER_SIZE);
+          //// Get Message Type
+          // const auto message_type_opt =
+          //  agents::utils::GetPackectMessageType(buffer_.begin() + agents::utils::MESSAGE_SIZE_DEFAULT);
+          // if (message_type_opt.has_value()) {
+          //  std::string raw_message_copy{buffer_.begin(), buffer_.begin() + number_of_bytes};
+          //  // TODO:Create Function to handle this transformation
+          //  const auto message_type = static_cast<agents::common::MessageType>(message_type_opt.value());
+          //  message_handler_.HandleMessage(message_type, raw_message_copy);
+          //}
         }
       }
 
