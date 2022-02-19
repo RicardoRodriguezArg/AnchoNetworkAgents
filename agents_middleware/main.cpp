@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
   LOG(INFO) << "Initializing Server";
   main_udp_server.Init();
   LOG(INFO) << "Starting Server";
-  // main_udp_server.Start();
+  main_udp_server.Start();
   std::unique_lock<std::mutex> server_unique_lock(server_mutex);
 
   LOG(INFO) << "Server is operative";
