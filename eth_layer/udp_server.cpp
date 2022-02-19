@@ -45,6 +45,7 @@ namespace agents {
       }
 
       void Server::StopServer() {
+        LOG(INFO) << "Stop Sockect : " << std::to_string(socket_);
         if (is_operating_) {
           CloseOnlySockDescriptor(socket_);
         }

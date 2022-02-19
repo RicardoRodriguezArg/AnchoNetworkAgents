@@ -41,8 +41,8 @@ namespace agents {
       handlers::MessageHandlerManger ConfigureMessageHandler(handlers::MessageHandlerManger message_handler);
       ServerOptionsType LoadServerOptions();
       // Configure Server
-      Server CreateAndConfigureMainServerFromConfig(const handlers::MessageHandlerManger& message_handler,
-                                                    const ServerOptionsType& server_options);
+      std::shared_ptr<Server> CreateAndConfigureMainServerFromConfig(
+        const handlers::MessageHandlerManger& message_handler, const ServerOptionsType& server_options);
       // Events
       /*std::vector<std::uint32_t> LoadEventsIdsFromConfig();
       EventMessageDict CreateNanoEventsFromConfig(

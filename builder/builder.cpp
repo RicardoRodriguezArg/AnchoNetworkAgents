@@ -113,10 +113,9 @@ namespace agents {
 
       ServerOptionsType LoadServerOptions() { return {}; }
 
-      Server CreateAndConfigureMainServerFromConfig(const handlers::MessageHandlerManger& message_handler,
-                                                    const ServerOptionsType& server_options) {
-        Server server{message_handler, server_options.server_port_};
-        return server;
+      std::shared_ptr<Server> CreateAndConfigureMainServerFromConfig(
+        const handlers::MessageHandlerManger& message_handler, const ServerOptionsType& server_options) {
+        return std::make_shared<Server>(message_handler, server_options.server_port_);
       }
 
     } // namespace builders

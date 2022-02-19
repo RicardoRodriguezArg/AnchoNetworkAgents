@@ -53,18 +53,21 @@ int main(int argc, char* argv[]) {
   LOG(INFO) << "Creating Main Udp server";
   auto main_udp_server = CreateAndConfigureMainServerFromConfig(message_handler, server_options);
   LOG(INFO) << "Initializing Server";
-  main_udp_server.Init();
+  main_udp_server->Init();
   LOG(INFO) << "Starting Server";
-  main_udp_server.Start();
-  std::unique_lock<std::mutex> server_unique_lock(server_mutex);
+  main_udp_server->StartServerThread();
+  {
+    std::unique_lock<std::mutex> server_unique_lock(server_mutex);
+    if (server_is_operative) {
+      main_server_condition_variable.wait(server_unique_lock);
+    }
+    server_is_operative = false;
+  }
 
   LOG(INFO) << "Server is operative";
 
-  if (server_is_operative) {
-    main_server_condition_variable.wait(server_unique_lock);
-  }
   LOG(INFO) << "Shutting down Server";
-  // main_udp_server.Stop();
+  main_udp_server->Stop();
   // Create External Command Executor
   // Create Event Data Dispatcher
   // Create Telemetry Data Dispatcher

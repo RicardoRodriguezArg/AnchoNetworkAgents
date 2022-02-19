@@ -5,7 +5,10 @@
 #include "message_handlers/message_handlers.h"
 #include "utils/utils.h"
 #include <algorithm>
+#include <atomic>
+#include <chrono>
 #include <glog/logging.h>
+#include <thread>
 // x86
 namespace agents {
   namespace middleware {
@@ -24,12 +27,10 @@ namespace agents {
       explicit Server(const agents::handlers::MessageHandlerManger& message_handler, const std::uint16_t server_port) :
         message_handler_(message_handler), udp_server_(server_port) {}
 
-      void CleanInputBuffer() {
-        std::fill_n(buffer_.begin(), agents::utils::MAX_BUFFER_SIZE, 0);
-        buffer_[agents::utils::MAX_BUFFER_SIZE - 1U] = '\0';
+      ~Server() {
+        Stop();
+        working_thread_.join();
       }
-
-      ~Server() { Stop(); }
 
       void Init() {
         LOG(INFO) << "Init Server";
@@ -45,12 +46,20 @@ namespace agents {
         CleanInputBuffer();
       }
 
+      void StartServerThread() {
+        if (!is_server_operating_) {
+          is_server_operating_ = true;
+          LOG(INFO) << "Creating Server Thread";
+          working_thread_ = std::thread(&Server::RunServer, this);
+        }
+      }
+
+    private:
       // main pooling function
-      void Start() {
+      void RunServer() {
         LOG(INFO) << "Starting Server";
-        is_server_operating_ = true;
         while (is_server_operating_) {
-          // const auto number_of_bytes = udp_server_.ReadFromAllClients(buffer_.begin(),
+          const auto number_of_bytes = udp_server_.ReadFromAllClients(buffer_.begin(),
           // agents::utils::MAX_BUFFER_SIZE);
           //// Get Message Type
           // const auto message_type_opt =
@@ -61,14 +70,25 @@ namespace agents {
           //  const auto message_type = static_cast<agents::common::MessageType>(message_type_opt.value());
           //  message_handler_.HandleMessage(message_type, raw_message_copy);
           //}
+          using namespace std::chrono_literals;
+
+          std::this_thread::sleep_for(2000ms);
+          LOG(INFO) << "Main Server function";
         }
+        LOG(INFO) << "Server is stopped";
+        is_server_operating_ = false;
       }
 
-    private:
+      void CleanInputBuffer() {
+        std::fill_n(buffer_.begin(), agents::utils::MAX_BUFFER_SIZE, 0);
+        buffer_[agents::utils::MAX_BUFFER_SIZE - 1U] = '\0';
+      }
+
       agents::utils::PacketBuffer buffer_;
       MessageHandlerMangerType message_handler_;
-      bool is_server_operating_ = true;
+      std::atomic<bool> is_server_operating_ = false;
       UdpServerType udp_server_;
+      std::thread working_thread_;
     };
   } // namespace middleware
 } // namespace agents
