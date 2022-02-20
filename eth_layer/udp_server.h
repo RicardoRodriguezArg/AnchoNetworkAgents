@@ -19,6 +19,7 @@ namespace agents {
         void InitSocketFileDescriptor();
         void CreateBasicConfigServerSetup();
         void BindSocketWithServerAddress();
+        std::int32_t SetFlagToNonBlocking();
 
         std::int32_t socket_;
         std::uint16_t port_;

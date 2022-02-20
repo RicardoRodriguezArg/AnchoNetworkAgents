@@ -1,8 +1,12 @@
 #include "udp_server.h"
 #include "util.h"
+#include <arpa/inet.h>
+#include <errno.h>
 #include <exception>
 #include <glog/logging.h>
+#include <netdb.h>
 #include <stdexcept>
+#include <sys/fcntl.h>
 
 namespace agents {
   namespace communication {
@@ -31,16 +35,29 @@ namespace agents {
       }
 
       void Server::InitServer() {
-        LOG(INFO) << "ETH Init sockets files descriptors";
+        LOG(INFO) << "Init sockets files descriptors";
         InitSocketFileDescriptor();
         server_address_in_ = CreateServerAddressInfo(port_, server_ip_address_);
         BindSocketWithServerAddress();
+        LOG(INFO) << "Set socket as non blocking";
+        const auto result = SetFlagToNonBlocking();
+        LOG(INFO) << "Set socket as non blocking - Result" << std::to_string(result);
         is_operating_ = true;
       }
 
+      std::int32_t Server::SetFlagToNonBlocking() {
+        std::int32_t flags = fcntl(socket_, F_GETFL);
+        std::int32_t result = ::fcntl(socket_, F_SETFL, flags | O_NONBLOCK);
+      }
+
       std::int32_t Server::ReadFromAllClients(char* buffer, std::size_t max_message_size) const {
-        const auto last_message_byte = ::recv(socket_, buffer, max_message_size, 0);
-        buffer[last_message_byte] = '\0';
+        struct sockaddr_in client_addr;
+        std::memset(buffer, '\0', sizeof(*buffer));
+        std::uint32_t client_struct_length = sizeof(client_addr);
+        const auto last_message_byte =
+          ::recvfrom(socket_, buffer, sizeof(*buffer), 0, (struct sockaddr*)&client_addr, &client_struct_length);
+        // buffer[last_message_byte] = '\0';
+        LOG(INFO) << "last message byte: " << std::to_string(last_message_byte);
         return last_message_byte;
       }
 
