@@ -1,1 +1,2 @@
---cxxopt='-std=c++14'
+build --color=yes
+--cxxopt='-std=c++2a'

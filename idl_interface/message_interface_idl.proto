@@ -7,11 +7,22 @@ Messages header declaration
 */
 
 message Header{
+    enum DeviceType {
+    UDP_SERVER = 0;
+    TCP_SERVER = 1;
+    SERVER_UDP_X86= 2;
+    ROUTER_TP_LINK = 3;
+    CAMERA = 4;
+    
+  }
     required fixed32 target_agent_id = 1; //Id of the receiver agent
     required fixed32 source_agent_id = 2; //Id of the sender agent
-    required fixed32 week_number = 3;       //week of year
-    required fixed32 year = 4;              //year
+    required fixed32 week_number = 3;     //week of year
+    required fixed32 year = 4;            //year
     required float timestamp = 5;         //timestamp
+    required bool request_ack = 6;        //request ack from this message 
+    required DeviceType source_device_type = 7;
+    required DeviceType target_device_type = 8;
 }
 
 /* 
@@ -22,6 +33,7 @@ message Event
 {
     required Header header = 1;
     required fixed32 id = 2;// Event Id
+    required string description = 3;
 }
 
 /* 
@@ -38,8 +50,21 @@ enum Arguments {
     TOTAL = 4;
   }
     required Header header = 1;
-    required fixed32 id = 2; // Command Id
+    required fixed32 id = 2; // Event Id
     required Arguments number_arg_count = 3; // number of Arguments
-    repeated string arguments = 4;
+    repeated string name = 4;
+    repeated string value = 4;
+
+}
+
+/* 
+Message Data declaration
+*/
+message Telemetry
+{
+    required Header header = 1;
+    required fixed32 id = 2; // data Id
+    repeated string name = 3;
+    repeated string value = 4;
 
 }
