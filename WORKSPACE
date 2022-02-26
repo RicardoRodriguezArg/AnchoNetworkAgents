@@ -1,4 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 http_archive(
   name = "com_google_googletest",
@@ -26,8 +27,6 @@ new_local_repository(
     build_file = "third_party/nano_pb/nano_pb.BUILD",
     )
 
-##Protocol Buffer
-# rules_cc defines rules for generating C++ code from Protocol Buffers.
 http_archive(
     name = "rules_cc",
     sha256 = "35f2fb4ea0b3e61ad64a369de284e4fbbdcdba71836a5555abb5e194cf119509",
@@ -49,10 +48,6 @@ http_archive(
     ],
 )
 
-#Python support
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-
-protobuf_deps()
 
 # rules_proto defines abstract rules for building Protocol Buffers.
 http_archive(
@@ -77,30 +72,20 @@ rules_proto_dependencies()
 rules_proto_toolchains()
 ########################################################################################################
 #Flask/Pip import support
+
+
+# Fetch official Python rules for Bazel
 http_archive(
     name = "rules_python",
-    url = "https://github.com/bazelbuild/rules_python/releases/download/0.0.1/rules_python-0.0.1.tar.gz",
-    sha256 = "aa96a691d3a8177f3215b14b0edc9641787abaaa30363a080165d06ab65e1161",
+    sha256 = "b6d46438523a3ec0f3cead544190ee13223a52f6a6765a29eae7b7cc24cc83a0",
+    url = "https://github.com/bazelbuild/rules_python/releases/download/0.1.0/rules_python-0.1.0.tar.gz",
 )
 
-load("@rules_python//python:repositories.bzl", "py_repositories")
-py_repositories()
-
-# Only needed if using the packaging rules.
 load("@rules_python//python:pip.bzl", "pip_repositories")
 pip_repositories()
-
-
 load("@rules_python//python:pip.bzl", "pip_import")
 
-# This rule translates the specified requirements.txt into
-# @my_deps//:requirements.bzl, which itself exposes a pip_install method.
-pip_import(
-   name = "3rdparty",
-   requirements = "//3rdparty/python:requirements.txt",
-)
+# Third party libraries
+load("@rules_python//python:pip.bzl", "pip_install")
 
-# Load the pip_install symbol for my_deps, and create the dependencies'
-# repositories.
-load("@3rdparty//:requirements.bzl", "pip_install")
-pip_install()
+pip_install(name = "3rdparty",requirements = "//agents-webapi-py/src:requirements.txt",)

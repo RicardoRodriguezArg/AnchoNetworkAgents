@@ -1,21 +1,14 @@
+load("@rules_python//python:defs.bzl", "py_test")
 load("@3rdparty//:requirements.bzl", "requirement")
 
-package(default_visibility = ["//visibility:public"])
-
-py_library(
-    name = "webapi-deps",
-    srcs = glob(["*.py"]),
-    deps = [
-        # Flask
-        "//third_party:flask",
-         "//third_party:pandas"
-    ],
-)
-
 py_binary(
-  name = "agents-webapi",
-  srcs = ["agents-webapi.py"],
-  deps = [
-    ":webapi-deps"
-  ]
+    name = "agents-webapi_app",
+    srcs = ["agents-webapi_app.py"],
+    deps = [
+        requirement("flask"),
+        requirement("jinja2"),
+        requirement("werkzeug"),
+        requirement("itsdangerous"),
+        requirement("click"),
+    ],
 )
