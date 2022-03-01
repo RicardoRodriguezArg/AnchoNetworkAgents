@@ -1,8 +1,9 @@
 from flask import Flask
 from flask import request
 import logging
-
 app = Flask(__name__)
+
+
 logging.basicConfig(filename='agents-webapi-server.log', level=logging.INFO)
 
 @app.route('/agents-webapi/', methods=['GET'])
@@ -18,6 +19,8 @@ def commands():
     for index in xrange(argument_count):
         command_name = arguments[index]['name']
         command_value = arguments[index]['value']
+    #executing command on agents-middleware
+    return {'executed': True}
 
 
 if __name__ == '__main__':
