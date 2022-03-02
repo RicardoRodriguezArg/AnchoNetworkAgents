@@ -88,4 +88,4 @@ load("@rules_python//python:pip.bzl", "pip_import")
 # Third party libraries
 load("@rules_python//python:pip.bzl", "pip_install")
 
-pip_install(name = "3rdparty",requirements = "//agents-webapi-py/src:requirements.txt",)
+pip_install(name = "3rdparty",requirements = "//agents_webapi_py/src:requirements.txt",)
