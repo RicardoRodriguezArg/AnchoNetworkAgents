@@ -13,8 +13,22 @@ message Header{
     SERVER_UDP_X86= 2;
     ROUTER_TP_LINK = 3;
     CAMERA = 4;
-    
   }
+
+    /*
+    Message Type in the system
+    */
+    enum MessageType{
+        EVENT = 0;
+        COMAND = 1;
+        DATA = 2;
+        VIDEO = 3;
+        EVENT_PROTO = 4;
+        COMAND_PROTO = 5;
+        DATA_PROTO = 6;
+        COUNT = 7;
+    }
+
     required fixed32 target_agent_id = 1; //Id of the receiver agent
     required fixed32 source_agent_id = 2; //Id of the sender agent
     required fixed32 week_number = 3;     //week of year
@@ -23,6 +37,7 @@ message Header{
     required bool request_ack = 6;        //request ack from this message 
     required DeviceType source_device_type = 7;
     required DeviceType target_device_type = 8;
+    required fixed32 message_id = 9; // Message ID
 }
 
 /* 
@@ -53,7 +68,7 @@ enum Arguments {
     required fixed32 id = 2; // Event Id
     required Arguments number_arg_count = 3; // number of Arguments
     repeated string name = 4;
-    repeated string value = 4;
+    repeated string value = 5;
 
 }
 
