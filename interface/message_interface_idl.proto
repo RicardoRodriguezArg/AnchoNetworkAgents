@@ -13,15 +13,7 @@ message Header{
     SERVER_UDP_X86= 2;
     ROUTER_TP_LINK = 3;
     CAMERA = 4;
-    PYTHON_CLIENT = 5;
   }
-
-     enum DeviceId
-     {
-        SERVER_UDP_X86_TALCA_ID   = 0;
-        WEB_API_PYTHON_CLIENT_ID  = 1;
-        GENERIC_TP_LINK_ROUTER_ID = 2;
-     }
 
     /*
     Message Type in the system
@@ -46,12 +38,6 @@ message Header{
     required DeviceType source_device_type = 7;
     required DeviceType target_device_type = 8;
     required fixed32 message_id = 9; // Message ID
-    /*
-    If this field is set then is mandatory to search id target/source in the 
-    defined enum DeviceId
-    */
-    required bool has_administrative_id=10;
-
 }
 
 /* 

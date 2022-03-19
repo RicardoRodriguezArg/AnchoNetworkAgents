@@ -1,10 +1,13 @@
 import socket
+import datetime
 from datetime import date
 import time
 import json
 from interface.message_interface_idl_pb2 import CommandWithArguments
 from interface.message_interface_idl_pb2 import Header
-from agents_proxy_stub_utils import PackBinaryData
+from agents_webapi_py.src.agents_proxy_stub_utils import PackBinaryData
+from agents_webapi_py.src.agents_proxy_stub_utils import UnpackBinaryData
+from agents_webapi_py.src.agents_proxy_stub_utils import ProcessProtoMessage
 import logging
 
 class AgentStub:
@@ -18,25 +21,28 @@ class AgentStub:
     self.__udp_client.settimeout(1)
     self.__wait_for_response = False
     self.__response_result = None
-    self.__execution_status = { "message_id": -1, "status": "uninit"}
+    self.__execution_status = { "message_id": -1, "execution": "uninit"}
     self.__message_id = 0
 
   def ConvertToCmdProtoMessage(self, message_from_webapi):
     self.__cmd_proto = CommandWithArguments()
-    cmd_proto.id = message_from_webapi['id']
+    self.__cmd_proto.id = int(message_from_webapi['id'])
     argument_count = int(message_from_webapi['argument_count'])
-    cmd_proto.number_arg_count = argument_count
-    cmd_proto.header = self.__CreateHeaderMessageFromJson(message_from_webapi)
+    self.__cmd_proto.number_arg_count = argument_count
+    processed_header = self.__CreateHeaderMessageFromJson(message_from_webapi)
+    self.__cmd_proto.header.CopyFrom(processed_header)
     arguments = message_from_webapi['arguments']
     for index in range(argument_count):
-        cmd_proto.name.append(arguments[index]['name'])
-        cmd_proto.value.append(arguments[index]['value'])
-    return cmd_proto
+        self.__cmd_proto.name.append(arguments[index]['name'])
+        self.__cmd_proto.value.append(arguments[index]['value'])
+
+  def __UpdatingExecutionResultMessageID(self, message_id):
+      self.__execution_status["message_id"] = message_id
 
   def __CreateHeaderMessageFromJson(self, message_from_webapi):
     header= Header()
-    header.target_agent_id = Header.SERVER_UDP_X86
-    header.source_agent_id = Header.WEB_API_PYTHON
+    header.target_agent_id = Header.SERVER_UDP_X86_TALCA_ID
+    header.source_agent_id = Header.WEB_API_PYTHON_CLIENT_ID
     current_year = date.today().year
     current_month = date.today().month
     current_day = date.today().day
@@ -45,14 +51,32 @@ class AgentStub:
     header.year = current_year
     header.week_number = week_number
     header.timestamp = time.time()
-    header.request_ack = message_from_webapi['request_ack']
+    header.request_ack = int(False)
+    if message_from_webapi['request_ack']=="true":
+      header.request_ack = int(True)
     self.__wait_for_response = header.request_ack
-    header.source_device_type = Header.WEB_API_PYTHON
+    header.source_device_type = Header.PYTHON_CLIENT
     header.target_device_type = Header.SERVER_UDP_X86
-    header.message_id =  self__message_id
-    self.UpdatingExecutionResultMessageID(header.message_id)
+    """
+    this is a mandatory field for message comming from entities
+    like this, a administrative id force the server to check
+    the id on the interface list of ID to validate the source
+    id, if this is not set command will be not executed
+    """
+    header.has_administrative_id = int(True)
+    header.message_id =  self.__message_id
+    self.__UpdatingExecutionResultMessageID(header.message_id)
     self.__message_id = self.__message_id + 1
     return header
+
+  def __UpdatingExecutionResultStatus(self, status_message):
+    self.__execution_status["execution"] = status_message
+
+  def GetExecutionStatus(self):
+    return json.dumps(self.__execution_status)
+
+  def GetResponseResul(self):
+    return self.__response_result
 
   def SendCmdToServer(self):
     result = False
@@ -71,19 +95,7 @@ class AgentStub:
          self.__response_result = ProcessProtoMessage(unpacked_response)
          self.__UpdatingExecutionResultStatus("Command executed")
          result = True
-      except timeout:
+      except :
         self.__UpdatingExecutionResultStatus("Main C++ Server Not Responding, timeout")
         print("Error on Execution Command")
     return result
-
-    def __UpdatingExecutionResultMessageID(self, message_id):
-      self.__execution_status["message_id"] = message_id
-
-    def __UpdatingExecutionResultStatus(self, status_message):
-          self.__execution_status["status"] = status_message
-
-    def GetResponseResul(self):
-      return self.__response_result
-
-    def GetExecutionStatus(self):
-      return json.dumps(self.__execution_status)

@@ -12,15 +12,18 @@ def test_home(client):
     print("testing commands...")
     assert resp.status_code == 200
 
-def test_service(client):
+
+def test_service_fail(client):
     resp = client.post('/agents-webapi/cmd/', \
         json={'id': '1', 'argument_count': '2', 'source': 'main_web','target': 'modem_wifi',\
+        'request_ack': 'true',\
         'arguments': [
                       { "name":"speed" ,  "value":"300" }, \
                       { "name":"service_type" , "value":"home" }\
                       ]})
     assert resp.status_code == 200
-    assert resp.json.get('executed')
+    assert "Main C++ Server Not Responding, timeout" in resp.json.get('execution_status') 
+
 
 
 if __name__ == "__main__":

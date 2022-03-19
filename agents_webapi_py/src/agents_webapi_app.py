@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-from agents_proxy import SendCommandToServer
+from agents_webapi_py.src.agents_proxy import SendCommandToServer
 import logging
 import os
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -26,9 +26,9 @@ def commands():
         print("name:  {} value: {}".format(argument_name, command_value))
     #executing command on agents-middleware
     response_from_server = SendCommandToServer(webapi_command)
-    execution_status = response_from_server(0)
-    command_response = response_from_server(1)
-    return {'status':execution_status, 'response':command_response}
+    execution_status = response_from_server[0]
+    command_response = response_from_server[1]
+    return {'execution_status':execution_status, 'command_response':command_response}
 
 
 if __name__ == '__main__':

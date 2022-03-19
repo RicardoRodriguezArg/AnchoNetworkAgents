@@ -18,7 +18,7 @@ py_binary(
 py_binary(
     name = "agents_proxy",
     srcs = ["agents_proxy.py",
-            "agents_proxy_stub.py",
+            "agents_stub.py",
             "agents_proxy_stub_utils.py",
             ],
     deps=[
@@ -30,6 +30,7 @@ py_test(
     srcs = ["test/agents_webapi_app_tests_one.py"],
     deps = [
         "agents_webapi_app",
+        "agents_proxy",
         requirement("flask"),
         requirement("jinja2"),
         requirement("werkzeug"),
