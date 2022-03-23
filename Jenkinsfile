@@ -7,14 +7,14 @@ pipeline {
         stage('Building C++ Server - Agent Middleware') {
             steps {
                 echo 'Building..'
-                sh 'bazel build --cxxopt=\\"-std=c++2a \\" //agents_middleware:agents_middleware_server'
+                sh 'bazel build --cxxopt=\\"-std=c++2a\\" //agents_middleware:agents_middleware_server'
             }
         }
         
         stage('Running C++ Server Tests') {
             steps {
                 echo 'Testing - Comunication Tests'
-                sh 'bazel test --cxxopt=\\"-std=c++2a \\" //utils/tests:communication_tests'
+                sh 'bazel test --cxxopt=\\"-std=c++2a\\" //utils/tests:communication_tests'
             }
         }
 
