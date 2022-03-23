@@ -7,7 +7,7 @@ pipeline {
         stage('Building C++ Server - Agent Middleware') {
             steps {
                 echo 'Building..'
-                sh 'bazel build --verbose_failures --cxxopt=\\\'-std=c++2a\\\' //agents_middleware:agents_middleware_server'
+                sh 'bazel build --verbose_failures --sandbox_debug --cxxopt=\\\'-std=c++2a\\\' //agents_middleware:agents_middleware_server'
             }
         }
         
