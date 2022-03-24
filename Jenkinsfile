@@ -13,9 +13,9 @@ pipeline {
 
                          echo "Hello from bash"
                          echo "Who I'm $SHELL"
-                         pwd
+                         bazel build --cxxopt=\\\'-std=c++2a\\\' //agents_middleware:agents_middleware_server
                       '''
-                    //sh 'bazel build --cxxopt=\\\'-std=c++2a\\\' //agents_middleware:agents_middleware_server'
+                    
                 }
                 
             }
