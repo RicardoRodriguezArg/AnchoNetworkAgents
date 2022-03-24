@@ -13,8 +13,10 @@ pipeline {
 
                          echo "Hello from bash"
                          echo "Who I'm $SHELL"
-                         bazel build --cxxopt=\\\'-std=c++2a\\\' //agents_middleware:agents_middleware_server
+                         gcc --version
+                         
                       '''
+                  //bazel build --cxxopt=\\\'-std=c++2a\\\' //agents_middleware:agents_middleware_server
                     
                 }
                 
