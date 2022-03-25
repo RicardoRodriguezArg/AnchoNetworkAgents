@@ -16,7 +16,7 @@ pipeline {
             }
             }//End Step 1
 
-            stage('C++ Server - Agent Middleware - Testing') {
+            stage('C++ Server - Agent Middleware - All Testing') {
 
             steps 
             {
@@ -55,7 +55,7 @@ pipeline {
                 }
             }
 
-            stage('Py3 - Building Python webApi x Agents') {
+            stage('Py3 - Building Python webApi x Agents - Tests') {
                 steps {
                     dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
                     {
