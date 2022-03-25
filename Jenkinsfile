@@ -30,7 +30,7 @@ pipeline {
             }
             }//End step 2
 
-            stage('Py3 - Agent Proxy/Stub x Agents') {
+            stage('Py3 - Agent Proxy/Stub x Agents - CLI for Agents') {
                 steps {
                     dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
                     {
@@ -59,7 +59,7 @@ pipeline {
                 steps {
                     dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
                     {
-                        echo 'Building Python webApi x Agents'
+                        echo 'Building Python Test webApi'
                         sh '''#!/bin/bash
                         bazel test //agents_webapi_py/src:agents_webapi_app_tests_suite
                         '''
