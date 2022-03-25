@@ -4,8 +4,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Building C++ Server - Agent Middleware')
-        {
+        stage('Building C++ Server - Agent Middleware') {
             steps 
             {
                 dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
@@ -15,6 +14,9 @@ pipeline {
                     '''
                 }
             }
+            }//End Step 1
+
+            stage('C++ Server - Agent Middleware - Testing') {
 
             steps 
             {
@@ -22,45 +24,47 @@ pipeline {
                 {
                     echo 'Testing - Comunication Tests'
                     sh '''#!/bin/bash
-                    sh 'bazel test --cxxopt=\\"-std=c++2a\\" //utils/tests:communication_tests'
+                    bazel test --cxxopt=\\"-std=c++2a\\" //utils/tests:communication_tests
                     '''
                 }
             }
-            
-            
-            steps 
-            {
-                dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
-                {
-                    echo 'Building Python Agent Proxy/Stub x Agents'
-                    sh '''#!/bin/bash
-                    sh 'bazel build //agents_webapi_py/src:agents_cli_app'
-                    '''
-                }
-            }
-            
+            }//End step 2
 
-            steps 
-            {
-                dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+            stage('Py3 - Agent Proxy/Stub x Agents') {
+                steps {
+                    dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+                    {
+                        echo 'Building Python Agent Proxy/Stub x Agents'
+                        sh '''#!/bin/bash
+                        bazel build //agents_webapi_py/src:agents_cli_app
+                        '''
+                    }
+                }//Step
+            }//stage
+            
+            stage('Py3 - Building Python webApi x Agents') {
+                steps 
                 {
-                    sh '''#!/bin/bash
-                    echo 'Building Python webApi x Agents'
-                    sh 'bazel build //agents_webapi_py/src:agents_webapi_app'
-                    '''
-                }    
-            }
-
-            steps 
-            {
-                dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
-                {
-                    echo 'Building Python webApi x Agents'
-                    sh '''#!/bin/bash
-                    sh 'bazel test //agents_webapi_py/src:agents_webapi_app_tests_suite'
-                    '''
+                    dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+                    {
+                        sh '''#!/bin/bash
+                        echo 'Building Python webApi x Agents'
+                        bazel build //agents_webapi_py/src:agents_webapi_app
+                        '''
+                    }
                 }
             }
-        }//STAGE
+
+            stage('Py3 - Building Python webApi x Agents') {
+                steps {
+                    dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+                    {
+                        echo 'Building Python webApi x Agents'
+                        sh '''#!/bin/bash
+                        bazel test //agents_webapi_py/src:agents_webapi_app_tests_suite
+                        '''
+                    }
+                }//steps
+            }//Stage
     }//STAGES
 }//PIPELINE
