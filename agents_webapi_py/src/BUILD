@@ -34,11 +34,12 @@ py_library(
 
 py_library(
     name = "agents_cli_app",
-    srcs = ["agents_cli_app.py.py"
+    srcs = ["agents_cli_app.py"
             ],
     deps=[
-        "//agents_webapi_py/src:agents_proxy"
-        "//interface:message_interface_idl_pb2"],
+        "//agents_webapi_py/src:agents_proxy",
+        "//interface:message_interface_idl_pb2"
+        ],
 )
 
 py_test(
