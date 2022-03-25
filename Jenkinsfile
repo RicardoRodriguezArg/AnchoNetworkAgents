@@ -4,8 +4,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Building C++ Server - Agent Middleware') {
-            steps {
+        stage('Building C++ Server - Agent Middleware')
+        {
+            steps 
+            {
                 dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
                 {
                     sh '''#!/bin/bash
@@ -14,7 +16,8 @@ pipeline {
                 }
             }
 
-            stage('Running C++ Server Tests') {
+            stage('Running C++ Server Tests') 
+            {
                 steps {
                     echo 'Testing - Comunication Tests'
                     sh 'bazel test --cxxopt=\\"-std=c++2a\\" //utils/tests:communication_tests'
@@ -30,20 +33,19 @@ pipeline {
             }
 
 
-            stage('Building Python webApi x Agents') {
+            stage('Building Python webApi x Agents')
+            {
                 steps {
                     echo 'Building Python webApi x Agents'
                     sh 'bazel build //agents_webapi_py/src:agents_webapi_app'
                 }
             }
 
-            stage('Running Python webApi Tests Suite') {
+            stage('Running Python webApi Tests Suite') 
+            {
                 steps {
                     echo 'Building Python webApi x Agents'
                     sh 'bazel test //agents_webapi_py/src:agents_webapi_app_tests_suite'
                 }
-            }
+             }
         }
-
-    }
-}
