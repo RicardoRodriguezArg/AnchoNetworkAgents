@@ -21,13 +21,23 @@ py_binary(
 
 
 
-py_binary(
+py_library(
     name = "agents_proxy",
     srcs = ["agents_proxy.py",
             "agents_stub.py",
             "agents_proxy_stub_utils.py",
             ],
     deps=[
+        "//interface:message_interface_idl_pb2"],
+)
+
+
+py_library(
+    name = "agents_cli_app",
+    srcs = ["agents_cli_app.py.py"
+            ],
+    deps=[
+        "//agents_webapi_py/src:agents_proxy"
         "//interface:message_interface_idl_pb2"],
 )
 
