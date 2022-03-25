@@ -5,6 +5,6 @@ cc_test(
     deps = [
         "@com_google_googletest//:gtest_main",
         "//utils:ancho_net_middleware_utils",
-        "//common:commons",
+        "//commons:commons",
     ],
 )
