@@ -3,13 +3,19 @@ package(default_visibility = ["//visibility:public"])
 
 py_binary(
     name = "agents_webapi_app",
-    srcs = ["agents_webapi_app.py"],
+    srcs = ["agents_webapi_app.py",
+            "agents_proxy.py",
+            "agents_stub.py",
+            "agents_proxy_stub_utils.py",
+
+           ],
     deps = [
         requirement("flask"),
         requirement("jinja2"),
         requirement("werkzeug"),
         requirement("itsdangerous"),
         requirement("click"),
+        "//interface:message_interface_idl_pb2"
     ],
 )
 
