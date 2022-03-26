@@ -54,6 +54,7 @@ py_test(
         requirement("itsdangerous"),
         requirement("click"),
         requirement("pytest"),
+        requirement("protobuf"),
     ],
 )
 
