@@ -61,6 +61,7 @@ pipeline {
                     {
                         echo 'Building Python Test webApi'
                         sh '''#!/bin/bash
+                        echo 'Py3 - Building Python webApi x Agents - Tests'
                         bazel test //agents_webapi_py/src:agents_webapi_app_tests_suite
                         '''
                     }
