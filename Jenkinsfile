@@ -12,9 +12,9 @@ pipeline {
                     sh '''#!/bin/bash
                     bazel build --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server &&
                     ls -ls &&
-                    echo 'creating target directory for testing'
-                    sudo mkdir -p /usr/bin/agents_middleware/
-                    cd bazel-bin/agents_middleware/
+                    echo 'creating target directory for testing' &&
+                    sudo mkdir -p /usr/bin/agents_middleware/ &&
+                    cd bazel-bin/agents_middleware/ &&
                     '''
                     sh "ls -la"
                 }
