@@ -18,7 +18,7 @@ pipeline {
                     find . -name 'agents_middleware_server' -type f -executable
                     echo '--------'
                     pwd
-                    cp ${env.WORKSPACE}/bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
+                    cp /var/lib/jenkins/workspace/eral_Pipeline_add-debian-package/AnchoNet_General_Pipeline_main/bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
                     '''
                     sh "ls -la"
                 }
