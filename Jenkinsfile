@@ -15,7 +15,7 @@ pipeline {
                     echo 'creating target directory for testing'
                     sudo mkdir -p /usr/bin/agents_middleware/
                     '''
-                    sh "ls -la ${pwd()}"
+                    sh "ls -la"
                 }
             }
             }//End Step 1
