@@ -15,9 +15,7 @@ pipeline {
                     echo 'creating target directory for testing'
                     sudo mkdir -p /usr/bin/agents_middleware/
                     '''
-                    sh "ls -ls > listAllFiles"
-                    def files = readFile( "listAllFiles" ).split( "\\r?\\n" );
-                    sh "rm -f listAllFiles"
+                    sh "ls -la ${pwd()}"
                 }
             }
             }//End Step 1
