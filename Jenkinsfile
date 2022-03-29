@@ -13,9 +13,11 @@ pipeline {
                     bazel build --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server &&
                     ls -ls &&
                     echo 'creating target directory for testing'
-                    sudo mkdir -p /usr/bin/agents_middleware/ &&
-                    sudo cp ./bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
+                    sudo mkdir -p /usr/bin/agents_middleware/
                     '''
+                    sh "ls *.json > listJsonFiles"
+                    def files = readFile( "listJsonFiles" ).split( "\\r?\\n" );
+                    sh "rm -f listJsonFiles"
                 }
             }
             }//End Step 1
