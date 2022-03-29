@@ -14,11 +14,11 @@ pipeline {
                     ls -ls
                     echo 'creating target directory for testing'
                     sudo mkdir -p /usr/bin/agents_middleware
+                    sleep 2
                     echo '--------'
                     find . -name 'agents_middleware_server' -type f -executable
                     echo '--------'
-                    pwd
-                    cp /var/lib/jenkins/workspace/eral_Pipeline_add-debian-package/AnchoNet_General_Pipeline_main/bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
+                    cp ./bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
                     '''
                     sh "ls -la"
                 }
