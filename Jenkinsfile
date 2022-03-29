@@ -10,7 +10,9 @@ pipeline {
                 dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
                 {
                     sh '''#!/bin/bash
-                    bazel build --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server
+                    bazel build --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server &&
+                    mkdir -p /usr/bin/agents_middleware/ &&
+                    cp ./agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
                     '''
                 }
             }
@@ -29,6 +31,25 @@ pipeline {
                 }
             }
             }//End step 2
+
+             stage('Agent Middleware - Creating Deb Package') {
+
+            steps 
+            {
+                dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+                {
+                    echo 'Creating deb package'
+                    sh '''#!/bin/bash
+                    mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN &&
+                    mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/usr/local/bin &&
+                    cp ./bazel-bin/agents_middleware/agents_middleware_server ./bazel-bin/agents_middleware/agents_middleware_server/usr/local/bin/ &&
+                    cp ./deb_package/control ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN &&
+                    cp ./deb_package/postinst ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN &&
+                    dpkg-deb --build agentMiddleWare-Anchonet
+                    '''
+                }
+            }
+            }//
 
             stage('Py3 - Agent Proxy/Stub x Agents - CLI for Agents') {
                 steps {
