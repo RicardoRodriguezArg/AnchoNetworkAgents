@@ -15,9 +15,9 @@ pipeline {
                     echo 'creating target directory for testing'
                     sudo mkdir -p /usr/bin/agents_middleware/
                     '''
-                    sh "ls *.json > listJsonFiles"
-                    def files = readFile( "listJsonFiles" ).split( "\\r?\\n" );
-                    sh "rm -f listJsonFiles"
+                    sh "ls -ls > listAllFiles"
+                    def files = readFile( "listAllFiles" ).split( "\\r?\\n" );
+                    sh "rm -f listAllFiles"
                 }
             }
             }//End Step 1
