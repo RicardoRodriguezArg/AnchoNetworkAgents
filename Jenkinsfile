@@ -14,7 +14,7 @@ pipeline {
                     ls -ls
                     echo 'creating target directory for testing'
                     sudo mkdir -p /usr/bin/agents_middleware
-                    cd bazel-bin/agents_middleware
+                    find . -name 'agents_middleware_server' -type f -executable
                     cp bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware
                     '''
                     sh "ls -la"
