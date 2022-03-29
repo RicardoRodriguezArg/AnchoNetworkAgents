@@ -12,7 +12,7 @@ pipeline {
                     sh '''#!/bin/bash
                     bazel build --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server &&
                     sudo mkdir -p /usr/bin/agents_middleware/ &&
-                    sudo cp ./agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
+                    sudo cp ./bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
                     '''
                 }
             }
