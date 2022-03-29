@@ -16,7 +16,8 @@ pipeline {
                     sudo mkdir -p /usr/bin/agents_middleware
                     sleep 2
                     echo '--------'
-                    find . -name 'agents_middleware_server' -type f -executable
+                    cd ./bazel-bin/agents_middleware_server
+                    ls -lsa
                     echo '--------'
                     cp ./bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
                     '''
