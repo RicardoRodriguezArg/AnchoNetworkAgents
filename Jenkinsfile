@@ -17,7 +17,8 @@ pipeline {
                     echo '--------'
                     find . -name 'agents_middleware_server' -type f -executable
                     echo '--------'
-                    cp bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
+                    pwd
+                    cp ${env.WORKSPACE}/bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
                     '''
                     sh "ls -la"
                 }
