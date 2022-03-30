@@ -13,7 +13,7 @@ pipeline {
                     bazel build --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server
                     echo 'creating target directory for testing'
                     sudo mkdir -p /usr/bin/agents_middleware_server
-                    cd ./bazel-bin/agents_middleware/
+                    cd ./bazel-bin/agents_middleware/agents_middleware_server
                     ls -l
                     sudo cp agents_middleware_server /usr/bin/agents_middleware_server/
                     '''
