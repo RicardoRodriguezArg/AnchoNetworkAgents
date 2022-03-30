@@ -13,13 +13,12 @@ pipeline {
                     bazel build --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server
                     ls -ls
                     echo 'creating target directory for testing'
-                    sudo mkdir -p /usr/bin/agents_middleware
-                    sleep 2
+                    sudo mkdir -p /usr/bin/agents_middleware_server
                     echo '--------'
                     cd ./bazel-bin/agents_middleware_server
-                    ls -lsa
+                    ll
                     echo '--------'
-                    cp ./bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware/
+                    cp ./bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware_server/
                     '''
                     sh "ls -la"
                 }
@@ -48,18 +47,18 @@ pipeline {
                 {
                     echo 'Creating deb package'
                     sh '''#!/bin/bash
-                    mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN &&
-                    mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/usr/local/bin &&
-                    cp ./bazel-bin/agents_middleware/agents_middleware_server ./bazel-bin/agents_middleware/agents_middleware_server/usr/local/bin/ &&
-                    cp ./deb_package/control ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN &&
-                    cp ./deb_package/postinst ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN &&
-                    dpkg-deb --build agentMiddleWare-Anchonet
+                    mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN
+                    mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/usr/local/bin
+                    cp ./bazel-bin/agents_middleware/agents_middleware_server ./bazel-bin/agents_middleware/agents_middleware_server/usr/local/bin/
+                    cp ./deb_package/control ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN
+                    cp ./deb_package/postinst ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN
+                    dpkg-deb --build agentMiddleware-Anchonet
                     '''
                 }
             }
             }//
 
-            stage('Py3 - Agent Proxy/Stub x Agents - CLI for Agents') {
+            stage('Py3 - Building Agent Proxy/Stub x Agents - CLI for Agents') {
                 steps {
                     dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
                     {
@@ -71,7 +70,7 @@ pipeline {
                 }//Step
             }//stage
             
-            stage('Py3 - Building Python webApi x Agents') {
+            stage('Py3 - Building Python WebApi x Agents Middleware') {
                 steps 
                 {
                     dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
@@ -84,7 +83,7 @@ pipeline {
                 }
             }
 
-            stage('Py3 - Building Python webApi x Agents - Tests') {
+            stage('Py3 - Executing Python webApi x Agents Tests') {
                 steps {
                     dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
                     {
