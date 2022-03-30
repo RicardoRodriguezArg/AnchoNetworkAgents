@@ -7,10 +7,10 @@ pipeline {
         stage('Building C++ Server - Agent Middleware') {
             steps 
             {
-                dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+                dir("${env.WORKSPACE}")
                 {
                     sh '''#!/bin/bash
-                    bazel run --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server
+                    bazel build --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server
                     echo 'creating target directory for testing'
                     sudo mkdir -p /usr/bin/agents_middleware_server
                     cd ./bazel-bin/agents_middleware/agents_middleware_server
