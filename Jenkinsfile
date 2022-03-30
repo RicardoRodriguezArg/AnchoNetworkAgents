@@ -7,20 +7,19 @@ pipeline {
         stage('Building C++ Server - Agent Middleware') {
             steps 
             {
-                dir("${env.WORKSPACE}")
+                dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
                 {
                     sh '''#!/bin/bash
                     bazel build --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server
-                    ls -ls
                     echo 'creating target directory for testing'
                     sudo mkdir -p /usr/bin/agents_middleware_server
                     echo '--------'
-                    cd ./bazel-bin/agents_middleware_server
-                    ll
+                    cd ./bazel-bin
+                    sudo ls -ls
                     echo '--------'
-                    cp ./bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware_server/
+                    sudo cp ./bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware_server/
                     '''
-                    sh "ls -la"
+                    
                 }
             }
             }//End Step 1
