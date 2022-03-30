@@ -14,7 +14,7 @@ pipeline {
                     '''
                     echo 'creating target directory for testing'
                     sh 'mkdir -p /usr/bin/agents_middleware_server'
-                    sh 'cp bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware_server/'
+                    sh 'cp ./bazel-bin/agents_middleware/agents_middleware_server /usr/bin/agents_middleware_server/'
                     
                 }
             }
@@ -41,11 +41,13 @@ pipeline {
                 dir("${env.WORKSPACE}")
                 {
                     echo 'Creating deb package'
+                    sh 'mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/usr/bin'
                     sh 'mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN'
-                    sh 'mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/usr/local/bin'
-                    sh 'cp bazel-bin/agents_middleware/agents_middleware_server ./bazel-bin/agents_middleware/agents_middleware_server/usr/local/bin/'
+                    
+                    sh 'cp bazel-bin/agents_middleware/agents_middleware_server ./bazel-bin/agents_middleware/agents_middleware_server/usr/bin/'
                     sh 'cp ./deb_package/control ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN'
-                    sh 'cp ./deb_package/postinst ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN'
+                    sh 'chmod +x deb_package/postinst'
+                    sh 'cp deb_package/postinst bazel-bin/agents_middleware/agents_middleware_server/DEBIAN'
                     sh 'dpkg-deb --build agentMiddleware-Anchonet'
                 }
             }
