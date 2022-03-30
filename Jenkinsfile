@@ -13,10 +13,10 @@ pipeline {
                     bazel build --cxxopt='-std=c++2a' //agents_middleware:agents_middleware_server
                     echo 'creating target directory for testing'
                     sudo mkdir -p /usr/bin/agents_middleware_server
-                    cd ./bazel-bin/agents_middleware/agents_middleware_server
-                    ls -ls
-                    sudo cp agents_middleware_server /usr/bin/agents_middleware_server/
                     '''
+                    //cd ./bazel-bin/agents_middleware/agents_middleware_server
+                    //ls -ls
+                    //sudo cp agents_middleware_server /usr/bin/agents_middleware_server/
                     
                 }
             }
@@ -26,7 +26,7 @@ pipeline {
 
             steps 
             {
-                dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+                dir("${env.WORKSPACE}")
                 {
                     echo 'Testing - Comunication Tests'
                     sh '''#!/bin/bash
@@ -40,7 +40,7 @@ pipeline {
 
             steps 
             {
-                dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+                dir("${env.WORKSPACE}")
                 {
                     echo 'Creating deb package'
                     sh '''#!/bin/bash
@@ -57,7 +57,7 @@ pipeline {
 
             stage('Py3 - Building Agent Proxy/Stub x Agents - CLI for Agents') {
                 steps {
-                    dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+                    dir("${env.WORKSPACE}")
                     {
                         echo 'Building Python Agent Proxy/Stub x Agents'
                         sh '''#!/bin/bash
@@ -70,7 +70,7 @@ pipeline {
             stage('Py3 - Building Python WebApi x Agents Middleware') {
                 steps 
                 {
-                    dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+                    dir("${env.WORKSPACE}")
                     {
                         sh '''#!/bin/bash
                         echo 'Building Python webApi x Agents'
@@ -82,7 +82,7 @@ pipeline {
 
             stage('Py3 - Executing Python webApi x Agents Tests') {
                 steps {
-                    dir("${env.WORKSPACE}/AnchoNet_General_Pipeline_main")
+                    dir("${env.WORKSPACE}")
                     {
                         echo 'Building Python Test webApi'
                         sh '''#!/bin/bash
