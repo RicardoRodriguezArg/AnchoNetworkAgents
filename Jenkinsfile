@@ -34,6 +34,21 @@ pipeline {
             }
             }//End step 2
 
+             stage('C++ Agent Middleware - Create Coverage Report') {
+
+            steps 
+            {
+                dir("${env.WORKSPACE}")
+                {
+                    echo 'Generating Coverage Report'
+                    sh '''#!/bin/bash
+                    bazel coverage --cxxopt='-std=c++2a' //utils/tests/... --combined_report=lcov
+                    '''
+                    publishCoverage adapters: [cobertura('testlogs/utils/tests/communication_tests/coverage.dat')], sourceFileResolver: sourceFiles('NEVER_STORE')
+                }
+            }
+            }//End step 2
+
 
             stage('Py3 - Building Agent Proxy/Stub x Agents - CLI for Agents') {
                 steps {
