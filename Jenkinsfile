@@ -34,24 +34,6 @@ pipeline {
             }
             }//End step 2
 
-             stage('Agent Middleware - Creating Deb Package') {
-
-            steps 
-            {
-                dir("${env.WORKSPACE}")
-                {
-                    echo 'Creating deb package'
-                    sh 'mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/usr/bin'
-                    sh 'mkdir -p ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN'
-                    
-                    sh 'cp bazel-bin/agents_middleware/agents_middleware_server ./bazel-bin/agents_middleware/agents_middleware_server/usr/bin/'
-                    sh 'cp ./deb_package/control ./bazel-bin/agents_middleware/agents_middleware_server/DEBIAN'
-                    sh 'chmod +x deb_package/postinst'
-                    sh 'cp deb_package/postinst bazel-bin/agents_middleware/agents_middleware_server/DEBIAN'
-                    sh 'dpkg-deb --build agentMiddleware-Anchonet'
-                }
-            }
-            }//
 
             stage('Py3 - Building Agent Proxy/Stub x Agents - CLI for Agents') {
                 steps {

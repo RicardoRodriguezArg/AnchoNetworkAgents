@@ -1,5 +1,0 @@
-Package: AgentsMiddleware
-Version: 0.1
-Maintainer: albertorodriguez@anchonet.com
-Architecture: amd86
-Description: MiddleWare C++ Agents Server/Client UDP
