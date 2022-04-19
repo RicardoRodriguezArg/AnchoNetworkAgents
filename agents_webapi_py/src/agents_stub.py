@@ -11,14 +11,15 @@ from agents_webapi_py.src.agents_proxy_stub_utils import ProcessProtoMessage
 import logging
 
 class AgentStub:
-  def __init__(self, server_ip="127.0.0.1", server_port=5000, buffer_size=1024):
+  def __init__(self, server_ip="127.0.0.1", server_port=5001, buffer_size=4096):
     self.__cmd_proto = None
     self.__bytesToSend = 0
     self.__server_ip = server_ip
     self.__server_port = server_port
     self.__buffer_size = buffer_size
-    self.__udp_client = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-    self.__udp_client.settimeout(1)
+    self.__udp_sock = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+    self.__udp_sock.bind((self.__server_ip, self.__server_port))
+    self.__udp_sock.settimeout(1)
     self.__wait_for_response = False
     self.__response_result = None
     self.__execution_status = { "message_id": -1, "execution": "uninit"}
@@ -57,6 +58,7 @@ class AgentStub:
     self.__wait_for_response = header.request_ack
     header.source_device_type = Header.PYTHON_CLIENT
     header.target_device_type = Header.SERVER_UDP_X86
+    header.message_type = Header.COMMAND
     """
     this is a mandatory field for message comming from entities
     like this, a administrative id force the server to check
@@ -79,23 +81,25 @@ class AgentStub:
     return self.__response_result
 
   def SendCmdToServer(self):
+    print("Sending Command to Server")
     result = False
     if not self.__cmd_proto:
+      print("Exit due to empty protocol buffer")
       self.__UpdatingExecutionResultStatus("Cmd Proto Empty")
       return result
     message = self.__cmd_proto.SerializeToString()
     packed_data = PackBinaryData(message)
-    self.__udp_client.sendto(packed_data, (self.__server_ip, self.__server_port))
+    self.__udp_sock.sendto(packed_data, (self.__server_ip, self.__server_port))
     self.__UpdatingExecutionResultStatus("Command Sent")
     if self.__wait_for_response:
       self.__UpdatingExecutionResultStatus("Command sent, waiting ACK")
       try:
-         data, server = clientSocket.recvfrom(self.__buffer_size)
+         data, server = self.__udp_sock.recvfrom(self.__buffer_size)
          unpacked_response = UnpackBinaryData(data)
          self.__response_result = ProcessProtoMessage(unpacked_response)
-         self.__UpdatingExecutionResultStatus("Command executed")
+         #self.__UpdatingExecutionResultStatus("Command executed")
          result = True
-      except :
-        self.__UpdatingExecutionResultStatus("Main C++ Server Not Responding, timeout")
-        print("Error on Execution Command")
+      except Exception as error:
+        self.__UpdatingExecutionResultStatus("Communication Error: {}".format(str(error)))
+        print("Error on Execution Command: {}".format(str(error)))
     return result

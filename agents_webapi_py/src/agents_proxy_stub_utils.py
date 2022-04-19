@@ -18,21 +18,22 @@ def PackBinaryData(string_to_encode):
 
 def UnpackBinaryData(packet_data):
     unpacker = struct.Struct('I I s')
-    return unpacker.unpack(packet_data)
+    result = unpacker.unpack(packet_data)
+    return result
 
 
 def ProcessProtoMessage(unpack_data):
-    message_size = unpack_data(0)
-    message_type = unpack_data(1)
+    message_size = unpack_data[0]
+    message_type = unpack_data[1]
     result = None
-    serialize_proto_message = unpack_data(2)
-    if message_type == Header.MessageType.CMD_PROTO:
-        serialize_message = unpack_data(2)
+    serialize_proto_message = unpack_data[2]
+    if message_type == Header.COMMAND:
+        serialize_message = unpack_data[2]
         result = CommandWithArguments.ParseFromString(serialize_message)
-    elif message_type == Header.MessageType.EVENT_PROTO:
-        serialize_message = unpack_data(2)
+    elif message_type == Header.EVENT_PROTO:
+        serialize_message = unpack_data[2]
         result = Event.ParseFromString(serialize_message)
-    elif message_type == Header.MessageType.EVENT_PROTO:
-        serialize_message = unpack_data(2)
-        result = Event.ParseFromString(serialize_message)
+    elif message_type == Header.DATA:
+        serialize_message = unpack_data[2]
+        result = Telemetry.ParseFromString(serialize_message)
     return result

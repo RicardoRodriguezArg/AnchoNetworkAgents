@@ -15,5 +15,11 @@ PB_BIND(agent_interface_Event, agent_interface_Event, AUTO)
 PB_BIND(agent_interface_CommandWithArguments, agent_interface_CommandWithArguments, AUTO)
 
 
+PB_BIND(agent_interface_Telemetry, agent_interface_Telemetry, AUTO)
+
+
+
+
+
 
 

@@ -28,11 +28,11 @@ message Header{
     */
     enum MessageType{
         EVENT = 0;
-        COMAND = 1;
+        COMMAND = 1;
         DATA = 2;
         VIDEO = 3;
         EVENT_PROTO = 4;
-        COMAND_PROTO = 5;
+        COMMAND_PROTO = 5;
         DATA_PROTO = 6;
         COUNT = 7;
     }
@@ -51,6 +51,7 @@ message Header{
     defined enum DeviceId
     */
     required bool has_administrative_id=10;
+    required MessageType message_type = 11;
 
 }
 

@@ -1,7 +1,7 @@
 import pytest
 import subprocess
 from agents_webapi_py.src.agents_webapi_app import app
-
+import logging
 
 class BashSystemCommandsManager:
     def __init__(self):
@@ -13,11 +13,11 @@ class BashSystemCommandsManager:
         return (len(stderr) == 0)
 
     def init_agents_server(self):
-        result = sef.__execute_commands('agents_middleware_server')
+        result = self.__execute_commands('agents_middleware_server')
         return result
 
     def kill_agents_server(self):
-        result = sef.__execute_commands('killall agents_middleware_server')
+        result = self.__execute_commands('killall agents_middleware_server')
         return result
 
 
@@ -46,8 +46,9 @@ def test_service_fail(client):
 
 def test_service_agent_commands(client):
     bash_command_executor = BashSystemCommandsManager()
-    bash_result = bash_command_executor.init_agents_server()
-    assert bash_result
+    logging.info('Test Server C++ Agent')
+    #bash_result = bash_command_executor.init_agents_server()
+    #assert bash_result
     resp = client.post('/agents-webapi/cmd/', \
         json={'id': '1', 'argument_count': '2', 'source': 'main_web','target': 'modem_wifi',\
         'request_ack': 'true',\

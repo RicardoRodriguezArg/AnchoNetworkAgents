@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='agent_interface',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x1bmessage_interface_idl.proto\x12\x0f\x61gent_interface\"\x8c\x05\n\x06Header\x12\x17\n\x0ftarget_agent_id\x18\x01 \x02(\x07\x12\x17\n\x0fsource_agent_id\x18\x02 \x02(\x07\x12\x13\n\x0bweek_number\x18\x03 \x02(\x07\x12\x0c\n\x04year\x18\x04 \x02(\x07\x12\x11\n\ttimestamp\x18\x05 \x02(\x02\x12\x13\n\x0brequest_ack\x18\x06 \x02(\x08\x12>\n\x12source_device_type\x18\x07 \x02(\x0e\x32\".agent_interface.Header.DeviceType\x12>\n\x12target_device_type\x18\x08 \x02(\x0e\x32\".agent_interface.Header.DeviceType\x12\x12\n\nmessage_id\x18\t \x02(\x07\x12\x1d\n\x15has_administrative_id\x18\n \x02(\x08\"s\n\nDeviceType\x12\x0e\n\nUDP_SERVER\x10\x00\x12\x0e\n\nTCP_SERVER\x10\x01\x12\x12\n\x0eSERVER_UDP_X86\x10\x02\x12\x12\n\x0eROUTER_TP_LINK\x10\x03\x12\n\n\x06\x43\x41MERA\x10\x04\x12\x11\n\rPYTHON_CLIENT\x10\x05\"d\n\x08\x44\x65viceId\x12\x1b\n\x17SERVER_UDP_X86_TALCA_ID\x10\x00\x12\x1c\n\x18WEB_API_PYTHON_CLIENT_ID\x10\x01\x12\x1d\n\x19GENERIC_TP_LINK_ROUTER_ID\x10\x02\"w\n\x0bMessageType\x12\t\n\x05\x45VENT\x10\x00\x12\n\n\x06\x43OMAND\x10\x01\x12\x08\n\x04\x44\x41TA\x10\x02\x12\t\n\x05VIDEO\x10\x03\x12\x0f\n\x0b\x45VENT_PROTO\x10\x04\x12\x10\n\x0c\x43OMAND_PROTO\x10\x05\x12\x0e\n\nDATA_PROTO\x10\x06\x12\t\n\x05\x43OUNT\x10\x07\"Q\n\x05\x45vent\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12\x13\n\x0b\x64\x65scription\x18\x03 \x02(\t\"\xf2\x01\n\x14\x43ommandWithArguments\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12I\n\x10number_arg_count\x18\x03 \x02(\x0e\x32/.agent_interface.CommandWithArguments.Arguments\x12\x0c\n\x04name\x18\x04 \x03(\t\x12\r\n\x05value\x18\x05 \x03(\t\"=\n\tArguments\x12\x07\n\x03ONE\x10\x00\x12\x07\n\x03TWO\x10\x01\x12\t\n\x05THREE\x10\x02\x12\x08\n\x04\x46OUR\x10\x03\x12\t\n\x05TOTAL\x10\x04\"]\n\tTelemetry\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12\x0c\n\x04name\x18\x03 \x03(\t\x12\r\n\x05value\x18\x04 \x03(\t')
+  serialized_pb=_b('\n\x1bmessage_interface_idl.proto\x12\x0f\x61gent_interface\"\xc9\x05\n\x06Header\x12\x17\n\x0ftarget_agent_id\x18\x01 \x02(\x07\x12\x17\n\x0fsource_agent_id\x18\x02 \x02(\x07\x12\x13\n\x0bweek_number\x18\x03 \x02(\x07\x12\x0c\n\x04year\x18\x04 \x02(\x07\x12\x11\n\ttimestamp\x18\x05 \x02(\x02\x12\x13\n\x0brequest_ack\x18\x06 \x02(\x08\x12>\n\x12source_device_type\x18\x07 \x02(\x0e\x32\".agent_interface.Header.DeviceType\x12>\n\x12target_device_type\x18\x08 \x02(\x0e\x32\".agent_interface.Header.DeviceType\x12\x12\n\nmessage_id\x18\t \x02(\x07\x12\x1d\n\x15has_administrative_id\x18\n \x02(\x08\x12\x39\n\x0cmessage_type\x18\x0b \x02(\x0e\x32#.agent_interface.Header.MessageType\"s\n\nDeviceType\x12\x0e\n\nUDP_SERVER\x10\x00\x12\x0e\n\nTCP_SERVER\x10\x01\x12\x12\n\x0eSERVER_UDP_X86\x10\x02\x12\x12\n\x0eROUTER_TP_LINK\x10\x03\x12\n\n\x06\x43\x41MERA\x10\x04\x12\x11\n\rPYTHON_CLIENT\x10\x05\"d\n\x08\x44\x65viceId\x12\x1b\n\x17SERVER_UDP_X86_TALCA_ID\x10\x00\x12\x1c\n\x18WEB_API_PYTHON_CLIENT_ID\x10\x01\x12\x1d\n\x19GENERIC_TP_LINK_ROUTER_ID\x10\x02\"y\n\x0bMessageType\x12\t\n\x05\x45VENT\x10\x00\x12\x0b\n\x07\x43OMMAND\x10\x01\x12\x08\n\x04\x44\x41TA\x10\x02\x12\t\n\x05VIDEO\x10\x03\x12\x0f\n\x0b\x45VENT_PROTO\x10\x04\x12\x11\n\rCOMMAND_PROTO\x10\x05\x12\x0e\n\nDATA_PROTO\x10\x06\x12\t\n\x05\x43OUNT\x10\x07\"Q\n\x05\x45vent\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12\x13\n\x0b\x64\x65scription\x18\x03 \x02(\t\"\xf2\x01\n\x14\x43ommandWithArguments\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12I\n\x10number_arg_count\x18\x03 \x02(\x0e\x32/.agent_interface.CommandWithArguments.Arguments\x12\x0c\n\x04name\x18\x04 \x03(\t\x12\r\n\x05value\x18\x05 \x03(\t\"=\n\tArguments\x12\x07\n\x03ONE\x10\x00\x12\x07\n\x03TWO\x10\x01\x12\t\n\x05THREE\x10\x02\x12\x08\n\x04\x46OUR\x10\x03\x12\t\n\x05TOTAL\x10\x04\"]\n\tTelemetry\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12\x0c\n\x04name\x18\x03 \x03(\t\x12\r\n\x05value\x18\x04 \x03(\t')
 )
 
 
@@ -57,8 +57,8 @@ _HEADER_DEVICETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=363,
-  serialized_end=478,
+  serialized_start=422,
+  serialized_end=537,
 )
 _sym_db.RegisterEnumDescriptor(_HEADER_DEVICETYPE)
 
@@ -83,8 +83,8 @@ _HEADER_DEVICEID = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=480,
-  serialized_end=580,
+  serialized_start=539,
+  serialized_end=639,
 )
 _sym_db.RegisterEnumDescriptor(_HEADER_DEVICEID)
 
@@ -99,7 +99,7 @@ _HEADER_MESSAGETYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='COMAND', index=1, number=1,
+      name='COMMAND', index=1, number=1,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -115,7 +115,7 @@ _HEADER_MESSAGETYPE = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='COMAND_PROTO', index=5, number=5,
+      name='COMMAND_PROTO', index=5, number=5,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -129,8 +129,8 @@ _HEADER_MESSAGETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=582,
-  serialized_end=701,
+  serialized_start=641,
+  serialized_end=762,
 )
 _sym_db.RegisterEnumDescriptor(_HEADER_MESSAGETYPE)
 
@@ -163,8 +163,8 @@ _COMMANDWITHARGUMENTS_ARGUMENTS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=968,
-  serialized_end=1029,
+  serialized_start=1029,
+  serialized_end=1090,
 )
 _sym_db.RegisterEnumDescriptor(_COMMANDWITHARGUMENTS_ARGUMENTS)
 
@@ -246,6 +246,13 @@ _HEADER = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='message_type', full_name='agent_interface.Header.message_type', index=10,
+      number=11, type=14, cpp_type=8, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -262,7 +269,7 @@ _HEADER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=49,
-  serialized_end=701,
+  serialized_end=762,
 )
 
 
@@ -306,8 +313,8 @@ _EVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=703,
-  serialized_end=784,
+  serialized_start=764,
+  serialized_end=845,
 )
 
 
@@ -366,8 +373,8 @@ _COMMANDWITHARGUMENTS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=787,
-  serialized_end=1029,
+  serialized_start=848,
+  serialized_end=1090,
 )
 
 
@@ -418,12 +425,13 @@ _TELEMETRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1031,
-  serialized_end=1124,
+  serialized_start=1092,
+  serialized_end=1185,
 )
 
 _HEADER.fields_by_name['source_device_type'].enum_type = _HEADER_DEVICETYPE
 _HEADER.fields_by_name['target_device_type'].enum_type = _HEADER_DEVICETYPE
+_HEADER.fields_by_name['message_type'].enum_type = _HEADER_MESSAGETYPE
 _HEADER_DEVICETYPE.containing_type = _HEADER
 _HEADER_DEVICEID.containing_type = _HEADER
 _HEADER_MESSAGETYPE.containing_type = _HEADER

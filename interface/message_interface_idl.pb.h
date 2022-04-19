@@ -10,6 +10,32 @@
 #endif
 
 /* Enum definitions */
+typedef enum _agent_interface_Header_DeviceType {
+  agent_interface_Header_DeviceType_UDP_SERVER = 0,
+  agent_interface_Header_DeviceType_TCP_SERVER = 1,
+  agent_interface_Header_DeviceType_SERVER_UDP_X86 = 2,
+  agent_interface_Header_DeviceType_ROUTER_TP_LINK = 3,
+  agent_interface_Header_DeviceType_CAMERA = 4,
+  agent_interface_Header_DeviceType_PYTHON_CLIENT = 5
+} agent_interface_Header_DeviceType;
+
+typedef enum _agent_interface_Header_DeviceId {
+  agent_interface_Header_DeviceId_SERVER_UDP_X86_TALCA_ID = 0,
+  agent_interface_Header_DeviceId_WEB_API_PYTHON_CLIENT_ID = 1,
+  agent_interface_Header_DeviceId_GENERIC_TP_LINK_ROUTER_ID = 2
+} agent_interface_Header_DeviceId;
+
+typedef enum _agent_interface_Header_MessageType {
+  agent_interface_Header_MessageType_EVENT = 0,
+  agent_interface_Header_MessageType_COMMAND = 1,
+  agent_interface_Header_MessageType_DATA = 2,
+  agent_interface_Header_MessageType_VIDEO = 3,
+  agent_interface_Header_MessageType_EVENT_PROTO = 4,
+  agent_interface_Header_MessageType_COMMAND_PROTO = 5,
+  agent_interface_Header_MessageType_DATA_PROTO = 6,
+  agent_interface_Header_MessageType_COUNT = 7
+} agent_interface_Header_MessageType;
+
 typedef enum _agent_interface_CommandWithArguments_Arguments {
   agent_interface_CommandWithArguments_Arguments_ONE = 0,
   agent_interface_CommandWithArguments_Arguments_TWO = 1,
@@ -25,56 +51,101 @@ typedef struct _agent_interface_Header {
   uint32_t week_number;     /* week of year */
   uint32_t year;            /* year */
   float timestamp;          /* timestamp */
+  bool request_ack;         /* request ack from this message */
+  agent_interface_Header_DeviceType source_device_type;
+  agent_interface_Header_DeviceType target_device_type;
+  uint32_t message_id; /* Message ID */
+  /* If this field is set then is mandatory to search id target/source in the
+defined enum DeviceId */
+  bool has_administrative_id;
+  agent_interface_Header_MessageType message_type;
 } agent_interface_Header;
 
 typedef struct _agent_interface_CommandWithArguments {
   agent_interface_Header header;
-  uint32_t id; /* Command Id */
-  agent_interface_CommandWithArguments_Arguments
-    number_arg_count; /* number of Arguments */
-  pb_callback_t arguments;
+  uint32_t id;                                                     /* Event Id */
+  agent_interface_CommandWithArguments_Arguments number_arg_count; /* number of Arguments */
+  pb_callback_t name;
+  pb_callback_t value;
 } agent_interface_CommandWithArguments;
 
 typedef struct _agent_interface_Event {
   agent_interface_Header header;
   uint32_t id; /* Event Id */
+  pb_callback_t description;
 } agent_interface_Event;
 
+/* Message Data declaration */
+typedef struct _agent_interface_Telemetry {
+  agent_interface_Header header;
+  uint32_t id; /* data Id */
+  pb_callback_t name;
+  pb_callback_t value;
+} agent_interface_Telemetry;
+
 /* Helper constants for enums */
-#define _agent_interface_CommandWithArguments_Arguments_MIN                    \
-  agent_interface_CommandWithArguments_Arguments_ONE
-#define _agent_interface_CommandWithArguments_Arguments_MAX                    \
-  agent_interface_CommandWithArguments_Arguments_TOTAL
-#define _agent_interface_CommandWithArguments_Arguments_ARRAYSIZE              \
-  ((agent_interface_CommandWithArguments_Arguments)(                           \
-    agent_interface_CommandWithArguments_Arguments_TOTAL + 1))
+#define _agent_interface_Header_DeviceType_MIN agent_interface_Header_DeviceType_UDP_SERVER
+#define _agent_interface_Header_DeviceType_MAX agent_interface_Header_DeviceType_PYTHON_CLIENT
+#define _agent_interface_Header_DeviceType_ARRAYSIZE                                                                   \
+  ((agent_interface_Header_DeviceType)(agent_interface_Header_DeviceType_PYTHON_CLIENT + 1))
+
+#define _agent_interface_Header_DeviceId_MIN agent_interface_Header_DeviceId_SERVER_UDP_X86_TALCA_ID
+#define _agent_interface_Header_DeviceId_MAX agent_interface_Header_DeviceId_GENERIC_TP_LINK_ROUTER_ID
+#define _agent_interface_Header_DeviceId_ARRAYSIZE                                                                     \
+  ((agent_interface_Header_DeviceId)(agent_interface_Header_DeviceId_GENERIC_TP_LINK_ROUTER_ID + 1))
+
+#define _agent_interface_Header_MessageType_MIN agent_interface_Header_MessageType_EVENT
+#define _agent_interface_Header_MessageType_MAX agent_interface_Header_MessageType_COUNT
+#define _agent_interface_Header_MessageType_ARRAYSIZE                                                                  \
+  ((agent_interface_Header_MessageType)(agent_interface_Header_MessageType_COUNT + 1))
+
+#define _agent_interface_CommandWithArguments_Arguments_MIN agent_interface_CommandWithArguments_Arguments_ONE
+#define _agent_interface_CommandWithArguments_Arguments_MAX agent_interface_CommandWithArguments_Arguments_TOTAL
+#define _agent_interface_CommandWithArguments_Arguments_ARRAYSIZE                                                      \
+  ((agent_interface_CommandWithArguments_Arguments)(agent_interface_CommandWithArguments_Arguments_TOTAL + 1))
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /* Initializer values for message structs */
-#define agent_interface_Header_init_default                                    \
-  { 0, 0, 0, 0, 0 }
-#define agent_interface_Event_init_default                                     \
-  { agent_interface_Header_init_default, 0 }
-#define agent_interface_CommandWithArguments_init_default                      \
-  {                                                                            \
-    agent_interface_Header_init_default, 0,                                    \
-      _agent_interface_CommandWithArguments_Arguments_MIN, {                   \
-      {NULL}, NULL                                                             \
-    }                                                                          \
+#define agent_interface_Header_init_default                                                                            \
+  {                                                                                                                    \
+    0, 0, 0, 0, 0, 0, _agent_interface_Header_DeviceType_MIN, _agent_interface_Header_DeviceType_MIN, 0, 0,            \
+      _agent_interface_Header_MessageType_MIN                                                                          \
   }
-#define agent_interface_Header_init_zero                                       \
-  { 0, 0, 0, 0, 0 }
-#define agent_interface_Event_init_zero                                        \
-  { agent_interface_Header_init_zero, 0 }
-#define agent_interface_CommandWithArguments_init_zero                         \
-  {                                                                            \
-    agent_interface_Header_init_zero, 0,                                       \
-      _agent_interface_CommandWithArguments_Arguments_MIN, {                   \
-      {NULL}, NULL                                                             \
-    }                                                                          \
+#define agent_interface_Event_init_default                                                                             \
+  {                                                                                                                    \
+    agent_interface_Header_init_default, 0, { {NULL}, NULL }                                                           \
+  }
+#define agent_interface_CommandWithArguments_init_default                                                              \
+  {                                                                                                                    \
+    agent_interface_Header_init_default, 0, _agent_interface_CommandWithArguments_Arguments_MIN, {{NULL}, NULL}, {     \
+      {NULL}, NULL                                                                                                     \
+    }                                                                                                                  \
+  }
+#define agent_interface_Telemetry_init_default                                                                         \
+  {                                                                                                                    \
+    agent_interface_Header_init_default, 0, {{NULL}, NULL}, { {NULL}, NULL }                                           \
+  }
+#define agent_interface_Header_init_zero                                                                               \
+  {                                                                                                                    \
+    0, 0, 0, 0, 0, 0, _agent_interface_Header_DeviceType_MIN, _agent_interface_Header_DeviceType_MIN, 0, 0,            \
+      _agent_interface_Header_MessageType_MIN                                                                          \
+  }
+#define agent_interface_Event_init_zero                                                                                \
+  {                                                                                                                    \
+    agent_interface_Header_init_zero, 0, { {NULL}, NULL }                                                              \
+  }
+#define agent_interface_CommandWithArguments_init_zero                                                                 \
+  {                                                                                                                    \
+    agent_interface_Header_init_zero, 0, _agent_interface_CommandWithArguments_Arguments_MIN, {{NULL}, NULL}, {        \
+      {NULL}, NULL                                                                                                     \
+    }                                                                                                                  \
+  }
+#define agent_interface_Telemetry_init_zero                                                                            \
+  {                                                                                                                    \
+    agent_interface_Header_init_zero, 0, {{NULL}, NULL}, { {NULL}, NULL }                                              \
   }
 
 /* Field tags (for use in manual encoding/decoding) */
@@ -83,54 +154,84 @@ extern "C" {
 #define agent_interface_Header_week_number_tag 3
 #define agent_interface_Header_year_tag 4
 #define agent_interface_Header_timestamp_tag 5
+#define agent_interface_Header_request_ack_tag 6
+#define agent_interface_Header_source_device_type_tag 7
+#define agent_interface_Header_target_device_type_tag 8
+#define agent_interface_Header_message_id_tag 9
+#define agent_interface_Header_has_administrative_id_tag 10
+#define agent_interface_Header_message_type_tag 11
 #define agent_interface_CommandWithArguments_header_tag 1
 #define agent_interface_CommandWithArguments_id_tag 2
 #define agent_interface_CommandWithArguments_number_arg_count_tag 3
-#define agent_interface_CommandWithArguments_arguments_tag 4
+#define agent_interface_CommandWithArguments_name_tag 4
+#define agent_interface_CommandWithArguments_value_tag 5
 #define agent_interface_Event_header_tag 1
 #define agent_interface_Event_id_tag 2
+#define agent_interface_Event_description_tag 3
+#define agent_interface_Telemetry_header_tag 1
+#define agent_interface_Telemetry_id_tag 2
+#define agent_interface_Telemetry_name_tag 3
+#define agent_interface_Telemetry_value_tag 4
 
 /* Struct field encoding specification for nanopb */
-#define agent_interface_Header_FIELDLIST(X, a)                                 \
-  X(a, STATIC, REQUIRED, FIXED32, target_agent_id, 1)                          \
-  X(a, STATIC, REQUIRED, FIXED32, source_agent_id, 2)                          \
-  X(a, STATIC, REQUIRED, FIXED32, week_number, 3)                              \
-  X(a, STATIC, REQUIRED, FIXED32, year, 4)                                     \
-  X(a, STATIC, REQUIRED, FLOAT, timestamp, 5)
+#define agent_interface_Header_FIELDLIST(X, a)                                                                         \
+  X(a, STATIC, REQUIRED, FIXED32, target_agent_id, 1)                                                                  \
+  X(a, STATIC, REQUIRED, FIXED32, source_agent_id, 2)                                                                  \
+  X(a, STATIC, REQUIRED, FIXED32, week_number, 3)                                                                      \
+  X(a, STATIC, REQUIRED, FIXED32, year, 4)                                                                             \
+  X(a, STATIC, REQUIRED, FLOAT, timestamp, 5)                                                                          \
+  X(a, STATIC, REQUIRED, BOOL, request_ack, 6)                                                                         \
+  X(a, STATIC, REQUIRED, UENUM, source_device_type, 7)                                                                 \
+  X(a, STATIC, REQUIRED, UENUM, target_device_type, 8)                                                                 \
+  X(a, STATIC, REQUIRED, FIXED32, message_id, 9)                                                                       \
+  X(a, STATIC, REQUIRED, BOOL, has_administrative_id, 10)                                                              \
+  X(a, STATIC, REQUIRED, UENUM, message_type, 11)
 #define agent_interface_Header_CALLBACK NULL
 #define agent_interface_Header_DEFAULT NULL
 
-#define agent_interface_Event_FIELDLIST(X, a)                                  \
-  X(a, STATIC, REQUIRED, MESSAGE, header, 1)                                   \
-  X(a, STATIC, REQUIRED, FIXED32, id, 2)
-#define agent_interface_Event_CALLBACK NULL
+#define agent_interface_Event_FIELDLIST(X, a)                                                                          \
+  X(a, STATIC, REQUIRED, MESSAGE, header, 1)                                                                           \
+  X(a, STATIC, REQUIRED, FIXED32, id, 2)                                                                               \
+  X(a, CALLBACK, REQUIRED, STRING, description, 3)
+#define agent_interface_Event_CALLBACK pb_default_field_callback
 #define agent_interface_Event_DEFAULT NULL
 #define agent_interface_Event_header_MSGTYPE agent_interface_Header
 
-#define agent_interface_CommandWithArguments_FIELDLIST(X, a)                   \
-  X(a, STATIC, REQUIRED, MESSAGE, header, 1)                                   \
-  X(a, STATIC, REQUIRED, FIXED32, id, 2)                                       \
-  X(a, STATIC, REQUIRED, UENUM, number_arg_count, 3)                           \
-  X(a, CALLBACK, REPEATED, STRING, arguments, 4)
+#define agent_interface_CommandWithArguments_FIELDLIST(X, a)                                                           \
+  X(a, STATIC, REQUIRED, MESSAGE, header, 1)                                                                           \
+  X(a, STATIC, REQUIRED, FIXED32, id, 2)                                                                               \
+  X(a, STATIC, REQUIRED, UENUM, number_arg_count, 3)                                                                   \
+  X(a, CALLBACK, REPEATED, STRING, name, 4)                                                                            \
+  X(a, CALLBACK, REPEATED, STRING, value, 5)
 #define agent_interface_CommandWithArguments_CALLBACK pb_default_field_callback
 #define agent_interface_CommandWithArguments_DEFAULT NULL
-#define agent_interface_CommandWithArguments_header_MSGTYPE                    \
-  agent_interface_Header
+#define agent_interface_CommandWithArguments_header_MSGTYPE agent_interface_Header
+
+#define agent_interface_Telemetry_FIELDLIST(X, a)                                                                      \
+  X(a, STATIC, REQUIRED, MESSAGE, header, 1)                                                                           \
+  X(a, STATIC, REQUIRED, FIXED32, id, 2)                                                                               \
+  X(a, CALLBACK, REPEATED, STRING, name, 3)                                                                            \
+  X(a, CALLBACK, REPEATED, STRING, value, 4)
+#define agent_interface_Telemetry_CALLBACK pb_default_field_callback
+#define agent_interface_Telemetry_DEFAULT NULL
+#define agent_interface_Telemetry_header_MSGTYPE agent_interface_Header
 
 extern const pb_msgdesc_t agent_interface_Header_msg;
 extern const pb_msgdesc_t agent_interface_Event_msg;
 extern const pb_msgdesc_t agent_interface_CommandWithArguments_msg;
+extern const pb_msgdesc_t agent_interface_Telemetry_msg;
 
 /* Defines for backwards compatibility with code written before nanopb-0.4.0 */
 #define agent_interface_Header_fields &agent_interface_Header_msg
 #define agent_interface_Event_fields &agent_interface_Event_msg
-#define agent_interface_CommandWithArguments_fields                            \
-  &agent_interface_CommandWithArguments_msg
+#define agent_interface_CommandWithArguments_fields &agent_interface_CommandWithArguments_msg
+#define agent_interface_Telemetry_fields &agent_interface_Telemetry_msg
 
 /* Maximum encoded size of messages (where known) */
+/* agent_interface_Event_size depends on runtime parameters */
 /* agent_interface_CommandWithArguments_size depends on runtime parameters */
-#define agent_interface_Event_size 32
-#define agent_interface_Header_size 25
+/* agent_interface_Telemetry_size depends on runtime parameters */
+#define agent_interface_Header_size 40
 
 #ifdef __cplusplus
 } /* extern "C" */

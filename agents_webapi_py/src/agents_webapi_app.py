@@ -15,6 +15,7 @@ def Welcome():
 
 @app.route('/agents-webapi/cmd/', methods=['POST'])
 def commands():
+    logging.info('Sending Command to C++ Server')
     webapi_command = request.get_json()
     command_id = webapi_command['id']
     print("command_id: {}".format(command_id))
@@ -25,6 +26,7 @@ def commands():
         command_value = arguments[index]['value']
         print("name:  {} value: {}".format(argument_name, command_value))
     #executing command on agents-middleware
+    print("Sending Command To Server")
     response_from_server = SendCommandToServer(webapi_command)
     execution_status = response_from_server[0]
     command_response = response_from_server[1]
@@ -33,4 +35,4 @@ def commands():
 
 if __name__ == '__main__':
     logging.info('Agents WebApi init at port 5000')
-    app.run(host='127.0.0.1', port=5000)
+    app.run(host='127.0.0.1', port=5000,debug=True)

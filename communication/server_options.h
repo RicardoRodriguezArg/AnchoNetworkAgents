@@ -7,7 +7,7 @@ namespace agents {
   namespace middleware {
     namespace options {
       struct ServerConfiguration {
-        std::uint16_t server_port_ = 9999U;
+        std::uint16_t server_port_ = 5001U;
       };
 
     } // namespace options
