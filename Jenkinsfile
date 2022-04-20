@@ -4,6 +4,21 @@ pipeline {
     agent any
 
     stages {
+        stage('Updating Interface data') {
+            steps 
+            {
+                dir("${env.WORKSPACE}")
+                {
+                    echo 'Executing updating interface scripts - C Nanoº'
+                    sh 'cd ./idl_interface'
+                    sh 'sudo ./generate_nano_proto_c_interface.sh'
+                    echo 'Executing updating interface scripts - Python ProtocolBuffer'
+                    sh 'sudo ./generate_proto_interface.sh'
+                    
+                }
+            }
+            }//End Step 1
+
         stage('Building C++ Server - Agent Middleware') {
             steps 
             {

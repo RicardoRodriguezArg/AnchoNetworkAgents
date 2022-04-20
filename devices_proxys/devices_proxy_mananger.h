@@ -11,17 +11,13 @@ namespace agents {
     namespace proxys {
       struct ProxyManager {
         using DeviceProxyType = agents::middleware::proxys::DeviceProxy;
-        void BuildProxyDevicesFromInputList(
-          const std::vector<std::uint32_t> proxy_id_list,
-          std::function<bool(const std::string&)> command_dispatcher_callback,
-          std::shared_ptr<CommandMessageDictionary> message_command_dict) {
+        void BuildProxyDevicesFromInputList(const std::vector<std::uint32_t> proxy_id_list,
+                                            std::function<bool(const std::string&)> command_dispatcher_callback,
+                                            std::shared_ptr<CommandMessageDictionary> message_command_dict) {
           proxy_list_.reserve(proxy_id_list.size());
-          std::transform(proxy_id_list.cbegin(), proxy_id_list.cend(),
-                         std::back_inserter(proxy_list_),
-                         [&command_dispatcher_callback,
-                          &message_command_dict](const auto proxy_id) {
-                           const auto device = DeviceProxy{
-                             command_dispatcher_callback, message_command_dict};
+          std::transform(proxy_id_list.cbegin(), proxy_id_list.cend(), std::back_inserter(proxy_list_),
+                         [&command_dispatcher_callback, &message_command_dict](const auto proxy_id) {
+                           const auto device = DeviceProxy{command_dispatcher_callback, message_command_dict};
                            const auto value = std::make_pair(proxy_id, device);
                            return value;
                          });
@@ -48,9 +44,8 @@ namespace agents {
 
         std::optional<DeviceProxy> GetDeviceById(std::uint32_t device_id) {
           std::optional<DeviceProxy> result{};
-          const auto iterator = std::find_if(
-            proxy_list_.cbegin(), proxy_list_.cend(),
-            [&device_id](const auto& tuple_proxy_info) {
+          const auto iterator =
+            std::find_if(proxy_list_.cbegin(), proxy_list_.cend(), [&device_id](const auto& tuple_proxy_info) {
               return std::get<std::uint32_t>(tuple_proxy_info) == device_id;
             });
           if (iterator != std::end(proxy_list_)) {

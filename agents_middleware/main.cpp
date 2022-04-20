@@ -1,4 +1,5 @@
 #include "builder/builder.h"
+#include "builder/commands_buider.h"
 #include <atomic>
 #include <condition_variable>
 #include <glog/logging.h>
@@ -27,31 +28,29 @@ int main(int argc, char* argv[]) {
   sigemptyset(&sigIntHandler.sa_mask);
   sigIntHandler.sa_flags = 0;
   sigaction(SIGINT, &sigIntHandler, NULL);
-  // ...
-  using namespace agents::middleware::builders;
+
   // Create all commands
-  LOG(INFO) << "Loading all commands from DataBase ";
-  const auto& commands_ids_lists = GetAllCommandsIDsFromDataBase();
-  LOG(INFO) << "Commands Ids loaded:  " << std::to_string(commands_ids_lists.size());
-  LOG(INFO) << "Creating all nano commands from id and database ";
-  auto nano_commands_list = CreateAllNanoCommands(commands_ids_lists);
-  [&nano_commands_list]() {};
-  auto all_device_id = LoadDevicesIdsFromConfig();
+  agents::middleware::builders::Commands command_builder{};
+  command_builder.Init();
+
+  auto all_device_id = agents::middleware::builders::LoadDevicesIdsFromConfig();
   LOG(INFO) << "Total Devices loaded from DataBase:  " << std::to_string(all_device_id.size());
 
   LOG(INFO) << "Creating Device Proxy Manager";
-  auto device_proxy_manager = CreateProxyManagerFromConfig();
-  auto device_proxy_manager_ptr = std::make_shared<ProxyManagerType>(device_proxy_manager);
+  auto device_proxy_manager = agents::middleware::builders::CreateProxyManagerFromConfig();
+  auto device_proxy_manager_ptr =
+    std::make_shared<agents::middleware::builders::ProxyManagerType>(device_proxy_manager);
   LOG(INFO) << "Creating Internal Commands";
-  auto internal_commands = CreateAllInternalCommandsHandlers(device_proxy_manager_ptr);
+  auto internal_commands = agents::middleware::builders::CreateAllInternalCommandsHandlers(device_proxy_manager_ptr);
   LOG(INFO) << "Loading Server Options";
-  auto server_options = LoadServerOptions();
+  auto server_options = agents::middleware::builders::LoadServerOptions();
   LOG(INFO) << "Build Message Handlers";
-  auto message_handler = BuildMessageHandler();
+  auto message_handler = agents::middleware::builders::BuildMessageHandler();
   LOG(INFO) << "Configuring Message Handlers";
-  message_handler = ConfigureMessageHandler(message_handler);
+  message_handler = agents::middleware::builders::ConfigureMessageHandler(message_handler);
   LOG(INFO) << "Creating Main Udp server";
-  auto main_udp_server = CreateAndConfigureMainServerFromConfig(message_handler, server_options);
+  auto main_udp_server =
+    agents::middleware::builders::CreateAndConfigureMainServerFromConfig(message_handler, server_options);
   LOG(INFO) << "Initializing Server";
   main_udp_server->Init();
   LOG(INFO) << "Starting Server";

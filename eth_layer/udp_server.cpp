@@ -48,6 +48,7 @@ namespace agents {
       std::int32_t Server::SetFlagToNonBlocking() {
         std::int32_t flags = fcntl(socket_, F_GETFL);
         std::int32_t result = ::fcntl(socket_, F_SETFL, flags | O_NONBLOCK);
+        return result;
       }
 
       std::int32_t Server::ReadFromAllClients(char* buffer, std::size_t max_message_size) const {

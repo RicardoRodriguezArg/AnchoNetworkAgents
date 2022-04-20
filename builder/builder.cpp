@@ -70,7 +70,7 @@ namespace agents {
         return commands_id;
       }
 
-      CommandMessageDict CreateAllNanoCommands(const std::vector<std::uint8_t>& commands_ids_input_list) {
+      CommandMessageDict CreateAllSystemCommands(const std::vector<std::uint8_t>& commands_ids_input_list) {
         std::array<::agent_interface_CommandWithArguments, agents::common::MAX_MESSAGE_COUNT> array_from_factory{};
         std::transform(
           commands_ids_input_list.begin(), commands_ids_input_list.end(), array_from_factory.begin(),
