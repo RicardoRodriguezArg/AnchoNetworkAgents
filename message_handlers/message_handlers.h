@@ -20,9 +20,9 @@ namespace agents {
        *
        * @return     { description_of_the_return_value }
        */
-      template <typename MessageType>
+
       bool RegisterMessageHandler(common::MessageType message_type,
-                                  const std::function<void(const std::string_view&)>& specific_message_handler) {
+                                  std::function<void(const std::string&)> specific_message_handler) {
         const auto message_type_index = static_cast<std::uint8_t>(message_type);
         bool result = false;
         if (message_type_index < message_handler_container_.size()) {
@@ -33,13 +33,15 @@ namespace agents {
       }
 
       void HandleMessage(common::MessageType message_type, const std::string& raw_message) {
-        if (!message_handler_container_.empty()) {
+        if (!message_handler_container_.empty() && message_type < common::MessageType::COUNT) {
+
           const auto& handler = message_handler_container_[static_cast<std::uint8_t>(message_type)];
           if (handler.has_value()) {
             handler.value()(raw_message);
           }
         } else {
-          LOG(ERROR) << "No Handler was!";
+          LOG(ERROR) << "No Message handler defined for Message Type Number: "
+                     << std::to_string(static_cast<std::uint8_t>(message_type));
         }
       }
 

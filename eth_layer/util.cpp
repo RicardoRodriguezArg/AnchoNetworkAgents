@@ -5,26 +5,16 @@ namespace agents {
   namespace communication {
     // TODO: this is the value of AF_UNSPE=, this socket will accept all
     // protocol
-    std::int32_t CreateUDPFileDescriptor() { return ::socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP); }
+    std::int32_t CreateUDPFileDescriptor() { return ::socket(AF_INET, SOCK_DGRAM, 0); }
 
     bool IsValidSocketFileDescriptor(std::int32_t socket_file_descriptor) { return socket_file_descriptor < 0; }
 
-    void FillUDPServerInfo(struct ::addrinfo* socket_info, std::uint16_t port) {
-      // TODO: change to std
-      memset(socket_info, 0, sizeof(*socket_info));
-      // Filling server information
-      const auto ai_family_value = static_cast<std::int32_t>(AF_UNSPEC);
-      socket_info->ai_family = ai_family_value;
-      ; // accpets all protocols
-      socket_info->ai_socktype = ::SOCK_DGRAM;
-      socket_info->ai_protocol = ::IPPROTO_UDP;
-    }
-
     struct ::sockaddr_in CreateServerAddressInfo(std::uint16_t port, const std::string& address) {
       struct ::sockaddr_in server_addr;
+      std::memset(&server_addr, 0, sizeof(server_addr));
       server_addr.sin_family = AF_INET;
       server_addr.sin_port = htons(port);
-      server_addr.sin_addr.s_addr = inet_addr(address.c_str());
+      server_addr.sin_addr.s_addr = INADDR_ANY;
       return server_addr;
     }
 

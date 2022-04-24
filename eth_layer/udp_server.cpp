@@ -38,12 +38,15 @@ namespace agents {
         LOG(INFO) << "Init sockets files descriptors";
         InitSocketFileDescriptor();
         server_address_in_ = CreateServerAddressInfo(port_, server_ip_address_);
+        LOG(INFO) << "Starting Server at Ip: " << server_ip_address_ << " Port: " << std::to_string(port_);
         BindSocketWithServerAddress();
         LOG(INFO) << "Set socket as non blocking";
         const auto result = SetFlagToNonBlocking();
         LOG(INFO) << "Set socket as non blocking - Result" << std::to_string(result);
         is_operating_ = true;
       }
+
+      bool Server::IsOperational() const { return is_operating_; }
 
       std::int32_t Server::SetFlagToNonBlocking() {
         std::int32_t flags = fcntl(socket_, F_GETFL);
@@ -52,13 +55,17 @@ namespace agents {
       }
 
       std::int32_t Server::ReadFromAllClients(char* buffer, std::size_t max_message_size) const {
+        LOG(INFO) << "Read from all clients";
         struct sockaddr_in client_addr;
+        LOG(INFO) << "Cleaning input buffer";
         std::memset(buffer, '\0', sizeof(*buffer));
+        std::memset(&client_addr, 0, sizeof(client_addr));
         std::uint32_t client_struct_length = sizeof(client_addr);
-        const auto last_message_byte =
-          ::recvfrom(socket_, buffer, sizeof(*buffer), 0, (struct sockaddr*)&client_addr, &client_struct_length);
+
+        const auto last_message_byte = ::recvfrom(
+          socket_, buffer, max_message_size, MSG_WAITALL, (struct sockaddr*)&client_addr, &client_struct_length);
         // buffer[last_message_byte] = '\0';
-        LOG(INFO) << "last message byte: " << std::to_string(last_message_byte);
+        LOG(INFO) << "READ FROM ALL CLIENT last message byte: " << std::to_string(last_message_byte);
         return last_message_byte;
       }
 

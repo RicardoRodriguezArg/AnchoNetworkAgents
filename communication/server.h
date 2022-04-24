@@ -64,12 +64,14 @@ namespace agents {
           const auto number_of_bytes = udp_server_.ReadFromAllClients(buffer_.begin(), agents::utils::MAX_BUFFER_SIZE);
           LOG(INFO) << "Number of bytes: " << std::to_string(number_of_bytes);
           if (number_of_bytes > 0) {
+            LOG(INFO) << "Parsing Message GetMessageType: ";
             const auto message_type_opt =
               agents::utils::GetPackectMessageType(buffer_.begin() + agents::utils::MESSAGE_SIZE_DEFAULT);
             if (message_type_opt.has_value()) {
+              LOG(INFO) << "Parsing Stage 2";
               std::string raw_message_copy{buffer_.begin(), buffer_.begin() + number_of_bytes};
-              // TODO:Create Function to handle this transformation
-              //// Get Message Type
+              //  // TODO:Create Function to handle this transformation
+              // Get Message Type
               const auto message_type = static_cast<agents::common::MessageType>(message_type_opt.value());
               message_handler_.HandleMessage(message_type, raw_message_copy);
             }

@@ -18,7 +18,7 @@ class AgentStub:
     self.__server_port = server_port
     self.__buffer_size = buffer_size
     self.__udp_sock = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-    self.__udp_sock.bind((self.__server_ip, self.__server_port))
+    self.__udp_sock.bind((self.__server_ip, 50100))
     self.__udp_sock.settimeout(1)
     self.__wait_for_response = False
     self.__response_result = None
@@ -81,7 +81,8 @@ class AgentStub:
     return self.__response_result
 
   def SendCmdToServer(self):
-    print("Sending Command to Server")
+    print('Sending Command to Main C++ Server')
+    print('Sending to Ip: {} and port: {}'.format(self.__server_ip, self.__server_port))
     result = False
     if not self.__cmd_proto:
       print("Exit due to empty protocol buffer")
@@ -89,6 +90,7 @@ class AgentStub:
       return result
     message = self.__cmd_proto.SerializeToString()
     packed_data = PackBinaryData(message)
+    print("Sending message to Ip: {} Port: {}".format(self.__server_ip, self.__server_port))
     self.__udp_sock.sendto(packed_data, (self.__server_ip, self.__server_port))
     self.__UpdatingExecutionResultStatus("Command Sent")
     if self.__wait_for_response:

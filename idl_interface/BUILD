@@ -5,8 +5,7 @@ cc_library(
     name = "nano_interface",
     hdrs = glob(["*.h"]),
     srcs = glob(["*.c"]),
-    visibility = [                  
-                  "//agent_server:__pkg__"      ,
+    visibility = ["//agent_server:__pkg__"      ,
                   "//utils/tests:__pkg__"       ,
                   "//utils:__pkg__"             ,
                   "//message_handlers:__pkg__"  ,

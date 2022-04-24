@@ -14,7 +14,7 @@ cc_library(
              "//commands:commands",
              "//devices_proxys:devices_proxys",
              "//data_processors:data_processors",
-             "//eth_layer:eth_layer",
+             "//eth_layer:ancho_net_middleware_eth_layer",
              "//communication:server",
            ],
 

@@ -8,16 +8,17 @@ from interface.message_interface_idl_pb2 import Telemetry
 from interface.message_interface_idl_pb2 import Header
 
 def PackBinaryData(string_to_encode):
-    #CMD_PROTO -->
-    values = (int(len(string_to_encode)), 5,string_to_encode)
+    #TODO: use Interface definition to assing this value
+    #CMD_VALUE = 1
+    values = (int(len(string_to_encode)), 1,string_to_encode)
     """
     General Protocol for encoding binary data on enconded serialize protocol buffer object
     """
-    packer = struct.Struct('I I s')
+    packer = struct.Struct('IIs')
     return  packer.pack(*values)
 
 def UnpackBinaryData(packet_data):
-    unpacker = struct.Struct('I I s')
+    unpacker = struct.Struct('IIs')
     result = unpacker.unpack(packet_data)
     return result
 
