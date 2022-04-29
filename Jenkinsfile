@@ -9,11 +9,15 @@ pipeline {
             {
                 dir("${env.WORKSPACE}")
                 {
-                    echo 'Executing updating interface scripts - C Nanoº'
+                    echo 'Executing updating interface scripts - C Nano'
                     sh 'cd ./idl_interface'
-                    sh 'sudo ./generate_nano_proto_c_interface.sh'
+                    sh '''#!/bin/bash
+                    sudo ./generate_nano_proto_c_interface.sh
+                    '''
                     echo 'Executing updating interface scripts - Python ProtocolBuffer'
-                    sh 'sudo ./generate_proto_interface.sh'
+                    sh '''#!/bin/bash
+                    sudo ./generate_proto_interface.sh
+                    '''
                     
                 }
             }
