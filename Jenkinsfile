@@ -64,7 +64,7 @@ pipeline {
                 {
                     echo 'Generating all tests Coverage Report'
                     sh '''#!/bin/bash
-                    bazel coverage -s --cxxopt='-std=c++2a' --instrument_test_targets --experimental_cc_coverage --combined_report=lcov --coverage_report_generator=@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main //..
+                    bazel coverage -s --cxxopt='-std=c++2a' --instrument_test_targets --experimental_cc_coverage --combined_report=lcov --coverage_report_generator=@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main //...
                     '''
                     publishCoverage adapters: [cobertura('./testlogs/utils/tests/communication_tests/coverage.dat')], sourceFileResolver: sourceFiles('NEVER_STORE')
                 }
