@@ -7,16 +7,16 @@ pipeline {
         stage('Updating Interface data') {
             steps 
             {
-                dir("${env.WORKSPACE}")
+                dir("${env.WORKSPACE}/idl_interface")
                 {
                     echo 'Executing updating interface scripts - C Nano'
-                    sh 'cd ./idl_interface'
+                    
                     sh '''#!/bin/bash
-                    ./generate_nano_proto_c_interface.sh
+                    generate_nano_proto_c_interface.sh
                     '''
                     echo 'Executing updating interface scripts - Python ProtocolBuffer'
                     sh '''#!/bin/bash
-                    ./generate_proto_interface.sh
+                    generate_proto_interface.sh
                     '''
                     
                 }
