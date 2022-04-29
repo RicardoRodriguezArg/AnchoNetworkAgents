@@ -12,11 +12,11 @@ pipeline {
                     echo 'Executing updating interface scripts - C Nano'
                     sh 'cd ./idl_interface'
                     sh '''#!/bin/bash
-                    sudo ./generate_nano_proto_c_interface.sh
+                    ./generate_nano_proto_c_interface.sh
                     '''
                     echo 'Executing updating interface scripts - Python ProtocolBuffer'
                     sh '''#!/bin/bash
-                    sudo ./generate_proto_interface.sh
+                    ./generate_proto_interface.sh
                     '''
                     
                 }
