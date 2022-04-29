@@ -44,6 +44,7 @@ pipeline {
                     echo 'Testing - Comunication Tests'
                     sh '''#!/bin/bash
                     bazel test --cxxopt='-std=c++2a' //utils/tests:communication_tests
+                    bazel test --cxxopt='-std=c++2a' //eth_layer/test:eth_layer_tests
                     '''
                 }
             }
