@@ -14,10 +14,3 @@ cc_library(
                   "//builder:__pkg__"
                  ],
             )
-
-py_library(
-  name = "message_interface_idl_pb2",
-  srcs = ["message_interface_idl_pb2.py"],
-  srcs_version = "PY3",
-  visibility = ["//visibility:public"],
-)

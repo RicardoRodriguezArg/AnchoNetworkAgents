@@ -1,7 +1,7 @@
 #ifndef __MESSAGE_HANDLER_H_
 #define __MESSAGE_HANDLER_H_
+#include "commons/commons.h"
 #include <glog/logging.h>
-
 namespace agents {
   namespace handlers {
 

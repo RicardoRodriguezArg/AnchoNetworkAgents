@@ -16,6 +16,7 @@ cc_library(
              "//data_processors:data_processors",
              "//eth_layer:ancho_net_middleware_eth_layer",
              "//communication:server",
+             "//interface:nano_interface"
            ],
 
             )

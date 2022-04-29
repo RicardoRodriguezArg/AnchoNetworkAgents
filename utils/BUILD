@@ -11,6 +11,7 @@ cc_library(
                   "//eth_layer:__pkg__",
                   "//agents_middleware:__pkg__",
                   "//communication:__pkg__",
+                  "//message_handlers/tests:__pkg__",
                   ],
     deps = ["//commons:commons",]
 )
