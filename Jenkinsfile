@@ -13,7 +13,8 @@ pipeline {
                     
                     sh '''#!/bin/bash
                     ls -ls
-                    generate_nano_proto_c_interface.sh
+                    chmod +x generate_nano_proto_c_interface.sh
+                    ./generate_nano_proto_c_interface.sh
                     '''
                     echo 'Executing updating interface scripts - Python ProtocolBuffer'
                     sh '''#!/bin/bash
