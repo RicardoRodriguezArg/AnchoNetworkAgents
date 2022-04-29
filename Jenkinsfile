@@ -12,10 +12,12 @@ pipeline {
                     echo 'Executing updating interface scripts - C Nano'
                     
                     sh '''#!/bin/bash
+                    ls -ls
                     generate_nano_proto_c_interface.sh
                     '''
                     echo 'Executing updating interface scripts - Python ProtocolBuffer'
                     sh '''#!/bin/bash
+                    ls -ls
                     generate_proto_interface.sh
                     '''
                     
