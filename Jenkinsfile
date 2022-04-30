@@ -55,7 +55,7 @@ pipeline {
             }
             }//End step 2
 
-            stage('C++ Agent Middleware - Create Reports') 
+            stage('Agent Middleware - Create Reports') 
             {
                 steps 
                 {
