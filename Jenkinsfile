@@ -41,7 +41,7 @@ pipeline {
             }
             }//End Step 1
 
-            stage('C++ Server - Agent Middleware - All Testing') {
+            stage('C++ Server - Agent Middleware - Running all C++ Testing') {
 
             steps 
             {
@@ -49,36 +49,38 @@ pipeline {
                 {
                     echo 'Testing - Comunication Tests'
                     sh '''#!/bin/bash
-                    bazel test --cxxopt='-std=c++2a' //utils/tests:communication_tests
-                    bazel test --cxxopt='-std=c++2a' //eth_layer/test:eth_layer_tests
+                    bazel test -c dbg -s --cxxopt='-std=c++2a' //...
                     '''
                 }
             }
             }//End step 2
 
-             stage('C++ Agent Middleware - Create Coverage Report') {
-
-            steps 
+            stage('C++ Agent Middleware - Create Reports') 
             {
-                dir("${env.WORKSPACE}")
+                steps 
                 {
-                    echo 'Generating all tests Coverage Report'
-                    sh '''#!/bin/bash
-                    bazel coverage -s --cxxopt='-std=c++2a' --instrument_test_targets --experimental_cc_coverage --combined_report=lcov --coverage_report_generator=@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main //...
-                    mkdir coverage-report
-                    genhtml -o coverage-report bazel-out/_coverage/_coverage_report.dat
-                    '''
-                    // publish html
-                    publishHTML target: [
-                                         allowMissing: false,
-                                         alwaysLinkToLastBuild: false,
-                                         keepAll: true,
-                                         reportDir: 'coverage-report',
-                                         reportFiles: 'index.html',
-                                         reportName: 'LCov Report'
-                                        ]
+                    dir("${env.WORKSPACE}")
+                    {
+                        echo 'Generating all tests Coverage Report'
+                        sh '''#!/bin/bash
+                        bazel coverage -c dbg -s --cxxopt='-std=c++2a' --instrument_test_targets --experimental_cc_coverage --combined_report=lcov --coverage_report_generator=@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main //...
+                        mkdir coverage-report
+                        genhtml -o coverage-report bazel-out/_coverage/_coverage_report.dat
+                        '''
+                        // publish html
+                        publishHTML target: [
+                                             allowMissing: false,
+                                             alwaysLinkToLastBuild: true,
+                                             keepAll: true,
+                                             reportDir: 'coverage-report',
+                                             reportFiles: 'index.html',
+                                             reportName: 'LCov Report'
+                                            ]
+                        sh 'sloccount --duplicates --wide --details . > sloccount.sc'
+                        sloccountPublish encoding: '', pattern: ''
+                    }
+
                 }
-            }
             }//End step 2
 
 
