@@ -65,10 +65,18 @@ pipeline {
                     echo 'Generating all tests Coverage Report'
                     sh '''#!/bin/bash
                     bazel coverage -s --cxxopt='-std=c++2a' --instrument_test_targets --experimental_cc_coverage --combined_report=lcov --coverage_report_generator=@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main //...
+                    mkdir coverage-report
+                    genhtml -o coverage-report bazel-out/_coverage/_coverage_report.dat
                     '''
-                     // publish html
-                    
-                    publishCoverage adapters: [cobertura('bazel-testlogs/*/*/*/coverage.dat')], sourceFileResolver: sourceFiles('NEVER_STORE')
+                    // publish html
+                    publishHTML target: [
+                                         allowMissing: false,
+                                         alwaysLinkToLastBuild: false,
+                                         keepAll: true,
+                                         reportDir: 'coverage-report',
+                                         reportFiles: 'index.html',
+                                         reportName: 'LCov Report'
+                                        ]
                 }
             }
             }//End step 2
