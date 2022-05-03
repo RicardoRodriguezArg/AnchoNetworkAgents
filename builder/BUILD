@@ -2,7 +2,7 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_library(
     name = "builder",
-    hdrs = ["builder.h", "commands_buider.h"],
+    hdrs = ["builder.h", "commands_buider.h", "message_handler_buider.h"],
     srcs = ["builder.cpp"],
     visibility = ["//agents_middleware:__pkg__",
                  ],
@@ -16,7 +16,10 @@ cc_library(
              "//data_processors:data_processors",
              "//eth_layer:ancho_net_middleware_eth_layer",
              "//communication:server",
-             "//interface:nano_interface"
+             "//interface:nano_interface",
+             "//interface:proto_interface",
+
+
            ],
 
             )

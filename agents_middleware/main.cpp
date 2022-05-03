@@ -18,6 +18,7 @@ void shutdownServerHandler(int code_value) {
 int main(int argc, char* argv[]) {
   // TODO: Add Option handler from command line option
   // Configuration
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
   FLAGS_max_log_size = 300;
   FLAGS_logtostderr = true;
   FLAGS_log_dir = std::move(std::string("./logs/"));
@@ -70,6 +71,7 @@ int main(int argc, char* argv[]) {
   // Create External Command Executor
   // Create Event Data Dispatcher
   // Create Telemetry Data Dispatcher
+  google::protobuf::ShutdownProtobufLibrary();
 
   return 0;
 }

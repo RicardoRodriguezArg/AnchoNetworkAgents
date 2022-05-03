@@ -8,6 +8,7 @@ from interface.message_interface_idl_pb2 import Header
 from agents_webapi_py.src.agents_proxy_stub_utils import PackBinaryData
 from agents_webapi_py.src.agents_proxy_stub_utils import UnpackBinaryData
 from agents_webapi_py.src.agents_proxy_stub_utils import ProcessProtoMessage
+from google.protobuf import text_format
 import logging
 
 class AgentStub:
@@ -88,7 +89,10 @@ class AgentStub:
       print("Exit due to empty protocol buffer")
       self.__UpdatingExecutionResultStatus("Cmd Proto Empty")
       return result
+    #text_format.MessageToString(self.__cmd_proto)
+    print(self.__cmd_proto)
     message = self.__cmd_proto.SerializeToString()
+    self.__cmd_proto.Clear()
     packed_data = PackBinaryData(message)
     print("Sending message to Ip: {} Port: {}".format(self.__server_ip, self.__server_port))
     self.__udp_sock.sendto(packed_data, (self.__server_ip, self.__server_port))

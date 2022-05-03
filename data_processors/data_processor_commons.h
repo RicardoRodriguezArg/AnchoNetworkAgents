@@ -1,6 +1,6 @@
 #ifndef __AGENTS_MIDDLEWARE_DATA_PROCESSOR_COMMONS_H_
 #define __AGENTS_MIDDLEWARE_DATA_PROCESSOR_COMMONS_H_
-#include "interface/message_interface_idl.pb.h"
+#include "interface/message_interface_idl.pb.nano.h"
 #include "interface/pb_decode.h"
 #include "interface/pb_encode.h"
 #include <cstring>

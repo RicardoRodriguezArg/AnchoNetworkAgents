@@ -1,4 +1,8 @@
-from agents_webapi_py.src.agents_stub import AgentStub
+from interface.message_interface_idl_pb2 import CommandWithArguments
+from interface.message_interface_idl_pb2 import Header
+from agents_webapi_py.src.agents_proxy_stub_utils import PackBinaryData
+from agents_webapi_py.src.agents_proxy_stub_utils import UnpackBinaryData
+from agents_webapi_py.src.agents_proxy_stub_utils import ProcessProtoMessage
 
 import logging
 

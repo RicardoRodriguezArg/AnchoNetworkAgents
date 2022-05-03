@@ -1,6 +1,7 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
 
 
+
 cc_library(
     name = "nano_interface",
     hdrs = glob(["*.h"]),
@@ -15,6 +16,21 @@ cc_library(
                   "//builder:__pkg__"
                  ],
             )
+
+cc_library(
+    name = "proto_interface",
+    hdrs = ["message_interface_idl.pb.h"],
+    srcs = ["message_interface_idl.pb.cc"],
+    visibility = [                  
+                  "//builder:__pkg__"
+                 ],
+    deps=[
+          "@com_google_protobuf//:protobuf",
+          "@com_google_protobuf//:protobuf_headers"
+          ]
+           )
+
+
 
 py_library(
   name = "message_interface_idl_pb2",

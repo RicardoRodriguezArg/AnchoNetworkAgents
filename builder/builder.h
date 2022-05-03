@@ -3,6 +3,7 @@
 
 #include "commands/commands.h"
 #include "interface/message_interface_idl.pb.h"
+#include "interface/message_interface_idl.pb.nano.h"
 // devices proxys
 #include "commons/commons.h"
 #include "data_processors/data_messages.h"

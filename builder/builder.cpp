@@ -1,7 +1,6 @@
 #include "builder.h"
 #include "commons/commons.h"
-#include "interface/pb_decode.h"
-#include "interface/pb_encode.h"
+#include "message_handler_buider.h"
 #include <glog/logging.h>
 #include <stdexcept>
 
@@ -105,14 +104,7 @@ namespace agents {
                                request_current_status);
       }
 
-      handlers::MessageHandlerManger BuildMessageHandler() {
-        handlers::MessageHandlerManger message_handler{};
-        std::function<void(const std::string&)> command_handler = [](const std::string& raw_data) {
-          LOG(INFO) << "Deserealizing Nano Commands";
-        };
-        message_handler.RegisterMessageHandler(agents::common::MessageType::COMAND, command_handler);
-        return message_handler;
-      }
+      handlers::MessageHandlerManger BuildMessageHandler() { return builders::MessageHandlers::Build(); }
 
       handlers::MessageHandlerManger ConfigureMessageHandler(handlers::MessageHandlerManger message_handler) {
         return message_handler;

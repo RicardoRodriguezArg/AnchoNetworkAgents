@@ -9,8 +9,10 @@ from interface.message_interface_idl_pb2 import Header
 
 def PackBinaryData(string_to_encode):
     #TODO: use Interface definition to assing this value
-    #CMD_VALUE = 1
-    values = (int(len(string_to_encode)), 1,string_to_encode)
+    #CMD_NANO VALUE = 1
+    ##CMD_PROTO VALUE = 2
+    print("Message Length Size: {}".format(int(len(string_to_encode))))
+    values = (int(len(string_to_encode)), 2,string_to_encode)
     """
     General Protocol for encoding binary data on enconded serialize protocol buffer object
     """
