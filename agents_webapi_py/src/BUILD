@@ -44,7 +44,27 @@ py_library(
 
 py_test(
     name = "agents_webapi_app_tests_one",
-    srcs = ["test/agents_webapi_app_tests_one.py"],
+    srcs = ["test/agents_webapi_app_tests_one.py",
+            "test/agents_messages_wrapper_tests.py"
+           ],
+    deps = [
+        "agents_webapi_app",
+        "agents_proxy",
+        requirement("flask"),
+        requirement("jinja2"),
+        requirement("werkzeug"),
+        requirement("itsdangerous"),
+        requirement("click"),
+        requirement("pytest"),
+        requirement("protobuf"),
+    ],
+)
+
+py_test(
+    name = "agents_messages_wrapper_tests",
+    srcs = ["test/agents_webapi_app_tests_one.py",
+            "test/agents_messages_wrapper_tests.py"
+           ],
     deps = [
         "agents_webapi_app",
         "agents_proxy",
@@ -61,8 +81,9 @@ py_test(
 test_suite(
     name = "agents_webapi_app_tests_suite",
     tests = [
-        "agents_webapi_app_tests_one",
-    ],
+             "agents_webapi_app_tests_one",
+             "agents_messages_wrapper_tests"
+             ],
 )
 
 py_library(

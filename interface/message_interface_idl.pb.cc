@@ -180,7 +180,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_message_5finterface_5fidl_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\033message_interface_idl.proto\022\017agent_int"
-  "erface\"\311\005\n\006Header\022\027\n\017target_agent_id\030\001 \002"
+  "erface\"\334\005\n\006Header\022\027\n\017target_agent_id\030\001 \002"
   "(\007\022\027\n\017source_agent_id\030\002 \002(\007\022\023\n\013week_numb"
   "er\030\003 \002(\007\022\014\n\004year\030\004 \002(\007\022\021\n\ttimestamp\030\005 \002("
   "\002\022\023\n\013request_ack\030\006 \002(\010\022>\n\022source_device_"
@@ -192,23 +192,24 @@ const char descriptor_table_protodef_message_5finterface_5fidl_2eproto[] PROTOBU
   "e.Header.MessageType\"s\n\nDeviceType\022\016\n\nUD"
   "P_SERVER\020\000\022\016\n\nTCP_SERVER\020\001\022\022\n\016SERVER_UDP"
   "_X86\020\002\022\022\n\016ROUTER_TP_LINK\020\003\022\n\n\006CAMERA\020\004\022\021"
-  "\n\rPYTHON_CLIENT\020\005\"d\n\010DeviceId\022\033\n\027SERVER_"
+  "\n\rPYTHON_CLIENT\020\005\"w\n\010DeviceId\022\033\n\027SERVER_"
   "UDP_X86_TALCA_ID\020\000\022\034\n\030WEB_API_PYTHON_CLI"
-  "ENT_ID\020\001\022\035\n\031GENERIC_TP_LINK_ROUTER_ID\020\002\""
-  "y\n\013MessageType\022\t\n\005EVENT\020\000\022\013\n\007COMMAND\020\001\022\010"
-  "\n\004DATA\020\002\022\t\n\005VIDEO\020\003\022\017\n\013EVENT_PROTO\020\004\022\021\n\r"
-  "COMMAND_PROTO\020\005\022\016\n\nDATA_PROTO\020\006\022\t\n\005COUNT"
-  "\020\007\"Q\n\005Event\022\'\n\006header\030\001 \002(\0132\027.agent_inte"
-  "rface.Header\022\n\n\002id\030\002 \002(\007\022\023\n\013description\030"
-  "\003 \002(\t\"\362\001\n\024CommandWithArguments\022\'\n\006header"
+  "ENT_ID\020\001\022\035\n\031GENERIC_TP_LINK_ROUTER_ID\020\002\022"
+  "\021\n\rMAIN_WEB_SITE\020\003\"y\n\013MessageType\022\t\n\005EVE"
+  "NT\020\000\022\013\n\007COMMAND\020\001\022\010\n\004DATA\020\002\022\t\n\005VIDEO\020\003\022\017"
+  "\n\013EVENT_PROTO\020\004\022\021\n\rCOMMAND_PROTO\020\005\022\016\n\nDA"
+  "TA_PROTO\020\006\022\t\n\005COUNT\020\007\"Q\n\005Event\022\'\n\006header"
   "\030\001 \002(\0132\027.agent_interface.Header\022\n\n\002id\030\002 "
-  "\002(\007\022I\n\020number_arg_count\030\003 \002(\0162/.agent_in"
-  "terface.CommandWithArguments.Arguments\022\014"
-  "\n\004name\030\004 \003(\t\022\r\n\005value\030\005 \003(\t\"=\n\tArguments"
-  "\022\007\n\003ONE\020\000\022\007\n\003TWO\020\001\022\t\n\005THREE\020\002\022\010\n\004FOUR\020\003\022"
-  "\t\n\005TOTAL\020\004\"]\n\tTelemetry\022\'\n\006header\030\001 \002(\0132"
-  "\027.agent_interface.Header\022\n\n\002id\030\002 \002(\007\022\014\n\004"
-  "name\030\003 \003(\t\022\r\n\005value\030\004 \003(\t"
+  "\002(\007\022\023\n\013description\030\003 \002(\t\"\362\001\n\024CommandWith"
+  "Arguments\022\'\n\006header\030\001 \002(\0132\027.agent_interf"
+  "ace.Header\022\n\n\002id\030\002 \002(\007\022I\n\020number_arg_cou"
+  "nt\030\003 \002(\0162/.agent_interface.CommandWithAr"
+  "guments.Arguments\022\014\n\004name\030\004 \003(\t\022\r\n\005value"
+  "\030\005 \003(\t\"=\n\tArguments\022\007\n\003ONE\020\000\022\007\n\003TWO\020\001\022\t\n"
+  "\005THREE\020\002\022\010\n\004FOUR\020\003\022\t\n\005TOTAL\020\004\"]\n\tTelemet"
+  "ry\022\'\n\006header\030\001 \002(\0132\027.agent_interface.Hea"
+  "der\022\n\n\002id\030\002 \002(\007\022\014\n\004name\030\003 \003(\t\022\r\n\005value\030\004"
+  " \003(\t"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_message_5finterface_5fidl_2eproto_deps[1] = {
 };
@@ -221,7 +222,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_mes
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_message_5finterface_5fidl_2eproto_once;
 static bool descriptor_table_message_5finterface_5fidl_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_message_5finterface_5fidl_2eproto = {
-  &descriptor_table_message_5finterface_5fidl_2eproto_initialized, descriptor_table_protodef_message_5finterface_5fidl_2eproto, "message_interface_idl.proto", 1185,
+  &descriptor_table_message_5finterface_5fidl_2eproto_initialized, descriptor_table_protodef_message_5finterface_5fidl_2eproto, "message_interface_idl.proto", 1204,
   &descriptor_table_message_5finterface_5fidl_2eproto_once, descriptor_table_message_5finterface_5fidl_2eproto_sccs, descriptor_table_message_5finterface_5fidl_2eproto_deps, 4, 0,
   schemas, file_default_instances, TableStruct_message_5finterface_5fidl_2eproto::offsets,
   file_level_metadata_message_5finterface_5fidl_2eproto, 4, file_level_enum_descriptors_message_5finterface_5fidl_2eproto, file_level_service_descriptors_message_5finterface_5fidl_2eproto,
@@ -268,6 +269,7 @@ bool Header_DeviceId_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -278,6 +280,7 @@ bool Header_DeviceId_IsValid(int value) {
 constexpr Header_DeviceId Header::SERVER_UDP_X86_TALCA_ID;
 constexpr Header_DeviceId Header::WEB_API_PYTHON_CLIENT_ID;
 constexpr Header_DeviceId Header::GENERIC_TP_LINK_ROUTER_ID;
+constexpr Header_DeviceId Header::MAIN_WEB_SITE;
 constexpr Header_DeviceId Header::DeviceId_MIN;
 constexpr Header_DeviceId Header::DeviceId_MAX;
 constexpr int Header::DeviceId_ARRAYSIZE;

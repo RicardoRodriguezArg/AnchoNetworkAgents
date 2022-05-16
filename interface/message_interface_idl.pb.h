@@ -107,11 +107,12 @@ inline bool Header_DeviceType_Parse(
 enum Header_DeviceId : int {
   Header_DeviceId_SERVER_UDP_X86_TALCA_ID = 0,
   Header_DeviceId_WEB_API_PYTHON_CLIENT_ID = 1,
-  Header_DeviceId_GENERIC_TP_LINK_ROUTER_ID = 2
+  Header_DeviceId_GENERIC_TP_LINK_ROUTER_ID = 2,
+  Header_DeviceId_MAIN_WEB_SITE = 3
 };
 bool Header_DeviceId_IsValid(int value);
 constexpr Header_DeviceId Header_DeviceId_DeviceId_MIN = Header_DeviceId_SERVER_UDP_X86_TALCA_ID;
-constexpr Header_DeviceId Header_DeviceId_DeviceId_MAX = Header_DeviceId_GENERIC_TP_LINK_ROUTER_ID;
+constexpr Header_DeviceId Header_DeviceId_DeviceId_MAX = Header_DeviceId_MAIN_WEB_SITE;
 constexpr int Header_DeviceId_DeviceId_ARRAYSIZE = Header_DeviceId_DeviceId_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Header_DeviceId_descriptor();
@@ -340,6 +341,8 @@ class Header :
     Header_DeviceId_WEB_API_PYTHON_CLIENT_ID;
   static constexpr DeviceId GENERIC_TP_LINK_ROUTER_ID =
     Header_DeviceId_GENERIC_TP_LINK_ROUTER_ID;
+  static constexpr DeviceId MAIN_WEB_SITE =
+    Header_DeviceId_MAIN_WEB_SITE;
   static inline bool DeviceId_IsValid(int value) {
     return Header_DeviceId_IsValid(value);
   }
