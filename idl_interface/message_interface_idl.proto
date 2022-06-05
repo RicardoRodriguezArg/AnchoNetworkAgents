@@ -30,10 +30,10 @@ message Header{
     enum MessageType{
         EVENT = 0;
         COMMAND = 1;
-        DATA = 2;
-        VIDEO = 3;
-        EVENT_PROTO = 4;
-        COMMAND_PROTO = 5;
+        COMMAND_PROTO = 2;
+        DATA = 3;
+        VIDEO = 4;
+        EVENT_PROTO = 5;
         DATA_PROTO = 6;
         COUNT = 7;
     }

@@ -9,9 +9,11 @@ app = Flask(__name__)
 
 logging.basicConfig(filename='agents-webapi-server.log', level=logging.INFO)
 
+
 @app.route('/agents-webapi/', methods=['GET'])
 def Welcome():
     return 'Agents WebApi'
+
 
 @app.route('/agents-webapi/cmd/', methods=['POST'])
 def commands():
@@ -25,14 +27,14 @@ def commands():
         argument_name = arguments[index]['name']
         command_value = arguments[index]['value']
         print("name:  {} value: {}".format(argument_name, command_value))
-    #executing command on agents-middleware
+    # executing command on agents-middleware
     print("Sending Command To Server")
     response_from_server = SendCommandToServer(webapi_command)
     execution_status = response_from_server[0]
     command_response = response_from_server[1]
-    return {'execution_status':execution_status, 'command_response':command_response}
+    return {'execution_status': execution_status, 'command_response': command_response}
 
 
 if __name__ == '__main__':
     logging.info('Agents WebApi init at port 5000')
-    app.run(host='127.0.0.1', port=5000,debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)

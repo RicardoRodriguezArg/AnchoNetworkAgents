@@ -132,10 +132,10 @@ inline bool Header_DeviceId_Parse(
 enum Header_MessageType : int {
   Header_MessageType_EVENT = 0,
   Header_MessageType_COMMAND = 1,
-  Header_MessageType_DATA = 2,
-  Header_MessageType_VIDEO = 3,
-  Header_MessageType_EVENT_PROTO = 4,
-  Header_MessageType_COMMAND_PROTO = 5,
+  Header_MessageType_COMMAND_PROTO = 2,
+  Header_MessageType_DATA = 3,
+  Header_MessageType_VIDEO = 4,
+  Header_MessageType_EVENT_PROTO = 5,
   Header_MessageType_DATA_PROTO = 6,
   Header_MessageType_COUNT = 7
 };
@@ -373,14 +373,14 @@ class Header :
     Header_MessageType_EVENT;
   static constexpr MessageType COMMAND =
     Header_MessageType_COMMAND;
+  static constexpr MessageType COMMAND_PROTO =
+    Header_MessageType_COMMAND_PROTO;
   static constexpr MessageType DATA =
     Header_MessageType_DATA;
   static constexpr MessageType VIDEO =
     Header_MessageType_VIDEO;
   static constexpr MessageType EVENT_PROTO =
     Header_MessageType_EVENT_PROTO;
-  static constexpr MessageType COMMAND_PROTO =
-    Header_MessageType_COMMAND_PROTO;
   static constexpr MessageType DATA_PROTO =
     Header_MessageType_DATA_PROTO;
   static constexpr MessageType COUNT =

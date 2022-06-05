@@ -196,8 +196,8 @@ const char descriptor_table_protodef_message_5finterface_5fidl_2eproto[] PROTOBU
   "UDP_X86_TALCA_ID\020\000\022\034\n\030WEB_API_PYTHON_CLI"
   "ENT_ID\020\001\022\035\n\031GENERIC_TP_LINK_ROUTER_ID\020\002\022"
   "\021\n\rMAIN_WEB_SITE\020\003\"y\n\013MessageType\022\t\n\005EVE"
-  "NT\020\000\022\013\n\007COMMAND\020\001\022\010\n\004DATA\020\002\022\t\n\005VIDEO\020\003\022\017"
-  "\n\013EVENT_PROTO\020\004\022\021\n\rCOMMAND_PROTO\020\005\022\016\n\nDA"
+  "NT\020\000\022\013\n\007COMMAND\020\001\022\021\n\rCOMMAND_PROTO\020\002\022\010\n\004"
+  "DATA\020\003\022\t\n\005VIDEO\020\004\022\017\n\013EVENT_PROTO\020\005\022\016\n\nDA"
   "TA_PROTO\020\006\022\t\n\005COUNT\020\007\"Q\n\005Event\022\'\n\006header"
   "\030\001 \002(\0132\027.agent_interface.Header\022\n\n\002id\030\002 "
   "\002(\007\022\023\n\013description\030\003 \002(\t\"\362\001\n\024CommandWith"
@@ -308,10 +308,10 @@ bool Header_MessageType_IsValid(int value) {
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
 constexpr Header_MessageType Header::EVENT;
 constexpr Header_MessageType Header::COMMAND;
+constexpr Header_MessageType Header::COMMAND_PROTO;
 constexpr Header_MessageType Header::DATA;
 constexpr Header_MessageType Header::VIDEO;
 constexpr Header_MessageType Header::EVENT_PROTO;
-constexpr Header_MessageType Header::COMMAND_PROTO;
 constexpr Header_MessageType Header::DATA_PROTO;
 constexpr Header_MessageType Header::COUNT;
 constexpr Header_MessageType Header::MessageType_MIN;
