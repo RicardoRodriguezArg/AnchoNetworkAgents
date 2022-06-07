@@ -31,7 +31,37 @@ class AgentStub:
     def command_proto(self):
         return self.__cmd_proto
 
+    def __check_argument_count(self, message_dict_from_webapi):
+        argument_count = int(message_dict_from_webapi["argument_count"])
+        arguments = message_dict_from_webapi['arguments']
+        print("arguments: {}".format(len(arguments)))
+        print("argument_count".format(argument_count))
+        print("checking arg count: {}".format(len(arguments) == argument_count))
+        return len(arguments) == argument_count
+
+    def __check_proper_arguments_in_message(self, message_from_webapi):
+        arguments_to_check = ["id", "argument_count",
+                              "source", "target", "request_ack", "arguments"]
+        result = True
+        for argument in arguments_to_check:
+            if not argument in message_from_webapi:
+                result = False
+                break
+        return result
+
+    def __is_valid_webapi_message(self, dictionary_message_from_webapi):
+        if len(dictionary_message_from_webapi) == 0:
+            return False
+        elif not self.__check_proper_arguments_in_message(dictionary_message_from_webapi):
+            return False
+        elif not self.__check_argument_count(dictionary_message_from_webapi):
+            return False
+        return True
+
     def ConvertToCmdProtoMessage(self, message_from_webapi):
+        if not self.__is_valid_webapi_message(message_from_webapi):
+            logging.error('Invalid Input Json Dictionary Detected')
+            return
         self.__cmd_proto = CommandWithArguments()
         self.__cmd_proto.id = int(message_from_webapi['id'])
         argument_count = int(message_from_webapi['argument_count'])
@@ -45,11 +75,10 @@ class AgentStub:
             self.__cmd_proto.value.append(arguments[index]['value'])
 
     def __UpdatingExecutionResultMessageID(self, message_id):
-        self.__execution_status
-["message_id"] = message_id
+        self.__execution_status["message_id"] = message_id
 
     def __GetTargetsIdFromJson(self, target_id_string):
-        print ("target_id_string:  {}".format(target_id_string))
+        print("target_id_string:  {}".format(target_id_string))
         switcher = {
             'server_udp_x86_talca': Header.SERVER_UDP_X86_TALCA_ID,
             'web_api_python_client': Header.WEB_API_PYTHON_CLIENT_ID,
@@ -118,7 +147,7 @@ class AgentStub:
         packed_data = PackBinaryData(message)
         string = str.encode("la concha de la lora")
         self.__udp_sock.sendto(
-             string, (self.__server_ip, self.__server_port))
+            string, (self.__server_ip, self.__server_port))
         self.__UpdatingExecutionResultStatus("Command Sent")
         print("Wait for response: {}".format(self.__wait_for_response))
         if self.__wait_for_response:

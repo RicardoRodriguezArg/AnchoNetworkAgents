@@ -61,8 +61,9 @@ py_test(
 
 py_test(
     name = "agents_messages_wrapper_tests",
-    srcs = ["test/agents_webapi_app_tests_one.py",
-            "test/test_agents_messages_wrapper.py"
+    main = "test/test_agents_messages_wrapper.py",
+    srcs = ["test/test_agents_messages_wrapper.py",
+            "test/test_server_commons.py"
            ],
     deps = [
         "agents_webapi_app",
@@ -80,7 +81,8 @@ py_test(
 test_suite(
     name = "agents_webapi_app_tests_suite",
     tests = [
-             "agents_webapi_app_tests_one"
+             "agents_webapi_app_tests_one",
+             "agents_messages_wrapper_tests",
              ],
 )
 

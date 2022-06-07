@@ -18,18 +18,18 @@ def Welcome():
 @app.route('/agents-webapi/cmd/', methods=['POST'])
 def commands():
     logging.info('Sending Command to C++ Server')
-    webapi_command = request.get_json()
-    command_id = webapi_command['id']
+    webapi_command_dict = request.get_json()
+    command_id = webapi_command_dict['id']
     print("command_id: {}".format(command_id))
-    argument_count = int(webapi_command['argument_count'])
-    arguments = webapi_command['arguments']
+    argument_count = int(webapi_command_dict['argument_count'])
+    arguments = webapi_command_dict['arguments']
     for index in range(argument_count):
         argument_name = arguments[index]['name']
         command_value = arguments[index]['value']
         print("name:  {} value: {}".format(argument_name, command_value))
     # executing command on agents-middleware
     print("Sending Command To Server")
-    response_from_server = SendCommandToServer(webapi_command)
+    response_from_server = SendCommandToServer(webapi_command_dict)
     execution_status = response_from_server[0]
     command_response = response_from_server[1]
     return {'execution_status': execution_status, 'command_response': command_response}
