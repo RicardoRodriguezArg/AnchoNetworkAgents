@@ -13,7 +13,7 @@ namespace agents {
 
     static constexpr std::uint8_t MESSAGE_SIZE_DEFAULT = 4U;
     static constexpr std::uint32_t MAX_BUFFER_SIZE = 1024U;
-    static constexpr std::uint8_t MESSAGE_TYPE_SIZE = 1U;
+    static constexpr std::uint8_t MESSAGE_TYPE_SIZE = 4U;
 
     using ConstPacketBufferIterator = char const*;
     using PacketBufferIterator = char*;
@@ -31,7 +31,7 @@ namespace agents {
     /**
      * @brief      Encode input message with define protocol
      *             First Part - 4 Bytes enconde the size of the whole message
-     *             Second Part - 1 Byte for message type
+     *             Second Part - 4 Byte for message type
      *
      * @param[in]  input_message            The input message
      * @param[in]  packet_message_iterator  The packet message iterator

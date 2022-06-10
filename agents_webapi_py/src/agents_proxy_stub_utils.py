@@ -22,11 +22,11 @@ def PackBinaryData(string_to_encode):
 def UnpackBinaryData(packet_data):
     print("unpacking message- >>>>>>>:  {}".format(packet_data))
     packed_message_size_bytes = packet_data[:4]
-    unpacked_message_size = struct.unpack(">I", packed_message_size_bytes)[0]
+    unpacked_message_size = struct.unpack("!I", packed_message_size_bytes)[0]
     print("message_size: {}".format(unpacked_message_size))
     unpacked_message_type_bytes = packet_data[4:8]
     unpacked_message_data_type = struct.unpack(
-        ">I", unpacked_message_type_bytes)[0]
+        "!I", unpacked_message_type_bytes)[0]
     print("message_type: {}".format(unpacked_message_data_type))
     unpacked_message_string_bytes = packet_data[8:unpacked_message_size]
     print("string: {}".format(unpacked_message_string_bytes))

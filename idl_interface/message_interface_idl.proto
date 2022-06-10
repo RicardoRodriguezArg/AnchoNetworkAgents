@@ -73,18 +73,29 @@ Message Command declaration
 
 message CommandWithArguments
 {
-enum Arguments {
-    ONE = 0;
-    TWO = 1;
-    THREE = 2;
-    FOUR= 3;
-    TOTAL = 4;
-  }
+    enum State{
+        SENT = 0;
+        EXECUTED = 1;
+        IN_EXECUTION = 2;
+        SCHEDDULE_FOR_EXECUTION = 3;
+        NOT_EXECUTED = 4;
+        STOPPED = 5;
+        FINISHED = 6;
+    }
+
+    enum Arguments {
+        ONE = 0;
+        TWO = 1;
+        THREE = 2;
+        FOUR= 3;
+        TOTAL = 4;
+      }
     required Header header = 1;
     required fixed32 id = 2; // Event Id
     required Arguments number_arg_count = 3; // number of Arguments
     repeated string name = 4;
     repeated string value = 5;
+    required State state = 6;
 
 }
 

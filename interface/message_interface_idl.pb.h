@@ -158,6 +158,34 @@ inline bool Header_MessageType_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Header_MessageType>(
     Header_MessageType_descriptor(), name, value);
 }
+enum CommandWithArguments_State : int {
+  CommandWithArguments_State_SENT = 0,
+  CommandWithArguments_State_EXECUTED = 1,
+  CommandWithArguments_State_IN_EXECUTION = 2,
+  CommandWithArguments_State_SCHEDDULE_FOR_EXECUTION = 3,
+  CommandWithArguments_State_NOT_EXECUTED = 4,
+  CommandWithArguments_State_STOPPED = 5,
+  CommandWithArguments_State_FINISHED = 6
+};
+bool CommandWithArguments_State_IsValid(int value);
+constexpr CommandWithArguments_State CommandWithArguments_State_State_MIN = CommandWithArguments_State_SENT;
+constexpr CommandWithArguments_State CommandWithArguments_State_State_MAX = CommandWithArguments_State_FINISHED;
+constexpr int CommandWithArguments_State_State_ARRAYSIZE = CommandWithArguments_State_State_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CommandWithArguments_State_descriptor();
+template<typename T>
+inline const std::string& CommandWithArguments_State_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, CommandWithArguments_State>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function CommandWithArguments_State_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    CommandWithArguments_State_descriptor(), enum_t_value);
+}
+inline bool CommandWithArguments_State_Parse(
+    const std::string& name, CommandWithArguments_State* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<CommandWithArguments_State>(
+    CommandWithArguments_State_descriptor(), name, value);
+}
 enum CommandWithArguments_Arguments : int {
   CommandWithArguments_Arguments_ONE = 0,
   CommandWithArguments_Arguments_TWO = 1,
@@ -885,6 +913,46 @@ class CommandWithArguments :
 
   // nested types ----------------------------------------------------
 
+  typedef CommandWithArguments_State State;
+  static constexpr State SENT =
+    CommandWithArguments_State_SENT;
+  static constexpr State EXECUTED =
+    CommandWithArguments_State_EXECUTED;
+  static constexpr State IN_EXECUTION =
+    CommandWithArguments_State_IN_EXECUTION;
+  static constexpr State SCHEDDULE_FOR_EXECUTION =
+    CommandWithArguments_State_SCHEDDULE_FOR_EXECUTION;
+  static constexpr State NOT_EXECUTED =
+    CommandWithArguments_State_NOT_EXECUTED;
+  static constexpr State STOPPED =
+    CommandWithArguments_State_STOPPED;
+  static constexpr State FINISHED =
+    CommandWithArguments_State_FINISHED;
+  static inline bool State_IsValid(int value) {
+    return CommandWithArguments_State_IsValid(value);
+  }
+  static constexpr State State_MIN =
+    CommandWithArguments_State_State_MIN;
+  static constexpr State State_MAX =
+    CommandWithArguments_State_State_MAX;
+  static constexpr int State_ARRAYSIZE =
+    CommandWithArguments_State_State_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  State_descriptor() {
+    return CommandWithArguments_State_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& State_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, State>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function State_Name.");
+    return CommandWithArguments_State_Name(enum_t_value);
+  }
+  static inline bool State_Parse(const std::string& name,
+      State* value) {
+    return CommandWithArguments_State_Parse(name, value);
+  }
+
   typedef CommandWithArguments_Arguments Arguments;
   static constexpr Arguments ONE =
     CommandWithArguments_Arguments_ONE;
@@ -929,6 +997,7 @@ class CommandWithArguments :
     kHeaderFieldNumber = 1,
     kIdFieldNumber = 2,
     kNumberArgCountFieldNumber = 3,
+    kStateFieldNumber = 6,
   };
   // repeated string name = 4;
   int name_size() const;
@@ -1019,6 +1088,19 @@ class CommandWithArguments :
   void _internal_set_number_arg_count(::agent_interface::CommandWithArguments_Arguments value);
   public:
 
+  // required .agent_interface.CommandWithArguments.State state = 6;
+  bool has_state() const;
+  private:
+  bool _internal_has_state() const;
+  public:
+  void clear_state();
+  ::agent_interface::CommandWithArguments_State state() const;
+  void set_state(::agent_interface::CommandWithArguments_State value);
+  private:
+  ::agent_interface::CommandWithArguments_State _internal_state() const;
+  void _internal_set_state(::agent_interface::CommandWithArguments_State value);
+  public:
+
   // @@protoc_insertion_point(class_scope:agent_interface.CommandWithArguments)
  private:
   class _Internal;
@@ -1034,6 +1116,7 @@ class CommandWithArguments :
   ::agent_interface::Header* header_;
   ::PROTOBUF_NAMESPACE_ID::uint32 id_;
   int number_arg_count_;
+  int state_;
   friend struct ::TableStruct_message_5finterface_5fidl_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2002,6 +2085,35 @@ CommandWithArguments::mutable_value() {
   return &value_;
 }
 
+// required .agent_interface.CommandWithArguments.State state = 6;
+inline bool CommandWithArguments::_internal_has_state() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool CommandWithArguments::has_state() const {
+  return _internal_has_state();
+}
+inline void CommandWithArguments::clear_state() {
+  state_ = 0;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::agent_interface::CommandWithArguments_State CommandWithArguments::_internal_state() const {
+  return static_cast< ::agent_interface::CommandWithArguments_State >(state_);
+}
+inline ::agent_interface::CommandWithArguments_State CommandWithArguments::state() const {
+  // @@protoc_insertion_point(field_get:agent_interface.CommandWithArguments.state)
+  return _internal_state();
+}
+inline void CommandWithArguments::_internal_set_state(::agent_interface::CommandWithArguments_State value) {
+  assert(::agent_interface::CommandWithArguments_State_IsValid(value));
+  _has_bits_[0] |= 0x00000008u;
+  state_ = value;
+}
+inline void CommandWithArguments::set_state(::agent_interface::CommandWithArguments_State value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:agent_interface.CommandWithArguments.state)
+}
+
 // -------------------------------------------------------------------
 
 // Telemetry
@@ -2272,6 +2384,11 @@ template <> struct is_proto_enum< ::agent_interface::Header_MessageType> : ::std
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::agent_interface::Header_MessageType>() {
   return ::agent_interface::Header_MessageType_descriptor();
+}
+template <> struct is_proto_enum< ::agent_interface::CommandWithArguments_State> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::agent_interface::CommandWithArguments_State>() {
+  return ::agent_interface::CommandWithArguments_State_descriptor();
 }
 template <> struct is_proto_enum< ::agent_interface::CommandWithArguments_Arguments> : ::std::true_type {};
 template <>

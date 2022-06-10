@@ -93,7 +93,7 @@ static void InitDefaultsscc_info_Telemetry_message_5finterface_5fidl_2eproto() {
       &scc_info_Header_message_5finterface_5fidl_2eproto.base,}};
 
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_message_5finterface_5fidl_2eproto[4];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_message_5finterface_5fidl_2eproto[4];
+static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_message_5finterface_5fidl_2eproto[5];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_message_5finterface_5fidl_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_message_5finterface_5fidl_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -145,11 +145,13 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_message_5finterface_5fidl_2epr
   PROTOBUF_FIELD_OFFSET(::agent_interface::CommandWithArguments, number_arg_count_),
   PROTOBUF_FIELD_OFFSET(::agent_interface::CommandWithArguments, name_),
   PROTOBUF_FIELD_OFFSET(::agent_interface::CommandWithArguments, value_),
+  PROTOBUF_FIELD_OFFSET(::agent_interface::CommandWithArguments, state_),
   0,
   1,
   2,
   ~0u,
   ~0u,
+  3,
   PROTOBUF_FIELD_OFFSET(::agent_interface::Telemetry, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::agent_interface::Telemetry, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -167,8 +169,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_message_5finterface_5fidl_2epr
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 16, sizeof(::agent_interface::Header)},
   { 27, 35, sizeof(::agent_interface::Event)},
-  { 38, 48, sizeof(::agent_interface::CommandWithArguments)},
-  { 53, 62, sizeof(::agent_interface::Telemetry)},
+  { 38, 49, sizeof(::agent_interface::CommandWithArguments)},
+  { 55, 64, sizeof(::agent_interface::Telemetry)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -200,16 +202,20 @@ const char descriptor_table_protodef_message_5finterface_5fidl_2eproto[] PROTOBU
   "DATA\020\003\022\t\n\005VIDEO\020\004\022\017\n\013EVENT_PROTO\020\005\022\016\n\nDA"
   "TA_PROTO\020\006\022\t\n\005COUNT\020\007\"Q\n\005Event\022\'\n\006header"
   "\030\001 \002(\0132\027.agent_interface.Header\022\n\n\002id\030\002 "
-  "\002(\007\022\023\n\013description\030\003 \002(\t\"\362\001\n\024CommandWith"
+  "\002(\007\022\023\n\013description\030\003 \002(\t\"\253\003\n\024CommandWith"
   "Arguments\022\'\n\006header\030\001 \002(\0132\027.agent_interf"
   "ace.Header\022\n\n\002id\030\002 \002(\007\022I\n\020number_arg_cou"
   "nt\030\003 \002(\0162/.agent_interface.CommandWithAr"
   "guments.Arguments\022\014\n\004name\030\004 \003(\t\022\r\n\005value"
-  "\030\005 \003(\t\"=\n\tArguments\022\007\n\003ONE\020\000\022\007\n\003TWO\020\001\022\t\n"
-  "\005THREE\020\002\022\010\n\004FOUR\020\003\022\t\n\005TOTAL\020\004\"]\n\tTelemet"
-  "ry\022\'\n\006header\030\001 \002(\0132\027.agent_interface.Hea"
-  "der\022\n\n\002id\030\002 \002(\007\022\014\n\004name\030\003 \003(\t\022\r\n\005value\030\004"
-  " \003(\t"
+  "\030\005 \003(\t\022:\n\005state\030\006 \002(\0162+.agent_interface."
+  "CommandWithArguments.State\"{\n\005State\022\010\n\004S"
+  "ENT\020\000\022\014\n\010EXECUTED\020\001\022\020\n\014IN_EXECUTION\020\002\022\033\n"
+  "\027SCHEDDULE_FOR_EXECUTION\020\003\022\020\n\014NOT_EXECUT"
+  "ED\020\004\022\013\n\007STOPPED\020\005\022\014\n\010FINISHED\020\006\"=\n\tArgum"
+  "ents\022\007\n\003ONE\020\000\022\007\n\003TWO\020\001\022\t\n\005THREE\020\002\022\010\n\004FOU"
+  "R\020\003\022\t\n\005TOTAL\020\004\"]\n\tTelemetry\022\'\n\006header\030\001 "
+  "\002(\0132\027.agent_interface.Header\022\n\n\002id\030\002 \002(\007"
+  "\022\014\n\004name\030\003 \003(\t\022\r\n\005value\030\004 \003(\t"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_message_5finterface_5fidl_2eproto_deps[1] = {
 };
@@ -222,7 +228,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_mes
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_message_5finterface_5fidl_2eproto_once;
 static bool descriptor_table_message_5finterface_5fidl_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_message_5finterface_5fidl_2eproto = {
-  &descriptor_table_message_5finterface_5fidl_2eproto_initialized, descriptor_table_protodef_message_5finterface_5fidl_2eproto, "message_interface_idl.proto", 1204,
+  &descriptor_table_message_5finterface_5fidl_2eproto_initialized, descriptor_table_protodef_message_5finterface_5fidl_2eproto, "message_interface_idl.proto", 1389,
   &descriptor_table_message_5finterface_5fidl_2eproto_once, descriptor_table_message_5finterface_5fidl_2eproto_sccs, descriptor_table_message_5finterface_5fidl_2eproto_deps, 4, 0,
   schemas, file_default_instances, TableStruct_message_5finterface_5fidl_2eproto::offsets,
   file_level_metadata_message_5finterface_5fidl_2eproto, 4, file_level_enum_descriptors_message_5finterface_5fidl_2eproto, file_level_service_descriptors_message_5finterface_5fidl_2eproto,
@@ -318,9 +324,40 @@ constexpr Header_MessageType Header::MessageType_MIN;
 constexpr Header_MessageType Header::MessageType_MAX;
 constexpr int Header::MessageType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CommandWithArguments_Arguments_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CommandWithArguments_State_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_message_5finterface_5fidl_2eproto);
   return file_level_enum_descriptors_message_5finterface_5fidl_2eproto[3];
+}
+bool CommandWithArguments_State_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+constexpr CommandWithArguments_State CommandWithArguments::SENT;
+constexpr CommandWithArguments_State CommandWithArguments::EXECUTED;
+constexpr CommandWithArguments_State CommandWithArguments::IN_EXECUTION;
+constexpr CommandWithArguments_State CommandWithArguments::SCHEDDULE_FOR_EXECUTION;
+constexpr CommandWithArguments_State CommandWithArguments::NOT_EXECUTED;
+constexpr CommandWithArguments_State CommandWithArguments::STOPPED;
+constexpr CommandWithArguments_State CommandWithArguments::FINISHED;
+constexpr CommandWithArguments_State CommandWithArguments::State_MIN;
+constexpr CommandWithArguments_State CommandWithArguments::State_MAX;
+constexpr int CommandWithArguments::State_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* CommandWithArguments_Arguments_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_message_5finterface_5fidl_2eproto);
+  return file_level_enum_descriptors_message_5finterface_5fidl_2eproto[4];
 }
 bool CommandWithArguments_Arguments_IsValid(int value) {
   switch (value) {
@@ -1230,6 +1267,9 @@ class CommandWithArguments::_Internal {
   static void set_has_number_arg_count(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static void set_has_state(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
 };
 
 const ::agent_interface::Header&
@@ -1254,16 +1294,16 @@ CommandWithArguments::CommandWithArguments(const CommandWithArguments& from)
     header_ = nullptr;
   }
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&number_arg_count_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(number_arg_count_));
+    static_cast<size_t>(reinterpret_cast<char*>(&state_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(state_));
   // @@protoc_insertion_point(copy_constructor:agent_interface.CommandWithArguments)
 }
 
 void CommandWithArguments::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_CommandWithArguments_message_5finterface_5fidl_2eproto.base);
   ::memset(&header_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&number_arg_count_) -
-      reinterpret_cast<char*>(&header_)) + sizeof(number_arg_count_));
+      reinterpret_cast<char*>(&state_) -
+      reinterpret_cast<char*>(&header_)) + sizeof(state_));
 }
 
 CommandWithArguments::~CommandWithArguments() {
@@ -1297,10 +1337,10 @@ void CommandWithArguments::Clear() {
     GOOGLE_DCHECK(header_ != nullptr);
     header_->Clear();
   }
-  if (cached_has_bits & 0x00000006u) {
+  if (cached_has_bits & 0x0000000eu) {
     ::memset(&id_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&number_arg_count_) -
-        reinterpret_cast<char*>(&id_)) + sizeof(number_arg_count_));
+        reinterpret_cast<char*>(&state_) -
+        reinterpret_cast<char*>(&id_)) + sizeof(state_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
@@ -1373,6 +1413,18 @@ const char* CommandWithArguments::_InternalParse(const char* ptr, ::PROTOBUF_NAM
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
         } else goto handle_unusual;
         continue;
+      // required .agent_interface.CommandWithArguments.State state = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::agent_interface::CommandWithArguments_State_IsValid(val))) {
+            _internal_set_state(static_cast<::agent_interface::CommandWithArguments_State>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(6, val, mutable_unknown_fields());
+          }
+        } else goto handle_unusual;
+        continue;
       default: {
       handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
@@ -1442,6 +1494,13 @@ failure:
     target = stream->WriteString(5, s, target);
   }
 
+  // required .agent_interface.CommandWithArguments.State state = 6;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      6, this->_internal_state(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -1472,13 +1531,19 @@ size_t CommandWithArguments::RequiredFieldsByteSizeFallback() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_number_arg_count());
   }
 
+  if (_internal_has_state()) {
+    // required .agent_interface.CommandWithArguments.State state = 6;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_state());
+  }
+
   return total_size;
 }
 size_t CommandWithArguments::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:agent_interface.CommandWithArguments)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
     // required .agent_interface.Header header = 1;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -1490,6 +1555,10 @@ size_t CommandWithArguments::ByteSizeLong() const {
     // required .agent_interface.CommandWithArguments.Arguments number_arg_count = 3;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_number_arg_count());
+
+    // required .agent_interface.CommandWithArguments.State state = 6;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_state());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -1548,7 +1617,7 @@ void CommandWithArguments::MergeFrom(const CommandWithArguments& from) {
   name_.MergeFrom(from.name_);
   value_.MergeFrom(from.value_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_header()->::agent_interface::Header::MergeFrom(from._internal_header());
     }
@@ -1557,6 +1626,9 @@ void CommandWithArguments::MergeFrom(const CommandWithArguments& from) {
     }
     if (cached_has_bits & 0x00000004u) {
       number_arg_count_ = from.number_arg_count_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      state_ = from.state_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1577,7 +1649,7 @@ void CommandWithArguments::CopyFrom(const CommandWithArguments& from) {
 }
 
 bool CommandWithArguments::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
   if (_internal_has_header()) {
     if (!header_->IsInitialized()) return false;
   }
@@ -1593,6 +1665,7 @@ void CommandWithArguments::InternalSwap(CommandWithArguments* other) {
   swap(header_, other->header_);
   swap(id_, other->id_);
   swap(number_arg_count_, other->number_arg_count_);
+  swap(state_, other->state_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata CommandWithArguments::GetMetadata() const {

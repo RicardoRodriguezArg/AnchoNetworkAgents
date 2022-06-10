@@ -2,14 +2,12 @@ import socket
 import datetime
 from datetime import date
 import time
-import subprocess
 import json
 from interface.message_interface_idl_pb2 import CommandWithArguments
 from interface.message_interface_idl_pb2 import Header
 from agents_webapi_py.src.agents_proxy_stub_utils import PackBinaryData
 from agents_webapi_py.src.agents_proxy_stub_utils import UnpackBinaryData
 from agents_webapi_py.src.agents_proxy_stub_utils import ProcessProtoMessage
-from google.protobuf import text_format
 import logging
 
 
@@ -27,7 +25,6 @@ class AgentStub:
         self.__response_result = None
         self.__execution_status = {"message_id": -1, "execution": "uninit"}
         self.__message_id = 0
-        self.____wait_for_response = False
 
     def command_proto(self):
         return self.__cmd_proto
@@ -66,6 +63,7 @@ class AgentStub:
             return
         self.__cmd_proto = CommandWithArguments()
         self.__cmd_proto.id = int(message_from_webapi['id'])
+        self.__cmd_proto.state = CommandWithArguments.State.SENT
         argument_count = int(message_from_webapi['argument_count'])
         self.__cmd_proto.number_arg_count = argument_count
         processed_header = self.__CreateHeaderMessageFromJson(
@@ -80,7 +78,6 @@ class AgentStub:
         self.__execution_status["message_id"] = message_id
 
     def __GetTargetsIdFromJson(self, target_id_string):
-        print("target_id_string:  {}".format(target_id_string))
         switcher = {
             'server_udp_x86_talca': Header.SERVER_UDP_X86_TALCA_ID,
             'web_api_python_client': Header.WEB_API_PYTHON_CLIENT_ID,
@@ -123,7 +120,7 @@ class AgentStub:
         return header
 
     def __UpdatingExecutionResultStatus(self, status_message=None):
-        if not status_message:
+        if status_message:
             self.__execution_status["execution"] = status_message
 
     def GetExecutionStatus(self):
@@ -133,7 +130,7 @@ class AgentStub:
         return self.__response_result
 
     def ShouldWaitForResponse(self):
-        return self.____wait_for_response
+        return self.__wait_for_response
 
     def SendCmdToServer(self):
         print('Sending to Ip: {} and port: {}'.format
@@ -158,9 +155,9 @@ class AgentStub:
             while step < max_step_count:
                 try:
                     data = self.__udp_sock.recvfrom(self.__buffer_size)
-                    print("Data: {}".format(data[0]))
                     unpacked_response = UnpackBinaryData(data)
                     self.__response_result = ProcessProtoMessage(unpacked_response)
+                    print("Command Executed!!")
                     self.__UpdatingExecutionResultStatus("Command executed")
                     result = True
                 except Exception as error:
