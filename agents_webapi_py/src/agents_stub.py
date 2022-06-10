@@ -2,6 +2,7 @@ import socket
 import datetime
 from datetime import date
 import time
+import subprocess
 import json
 from interface.message_interface_idl_pb2 import CommandWithArguments
 from interface.message_interface_idl_pb2 import Header
@@ -13,7 +14,7 @@ import logging
 
 
 class AgentStub:
-    def __init__(self, server_ip="127.0.0.1", target_server_port=5001, local_server_port=50100, buffer_size=4096):
+    def __init__(self, server_ip="127.0.0.1", target_server_port=5001, local_server_port=50100, buffer_size=1024):
         self.__cmd_proto = None
         self.__bytesToSend = 0
         self.__server_ip = server_ip
@@ -36,7 +37,8 @@ class AgentStub:
         arguments = message_dict_from_webapi['arguments']
         print("arguments: {}".format(len(arguments)))
         print("argument_count".format(argument_count))
-        print("checking arg count: {}".format(len(arguments) == argument_count))
+        print("checking arg count: {}".format(
+            len(arguments) == argument_count))
         return len(arguments) == argument_count
 
     def __check_proper_arguments_in_message(self, message_from_webapi):
@@ -145,9 +147,8 @@ class AgentStub:
         message = self.__cmd_proto.SerializeToString()
         self.__cmd_proto.Clear()
         packed_data = PackBinaryData(message)
-        string = str.encode("la concha de la lora")
         self.__udp_sock.sendto(
-            string, (self.__server_ip, self.__server_port))
+            packed_data, (self.__server_ip, self.__server_port))
         self.__UpdatingExecutionResultStatus("Command Sent")
         print("Wait for response: {}".format(self.__wait_for_response))
         if self.__wait_for_response:
@@ -158,9 +159,9 @@ class AgentStub:
                 try:
                     data = self.__udp_sock.recvfrom(self.__buffer_size)
                     print("Data: {}".format(data[0]))
-                    #unpacked_response = UnpackBinaryData(data)
-                    #self.__response_result = ProcessProtoMessage(unpacked_response)
-                    #self.__UpdatingExecutionResultStatus("Command executed")
+                    unpacked_response = UnpackBinaryData(data)
+                    self.__response_result = ProcessProtoMessage(unpacked_response)
+                    self.__UpdatingExecutionResultStatus("Command executed")
                     result = True
                 except Exception as error:
                     self.__response_result = None

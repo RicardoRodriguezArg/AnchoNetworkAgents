@@ -48,7 +48,6 @@ def ProcessProtoMessage(unpack_data):
     message_type = unpack_data[1]
     result = None
     serialize_proto_message = unpack_data[2]
-    print("Utils Message Type: {}".format(unpack_data))
     if message_type == Header.COMMAND_PROTO:
         serialize_message = unpack_data[2]
         command = CommandWithArguments()
