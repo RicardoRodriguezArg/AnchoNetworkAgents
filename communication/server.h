@@ -61,23 +61,34 @@ namespace agents {
         LOG(INFO) << "Starting Server";
         while (is_server_operating_) {
           LOG(INFO) << "Reading from all client";
+          buffer_[agents::utils::MAX_BUFFER_SIZE - 1U] = '\0';
           const auto number_of_bytes = udp_server_.ReadFromAllClients(buffer_.begin(), agents::utils::MAX_BUFFER_SIZE);
           LOG(INFO) << "Number of bytes: " << std::to_string(number_of_bytes);
           if (number_of_bytes > 0) {
+            LOG(INFO) << "Parsing Message GetMessageType: ";
+
             const auto message_type_opt =
               agents::utils::GetPackectMessageType(buffer_.begin() + agents::utils::MESSAGE_SIZE_DEFAULT);
-            if (message_type_opt.has_value()) {
-              std::string raw_message_copy{buffer_.begin(), buffer_.begin() + number_of_bytes};
-              // TODO:Create Function to handle this transformation
-              //// Get Message Type
+            const auto message_size_opt = agents::utils::GetPackectMessageSize(buffer_.begin());
+            if (message_type_opt.has_value() && message_size_opt.has_value()) {
+
+              LOG(INFO) << "Parsed Message Size: " << std::to_string(message_size_opt.value());
+              const auto raw_message_copy = agents::utils::GetPackectMessageData(
+                buffer_.begin() + agents::utils::MESSAGE_SIZE_DEFAULT + agents::utils::MESSAGE_TYPE_SIZE,
+                message_size_opt.value());
+
               const auto message_type = static_cast<agents::common::MessageType>(message_type_opt.value());
-              message_handler_.HandleMessage(message_type, raw_message_copy);
+              LOG(INFO) << "Parsed Message Type: " << std::to_string(message_type_opt.value());
+              if (raw_message_copy.has_value()) {
+                message_handler_.HandleMessage(message_type, raw_message_copy.value());
+              }
             }
           } else {
             LOG(INFO) << "Server is sleeping";
             std::this_thread::sleep_for(2000ms);
           }
         }
+
         LOG(INFO) << "Server is stopped";
         is_server_operating_ = false;
       }

@@ -9,7 +9,7 @@ namespace agents {
     enum class DeviceId : std::uint8_t { MainUdpServer };
 
     // TODO:This need to be in-sync with general interface definition (proto file definition)
-    enum class MessageType : std::uint8_t { EVENT = 0U, COMAND, DATA, VIDEO, COUNT };
+    enum class MessageType : std::uint8_t { EVENT = 0U, COMAND_NANO, COMMAND_PROTO, DATA, VIDEO, COUNT };
 
     enum class ServerType : std::uint8_t { TCP, UDP };
 

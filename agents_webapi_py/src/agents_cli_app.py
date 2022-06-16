@@ -5,4 +5,4 @@ import logging
 
 if __name__ == '__main__':
     logging.info('Agents CLI python client/server init')
-    #TODO:implment command line server client
+    # TODO:implment command line server client

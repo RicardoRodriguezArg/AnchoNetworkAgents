@@ -14,8 +14,7 @@ namespace agents {
     template <typename Processor>
     class DataProcessor {
     public:
-      explicit DataProcessor(const Processor& processor) :
-          processor_(processor) {}
+      explicit DataProcessor(const Processor& processor) : processor_(processor) {}
 
       void Enqueue(const std::string& raw_message) {
         std::lock_guard<std::mutex> lock(data_processor_mutex_);

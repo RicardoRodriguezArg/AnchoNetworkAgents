@@ -3,6 +3,7 @@
 
 #include "commands/commands.h"
 #include "interface/message_interface_idl.pb.h"
+#include "interface/message_interface_idl.pb.nano.h"
 // devices proxys
 #include "commons/commons.h"
 #include "data_processors/data_messages.h"
@@ -23,13 +24,14 @@ namespace agents {
                                                  RequestStatusOfAllDevices, RequestCurrentStatus>;
       using InternalEventHandler = std::tuple<std::uint32_t>;
       using CommandMessageDict = MessageDictionary<::agent_interface_CommandWithArguments>;
+
       using ServerOptionsType = agents::middleware::options::ServerConfiguration;
       using EventMessageDict = MessageDictionary<::agent_interface_Event>;
 
       using ProxyManagerType = agents::middleware::proxys::ProxyManager;
       // Commands
-      std::vector<std::uint8_t> GetAllCommandsIDsFromDataBase();                                          // Done
-      CommandMessageDict CreateAllNanoCommands(const std::vector<std::uint8_t>& commands_ids_input_list); // Done
+      std::vector<std::uint8_t> GetAllCommandsIDsFromDataBase();                                            // Done
+      CommandMessageDict CreateAllSystemCommands(const std::vector<std::uint8_t>& commands_ids_input_list); // Done
 
       // Device Proxy List
       std::vector<std::uint32_t> LoadDevicesIdsFromConfig(); // Done

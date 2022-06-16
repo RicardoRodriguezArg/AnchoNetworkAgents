@@ -13,6 +13,7 @@ namespace agents {
         ~Server();
         void InitServer();
         void StopServer();
+        bool IsOperational() const;
         std::int32_t ReadFromAllClients(char* buffer, std::size_t max_message_size) const;
 
       private:

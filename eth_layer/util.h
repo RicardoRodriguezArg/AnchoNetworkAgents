@@ -21,7 +21,6 @@ namespace agents {
 
     std::int32_t CreateUDPFileDescriptor();
     bool IsValidSocketFileDescriptor(std::int32_t socket_file_descriptor);
-    void FillUDPServerInfo(struct addrinfo* socket_info, std::uint16_t port);
     struct ::sockaddr_in CreateServerAddressInfo(std::uint16_t port, const std::string& server_addr);
 
     bool FillUDPClientWithServerInfo(struct addrinfo* socket_info, const std::string& server_port, std::uint16_t port);

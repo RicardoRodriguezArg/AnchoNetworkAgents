@@ -1,4 +1,6 @@
 #include "builder.h"
+#include "commons/commons.h"
+#include "message_handler_buider.h"
 #include <glog/logging.h>
 #include <stdexcept>
 
@@ -70,7 +72,7 @@ namespace agents {
         return commands_id;
       }
 
-      CommandMessageDict CreateAllNanoCommands(const std::vector<std::uint8_t>& commands_ids_input_list) {
+      CommandMessageDict CreateAllSystemCommands(const std::vector<std::uint8_t>& commands_ids_input_list) {
         std::array<::agent_interface_CommandWithArguments, agents::common::MAX_MESSAGE_COUNT> array_from_factory{};
         std::transform(
           commands_ids_input_list.begin(), commands_ids_input_list.end(), array_from_factory.begin(),
@@ -102,10 +104,7 @@ namespace agents {
                                request_current_status);
       }
 
-      handlers::MessageHandlerManger BuildMessageHandler() {
-        handlers::MessageHandlerManger message_handler{};
-        return message_handler;
-      }
+      handlers::MessageHandlerManger BuildMessageHandler() { return builders::MessageHandlers::Build(); }
 
       handlers::MessageHandlerManger ConfigureMessageHandler(handlers::MessageHandlerManger message_handler) {
         return message_handler;

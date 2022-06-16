@@ -42,9 +42,41 @@ py_library(
         ],
 )
 
+##Python Server for protocol buffer messages
+py_binary(
+    name = "agents_proto_server",
+    srcs = ["agents_proto_server.py"
+            ],
+    deps=[
+        "//agents_webapi_py/src:agents_proxy",
+        "//interface:message_interface_idl_pb2",
+        requirement("protobuf"),
+        ],
+)
+
 py_test(
     name = "agents_webapi_app_tests_one",
-    srcs = ["test/agents_webapi_app_tests_one.py"],
+    srcs = ["test/agents_webapi_app_tests_one.py",
+           ],
+    deps = [
+        "agents_webapi_app",
+        "agents_proxy",
+        requirement("flask"),
+        requirement("jinja2"),
+        requirement("werkzeug"),
+        requirement("itsdangerous"),
+        requirement("click"),
+        requirement("pytest"),
+        requirement("protobuf"),
+    ],
+)
+
+py_test(
+    name = "tests_server_clients_agent_messages",
+    main = "test/tests_server_clients_agent_messages.py",
+    srcs = ["test/tests_server_clients_agent_messages.py",
+            "test/test_server_commons.py"
+           ],
     deps = [
         "agents_webapi_app",
         "agents_proxy",
@@ -61,8 +93,8 @@ py_test(
 test_suite(
     name = "agents_webapi_app_tests_suite",
     tests = [
-        "agents_webapi_app_tests_one",
-    ],
+             "agents_webapi_app_tests_one",
+             ],
 )
 
 py_library(

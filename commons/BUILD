@@ -13,5 +13,7 @@ cc_library(
                   "//eth_layer:__pkg__",
                   "//builder:__pkg__",
                   "//communication:__pkg__",
+                  "//message_handlers:__pkg__",
+                  "//message_handlers/tests:__pkg__",
                  ]
             )

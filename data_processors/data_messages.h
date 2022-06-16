@@ -9,13 +9,16 @@ namespace agents {
 
     template <typename MessageType>
     struct MessageDictionary {
-      explicit MessageDictionary(
-        std::array<MessageType, agents::common::MAX_MESSAGE_COUNT>
-          array_from_factory) :
-          message_array_(std::move(array_from_factory)) {}
+      explicit MessageDictionary(std::array<MessageType, agents::common::MAX_MESSAGE_COUNT> array_from_factory) :
+        message_array_(std::move(array_from_factory)) {}
 
-      std::optional<MessageType> GetMessageFromDictionary(
-        const std::uint32_t message_id) {
+      MessageDictionary() = default;
+
+      void SetMessageArray(std::array<MessageType, agents::common::MAX_MESSAGE_COUNT> array_from_factory) {
+        message_array_ = std::move(array_from_factory);
+      }
+
+      std::optional<MessageType> GetMessageFromDictionary(const std::uint32_t message_id) {
         // TODO:
         std::optional<MessageType> result{};
         if (message_id > 0 && message_id < agents::common::MAX_MESSAGE_COUNT) {
