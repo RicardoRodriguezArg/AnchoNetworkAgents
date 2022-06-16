@@ -115,11 +115,27 @@ pipeline {
                     {
                         echo 'Building Python Test webApi'
                         sh '''#!/bin/bash
-                        echo 'Py3 - Building Python webApi x Agents - Tests'
+                        echo 'Py3 - Running Test Suite for Basic Cases'
                         bazel test //agents_webapi_py/src:agents_webapi_app_tests_suite
                         '''
                     }
                 }//steps
             }//Stage
+            stage('Py3 - Executing System Test Server-Client Python with AnchoNet Protocol') {
+                steps {
+                    dir("${env.WORKSPACE}")
+                    {
+                        echo 'Running Python Server in Test Mode'
+                        sh '''#!/bin/bash
+                        bazel run //agents_webapi_py/src:agents_proto_server -- -t True
+                        '''
+                        echo 'Running Python client test against test server'
+                        sh '''#!/bin/bash
+                        bazel test //agents_webapi_py/src:tests_server_clients_agent_messages
+                        '''
+                    }
+                }//steps
+            }//Stage
+
     }//STAGES
 }//PIPELINE

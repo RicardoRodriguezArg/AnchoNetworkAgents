@@ -53,7 +53,7 @@ def test_service_fail(client):
                              ]})
     assert resp.status_code == 200
     execution_status = resp.json.get('execution_status')
-    assert "uninit" in execution_status
+    assert "timed out" in execution_status
 
 
 def test_server_agent_time_out(client):
