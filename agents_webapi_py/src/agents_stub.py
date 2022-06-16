@@ -126,7 +126,7 @@ class AgentStub:
     def GetExecutionStatus(self):
         return json.dumps(self.__execution_status)
 
-    def GetResponseResul(self):
+    def GetResponseResult(self):
         return self.__response_result
 
     def ShouldWaitForResponse(self):
@@ -155,7 +155,7 @@ class AgentStub:
             while step < max_step_count:
                 try:
                     data = self.__udp_sock.recvfrom(self.__buffer_size)
-                    unpacked_response = UnpackBinaryData(data)
+                    unpacked_response = UnpackBinaryData(data[0])
                     self.__response_result = ProcessProtoMessage(unpacked_response)
                     print("Command Executed!!")
                     self.__UpdatingExecutionResultStatus("Command executed")

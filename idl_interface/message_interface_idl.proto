@@ -2,111 +2,118 @@ syntax = "proto2";
 
 package agent_interface;
 
-/* 
+/*
 Messages header declaration
 */
 
-message Header{
-    enum DeviceType {
+message Header {
+  enum DeviceType {
     UDP_SERVER = 0;
     TCP_SERVER = 1;
-    SERVER_UDP_X86= 2;
+    SERVER_UDP_X86 = 2;
     ROUTER_TP_LINK = 3;
     CAMERA = 4;
     PYTHON_CLIENT = 5;
   }
 
-     enum DeviceId
-     {
-        SERVER_UDP_X86_TALCA_ID   = 0;
-        WEB_API_PYTHON_CLIENT_ID  = 1;
-        GENERIC_TP_LINK_ROUTER_ID = 2;
-        MAIN_WEB_SITE = 3;
-     }
+  enum DeviceId {
+    SERVER_UDP_X86_TALCA_ID = 0;
+    WEB_API_PYTHON_CLIENT_ID = 1;
+    GENERIC_TP_LINK_ROUTER_ID = 2;
+    MAIN_WEB_SITE = 3;
+    SERVER_PROTO_PYTHON = 4;
+  }
 
-    /*
-    Message Type in the system
-    */
-    enum MessageType{
-        EVENT = 0;
-        COMMAND = 1;
-        COMMAND_PROTO = 2;
-        DATA = 3;
-        VIDEO = 4;
-        EVENT_PROTO = 5;
-        DATA_PROTO = 6;
-        COUNT = 7;
-    }
+  /*
+  Message Type in the system
+  */
+  enum MessageType {
+    EVENT = 0;
+    COMMAND = 1;
+    COMMAND_PROTO = 2;
+    DATA = 3;
+    VIDEO = 4;
+    EVENT_PROTO = 5;
+    DATA_PROTO = 6;
+    COUNT = 7;
+  }
 
-    required fixed32 target_agent_id = 1; //Id of the receiver agent
-    required fixed32 source_agent_id = 2; //Id of the sender agent
-    required fixed32 week_number = 3;     //week of year
-    required fixed32 year = 4;            //year
-    required float timestamp = 5;         //timestamp
-    required bool request_ack = 6;        //request ack from this message 
-    required DeviceType source_device_type = 7;
-    required DeviceType target_device_type = 8;
-    required fixed32 message_id = 9; // Message ID
-    /*
-    If this field is set then is mandatory to search id target/source in the 
-    defined enum DeviceId
-    */
-    required bool has_administrative_id=10;
-    required MessageType message_type = 11;
-
+  required fixed32 target_agent_id = 1;  // Id of the receiver agent
+  required fixed32 source_agent_id = 2;  // Id of the sender agent
+  required fixed32 week_number = 3;      // week of year
+  required fixed32 year = 4;             // year
+  required float timestamp = 5;          // timestamp
+  required bool request_ack = 6;         // request ack from this message
+  required DeviceType source_device_type = 7;
+  required DeviceType target_device_type = 8;
+  required fixed32 message_id = 9;  // Message ID
+  /*
+  If this field is set then is mandatory to search id target/source in the
+  defined enum DeviceId
+  */
+  required bool has_administrative_id = 10;
+  required MessageType message_type = 11;
 }
 
-/* 
+/*
 Message Event declaration
 */
 
-message Event
-{
-    required Header header = 1;
-    required fixed32 id = 2;// Event Id
-    required string description = 3;
+message Event {
+  required Header header = 1;
+  required fixed32 id = 2;  // Event Id
+  required string description = 3;
 }
 
-/* 
+/*
 Message Command declaration
 */
 
-message CommandWithArguments
-{
-    enum State{
-        SENT = 0;
-        EXECUTED = 1;
-        IN_EXECUTION = 2;
-        SCHEDDULE_FOR_EXECUTION = 3;
-        NOT_EXECUTED = 4;
-        STOPPED = 5;
-        FINISHED = 6;
-    }
-
-    enum Arguments {
-        ONE = 0;
-        TWO = 1;
-        THREE = 2;
-        FOUR= 3;
-        TOTAL = 4;
-      }
-    required Header header = 1;
-    required fixed32 id = 2; // Event Id
-    required Arguments number_arg_count = 3; // number of Arguments
-    repeated string name = 4;
-    repeated string value = 5;
-    required State state = 6;
-
+message Commands {
+  /*
+  Here we are going to define all commands id of the system
+  */
+  enum Id {
+    ACTIVATE_DEVICE = 1;
+    RESTART_DEVICE = 2;
+    STOP_MIDDLEWARE = 3;
+    SHUTDOWN_TESTING_SERVER= 4;
+  }
 }
 
-/* 
+message CommandWithArguments {
+  enum State {
+    SENT = 0;
+    EXECUTED = 1;
+    IN_EXECUTION = 2;
+    SCHEDDULE_FOR_EXECUTION = 3;
+    NOT_EXECUTED = 4;
+    STOPPED = 5;
+    FINISHED = 6;
+  }
+
+  enum Arguments {
+    ONE = 0;
+    TWO = 1;
+    THREE = 2;
+    FOUR = 3;
+    TOTAL = 4;
+  }
+
+  required Header header = 1;
+  required fixed32 id = 2;                  // Event Id
+  required Arguments number_arg_count = 3;  // number of Arguments
+  repeated string name = 4;
+  repeated string value = 5;
+  required State state = 6;
+}
+
+/*
 Message Data declaration
 */
-message Telemetry
-{
-    required Header header = 1;
-    required fixed32 id = 2; // data Id
-    repeated string name = 3;
-    repeated string value = 4;
-
+message Telemetry {
+  required Header header = 1;
+  required fixed32 id = 2;  // data Id
+  repeated string name = 3;
+  repeated string value = 4;
 }

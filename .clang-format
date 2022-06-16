@@ -22,3 +22,7 @@ SpaceBeforeParens: ControlStatements
 Standard: Cpp11
 UseTab: Never
 ---
+Language: Proto
+BasedOnStyle: Google
+IndentWidth: '4'
+ColumnLimit: '120'

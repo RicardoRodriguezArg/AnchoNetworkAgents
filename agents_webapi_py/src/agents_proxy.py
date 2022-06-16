@@ -13,4 +13,4 @@ def SendCommandToServer(WepAppiCommand):
     server_stub = AgentStub()
     server_stub.ConvertToCmdProtoMessage(WepAppiCommand)
     server_stub.SendCmdToServer()
-    return (server_stub.GetExecutionStatus(), server_stub.GetResponseResul())
+    return (server_stub.GetExecutionStatus(), server_stub.GetResponseResult())

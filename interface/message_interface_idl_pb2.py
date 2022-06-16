@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='agent_interface',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=b'\n\x1bmessage_interface_idl.proto\x12\x0f\x61gent_interface\"\xdc\x05\n\x06Header\x12\x17\n\x0ftarget_agent_id\x18\x01 \x02(\x07\x12\x17\n\x0fsource_agent_id\x18\x02 \x02(\x07\x12\x13\n\x0bweek_number\x18\x03 \x02(\x07\x12\x0c\n\x04year\x18\x04 \x02(\x07\x12\x11\n\ttimestamp\x18\x05 \x02(\x02\x12\x13\n\x0brequest_ack\x18\x06 \x02(\x08\x12>\n\x12source_device_type\x18\x07 \x02(\x0e\x32\".agent_interface.Header.DeviceType\x12>\n\x12target_device_type\x18\x08 \x02(\x0e\x32\".agent_interface.Header.DeviceType\x12\x12\n\nmessage_id\x18\t \x02(\x07\x12\x1d\n\x15has_administrative_id\x18\n \x02(\x08\x12\x39\n\x0cmessage_type\x18\x0b \x02(\x0e\x32#.agent_interface.Header.MessageType\"s\n\nDeviceType\x12\x0e\n\nUDP_SERVER\x10\x00\x12\x0e\n\nTCP_SERVER\x10\x01\x12\x12\n\x0eSERVER_UDP_X86\x10\x02\x12\x12\n\x0eROUTER_TP_LINK\x10\x03\x12\n\n\x06\x43\x41MERA\x10\x04\x12\x11\n\rPYTHON_CLIENT\x10\x05\"w\n\x08\x44\x65viceId\x12\x1b\n\x17SERVER_UDP_X86_TALCA_ID\x10\x00\x12\x1c\n\x18WEB_API_PYTHON_CLIENT_ID\x10\x01\x12\x1d\n\x19GENERIC_TP_LINK_ROUTER_ID\x10\x02\x12\x11\n\rMAIN_WEB_SITE\x10\x03\"y\n\x0bMessageType\x12\t\n\x05\x45VENT\x10\x00\x12\x0b\n\x07\x43OMMAND\x10\x01\x12\x11\n\rCOMMAND_PROTO\x10\x02\x12\x08\n\x04\x44\x41TA\x10\x03\x12\t\n\x05VIDEO\x10\x04\x12\x0f\n\x0b\x45VENT_PROTO\x10\x05\x12\x0e\n\nDATA_PROTO\x10\x06\x12\t\n\x05\x43OUNT\x10\x07\"Q\n\x05\x45vent\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12\x13\n\x0b\x64\x65scription\x18\x03 \x02(\t\"\xab\x03\n\x14\x43ommandWithArguments\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12I\n\x10number_arg_count\x18\x03 \x02(\x0e\x32/.agent_interface.CommandWithArguments.Arguments\x12\x0c\n\x04name\x18\x04 \x03(\t\x12\r\n\x05value\x18\x05 \x03(\t\x12:\n\x05state\x18\x06 \x02(\x0e\x32+.agent_interface.CommandWithArguments.State\"{\n\x05State\x12\x08\n\x04SENT\x10\x00\x12\x0c\n\x08\x45XECUTED\x10\x01\x12\x10\n\x0cIN_EXECUTION\x10\x02\x12\x1b\n\x17SCHEDDULE_FOR_EXECUTION\x10\x03\x12\x10\n\x0cNOT_EXECUTED\x10\x04\x12\x0b\n\x07STOPPED\x10\x05\x12\x0c\n\x08\x46INISHED\x10\x06\"=\n\tArguments\x12\x07\n\x03ONE\x10\x00\x12\x07\n\x03TWO\x10\x01\x12\t\n\x05THREE\x10\x02\x12\x08\n\x04\x46OUR\x10\x03\x12\t\n\x05TOTAL\x10\x04\"]\n\tTelemetry\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12\x0c\n\x04name\x18\x03 \x03(\t\x12\r\n\x05value\x18\x04 \x03(\t'
+  serialized_pb=b'\n\x1bmessage_interface_idl.proto\x12\x0f\x61gent_interface\"\xdc\x05\n\x06Header\x12\x17\n\x0ftarget_agent_id\x18\x01 \x02(\x07\x12\x17\n\x0fsource_agent_id\x18\x02 \x02(\x07\x12\x13\n\x0bweek_number\x18\x03 \x02(\x07\x12\x0c\n\x04year\x18\x04 \x02(\x07\x12\x11\n\ttimestamp\x18\x05 \x02(\x02\x12\x13\n\x0brequest_ack\x18\x06 \x02(\x08\x12>\n\x12source_device_type\x18\x07 \x02(\x0e\x32\".agent_interface.Header.DeviceType\x12>\n\x12target_device_type\x18\x08 \x02(\x0e\x32\".agent_interface.Header.DeviceType\x12\x12\n\nmessage_id\x18\t \x02(\x07\x12\x1d\n\x15has_administrative_id\x18\n \x02(\x08\x12\x39\n\x0cmessage_type\x18\x0b \x02(\x0e\x32#.agent_interface.Header.MessageType\"s\n\nDeviceType\x12\x0e\n\nUDP_SERVER\x10\x00\x12\x0e\n\nTCP_SERVER\x10\x01\x12\x12\n\x0eSERVER_UDP_X86\x10\x02\x12\x12\n\x0eROUTER_TP_LINK\x10\x03\x12\n\n\x06\x43\x41MERA\x10\x04\x12\x11\n\rPYTHON_CLIENT\x10\x05\"w\n\x08\x44\x65viceId\x12\x1b\n\x17SERVER_UDP_X86_TALCA_ID\x10\x00\x12\x1c\n\x18WEB_API_PYTHON_CLIENT_ID\x10\x01\x12\x1d\n\x19GENERIC_TP_LINK_ROUTER_ID\x10\x02\x12\x11\n\rMAIN_WEB_SITE\x10\x03\"y\n\x0bMessageType\x12\t\n\x05\x45VENT\x10\x00\x12\x0b\n\x07\x43OMMAND\x10\x01\x12\x11\n\rCOMMAND_PROTO\x10\x02\x12\x08\n\x04\x44\x41TA\x10\x03\x12\t\n\x05VIDEO\x10\x04\x12\x0f\n\x0b\x45VENT_PROTO\x10\x05\x12\x0e\n\nDATA_PROTO\x10\x06\x12\t\n\x05\x43OUNT\x10\x07\"Q\n\x05\x45vent\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12\x13\n\x0b\x64\x65scription\x18\x03 \x02(\t\"k\n\x08\x43ommands\"_\n\x02Id\x12\x13\n\x0f\x41\x43TIVATE_DEVICE\x10\x01\x12\x12\n\x0eRESTART_DEVICE\x10\x02\x12\x13\n\x0fSTOP_MIDDLEWARE\x10\x03\x12\x1b\n\x17SHUTDOWN_TESTING_SERVER\x10\x04\"\xab\x03\n\x14\x43ommandWithArguments\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12I\n\x10number_arg_count\x18\x03 \x02(\x0e\x32/.agent_interface.CommandWithArguments.Arguments\x12\x0c\n\x04name\x18\x04 \x03(\t\x12\r\n\x05value\x18\x05 \x03(\t\x12:\n\x05state\x18\x06 \x02(\x0e\x32+.agent_interface.CommandWithArguments.State\"{\n\x05State\x12\x08\n\x04SENT\x10\x00\x12\x0c\n\x08\x45XECUTED\x10\x01\x12\x10\n\x0cIN_EXECUTION\x10\x02\x12\x1b\n\x17SCHEDDULE_FOR_EXECUTION\x10\x03\x12\x10\n\x0cNOT_EXECUTED\x10\x04\x12\x0b\n\x07STOPPED\x10\x05\x12\x0c\n\x08\x46INISHED\x10\x06\"=\n\tArguments\x12\x07\n\x03ONE\x10\x00\x12\x07\n\x03TWO\x10\x01\x12\t\n\x05THREE\x10\x02\x12\x08\n\x04\x46OUR\x10\x03\x12\t\n\x05TOTAL\x10\x04\"]\n\tTelemetry\x12\'\n\x06header\x18\x01 \x02(\x0b\x32\x17.agent_interface.Header\x12\n\n\x02id\x18\x02 \x02(\x07\x12\x0c\n\x04name\x18\x03 \x03(\t\x12\r\n\x05value\x18\x04 \x03(\t'
 )
 
 
@@ -137,6 +137,36 @@ _HEADER_MESSAGETYPE = _descriptor.EnumDescriptor(
 )
 _sym_db.RegisterEnumDescriptor(_HEADER_MESSAGETYPE)
 
+_COMMANDS_ID = _descriptor.EnumDescriptor(
+  name='Id',
+  full_name='agent_interface.Commands.Id',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='ACTIVATE_DEVICE', index=0, number=1,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='RESTART_DEVICE', index=1, number=2,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='STOP_MIDDLEWARE', index=2, number=3,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SHUTDOWN_TESTING_SERVER', index=3, number=4,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=878,
+  serialized_end=973,
+)
+_sym_db.RegisterEnumDescriptor(_COMMANDS_ID)
+
 _COMMANDWITHARGUMENTS_STATE = _descriptor.EnumDescriptor(
   name='State',
   full_name='agent_interface.CommandWithArguments.State',
@@ -174,8 +204,8 @@ _COMMANDWITHARGUMENTS_STATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1108,
-  serialized_end=1231,
+  serialized_start=1217,
+  serialized_end=1340,
 )
 _sym_db.RegisterEnumDescriptor(_COMMANDWITHARGUMENTS_STATE)
 
@@ -208,8 +238,8 @@ _COMMANDWITHARGUMENTS_ARGUMENTS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1233,
-  serialized_end=1294,
+  serialized_start=1342,
+  serialized_end=1403,
 )
 _sym_db.RegisterEnumDescriptor(_COMMANDWITHARGUMENTS_ARGUMENTS)
 
@@ -363,6 +393,31 @@ _EVENT = _descriptor.Descriptor(
 )
 
 
+_COMMANDS = _descriptor.Descriptor(
+  name='Commands',
+  full_name='agent_interface.Commands',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+    _COMMANDS_ID,
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=866,
+  serialized_end=973,
+)
+
+
 _COMMANDWITHARGUMENTS = _descriptor.Descriptor(
   name='CommandWithArguments',
   full_name='agent_interface.CommandWithArguments',
@@ -426,8 +481,8 @@ _COMMANDWITHARGUMENTS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=867,
-  serialized_end=1294,
+  serialized_start=976,
+  serialized_end=1403,
 )
 
 
@@ -478,8 +533,8 @@ _TELEMETRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1296,
-  serialized_end=1389,
+  serialized_start=1405,
+  serialized_end=1498,
 )
 
 _HEADER.fields_by_name['source_device_type'].enum_type = _HEADER_DEVICETYPE
@@ -489,6 +544,7 @@ _HEADER_DEVICETYPE.containing_type = _HEADER
 _HEADER_DEVICEID.containing_type = _HEADER
 _HEADER_MESSAGETYPE.containing_type = _HEADER
 _EVENT.fields_by_name['header'].message_type = _HEADER
+_COMMANDS_ID.containing_type = _COMMANDS
 _COMMANDWITHARGUMENTS.fields_by_name['header'].message_type = _HEADER
 _COMMANDWITHARGUMENTS.fields_by_name['number_arg_count'].enum_type = _COMMANDWITHARGUMENTS_ARGUMENTS
 _COMMANDWITHARGUMENTS.fields_by_name['state'].enum_type = _COMMANDWITHARGUMENTS_STATE
@@ -497,6 +553,7 @@ _COMMANDWITHARGUMENTS_ARGUMENTS.containing_type = _COMMANDWITHARGUMENTS
 _TELEMETRY.fields_by_name['header'].message_type = _HEADER
 DESCRIPTOR.message_types_by_name['Header'] = _HEADER
 DESCRIPTOR.message_types_by_name['Event'] = _EVENT
+DESCRIPTOR.message_types_by_name['Commands'] = _COMMANDS
 DESCRIPTOR.message_types_by_name['CommandWithArguments'] = _COMMANDWITHARGUMENTS
 DESCRIPTOR.message_types_by_name['Telemetry'] = _TELEMETRY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -514,6 +571,13 @@ Event = _reflection.GeneratedProtocolMessageType('Event', (_message.Message,), {
   # @@protoc_insertion_point(class_scope:agent_interface.Event)
   })
 _sym_db.RegisterMessage(Event)
+
+Commands = _reflection.GeneratedProtocolMessageType('Commands', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDS,
+  '__module__' : 'message_interface_idl_pb2'
+  # @@protoc_insertion_point(class_scope:agent_interface.Commands)
+  })
+_sym_db.RegisterMessage(Commands)
 
 CommandWithArguments = _reflection.GeneratedProtocolMessageType('CommandWithArguments', (_message.Message,), {
   'DESCRIPTOR' : _COMMANDWITHARGUMENTS,

@@ -48,7 +48,7 @@ struct TableStruct_message_5finterface_5fidl_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -59,6 +59,9 @@ namespace agent_interface {
 class CommandWithArguments;
 class CommandWithArgumentsDefaultTypeInternal;
 extern CommandWithArgumentsDefaultTypeInternal _CommandWithArguments_default_instance_;
+class Commands;
+class CommandsDefaultTypeInternal;
+extern CommandsDefaultTypeInternal _Commands_default_instance_;
 class Event;
 class EventDefaultTypeInternal;
 extern EventDefaultTypeInternal _Event_default_instance_;
@@ -71,6 +74,7 @@ extern TelemetryDefaultTypeInternal _Telemetry_default_instance_;
 }  // namespace agent_interface
 PROTOBUF_NAMESPACE_OPEN
 template<> ::agent_interface::CommandWithArguments* Arena::CreateMaybeMessage<::agent_interface::CommandWithArguments>(Arena*);
+template<> ::agent_interface::Commands* Arena::CreateMaybeMessage<::agent_interface::Commands>(Arena*);
 template<> ::agent_interface::Event* Arena::CreateMaybeMessage<::agent_interface::Event>(Arena*);
 template<> ::agent_interface::Header* Arena::CreateMaybeMessage<::agent_interface::Header>(Arena*);
 template<> ::agent_interface::Telemetry* Arena::CreateMaybeMessage<::agent_interface::Telemetry>(Arena*);
@@ -157,6 +161,31 @@ inline bool Header_MessageType_Parse(
     const std::string& name, Header_MessageType* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Header_MessageType>(
     Header_MessageType_descriptor(), name, value);
+}
+enum Commands_Id : int {
+  Commands_Id_ACTIVATE_DEVICE = 1,
+  Commands_Id_RESTART_DEVICE = 2,
+  Commands_Id_STOP_MIDDLEWARE = 3,
+  Commands_Id_SHUTDOWN_TESTING_SERVER = 4
+};
+bool Commands_Id_IsValid(int value);
+constexpr Commands_Id Commands_Id_Id_MIN = Commands_Id_ACTIVATE_DEVICE;
+constexpr Commands_Id Commands_Id_Id_MAX = Commands_Id_SHUTDOWN_TESTING_SERVER;
+constexpr int Commands_Id_Id_ARRAYSIZE = Commands_Id_Id_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Commands_Id_descriptor();
+template<typename T>
+inline const std::string& Commands_Id_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, Commands_Id>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function Commands_Id_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    Commands_Id_descriptor(), enum_t_value);
+}
+inline bool Commands_Id_Parse(
+    const std::string& name, Commands_Id* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Commands_Id>(
+    Commands_Id_descriptor(), name, value);
 }
 enum CommandWithArguments_State : int {
   CommandWithArguments_State_SENT = 0,
@@ -803,6 +832,163 @@ class Event :
 };
 // -------------------------------------------------------------------
 
+class Commands :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:agent_interface.Commands) */ {
+ public:
+  Commands();
+  virtual ~Commands();
+
+  Commands(const Commands& from);
+  Commands(Commands&& from) noexcept
+    : Commands() {
+    *this = ::std::move(from);
+  }
+
+  inline Commands& operator=(const Commands& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Commands& operator=(Commands&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::PROTOBUF_NAMESPACE_ID::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const Commands& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Commands* internal_default_instance() {
+    return reinterpret_cast<const Commands*>(
+               &_Commands_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    2;
+
+  friend void swap(Commands& a, Commands& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Commands* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Commands* New() const final {
+    return CreateMaybeMessage<Commands>(nullptr);
+  }
+
+  Commands* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Commands>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const Commands& from);
+  void MergeFrom(const Commands& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Commands* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "agent_interface.Commands";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_message_5finterface_5fidl_2eproto);
+    return ::descriptor_table_message_5finterface_5fidl_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  typedef Commands_Id Id;
+  static constexpr Id ACTIVATE_DEVICE =
+    Commands_Id_ACTIVATE_DEVICE;
+  static constexpr Id RESTART_DEVICE =
+    Commands_Id_RESTART_DEVICE;
+  static constexpr Id STOP_MIDDLEWARE =
+    Commands_Id_STOP_MIDDLEWARE;
+  static constexpr Id SHUTDOWN_TESTING_SERVER =
+    Commands_Id_SHUTDOWN_TESTING_SERVER;
+  static inline bool Id_IsValid(int value) {
+    return Commands_Id_IsValid(value);
+  }
+  static constexpr Id Id_MIN =
+    Commands_Id_Id_MIN;
+  static constexpr Id Id_MAX =
+    Commands_Id_Id_MAX;
+  static constexpr int Id_ARRAYSIZE =
+    Commands_Id_Id_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  Id_descriptor() {
+    return Commands_Id_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& Id_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, Id>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function Id_Name.");
+    return Commands_Id_Name(enum_t_value);
+  }
+  static inline bool Id_Parse(const std::string& name,
+      Id* value) {
+    return Commands_Id_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:agent_interface.Commands)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_message_5finterface_5fidl_2eproto;
+};
+// -------------------------------------------------------------------
+
 class CommandWithArguments :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:agent_interface.CommandWithArguments) */ {
  public:
@@ -852,7 +1038,7 @@ class CommandWithArguments :
                &_CommandWithArguments_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(CommandWithArguments& a, CommandWithArguments& b) {
     a.Swap(&b);
@@ -1170,7 +1356,7 @@ class Telemetry :
                &_Telemetry_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(Telemetry& a, Telemetry& b) {
     a.Swap(&b);
@@ -1818,6 +2004,10 @@ inline void Event::set_allocated_description(std::string* description) {
 
 // -------------------------------------------------------------------
 
+// Commands
+
+// -------------------------------------------------------------------
+
 // CommandWithArguments
 
 // required .agent_interface.Header header = 1;
@@ -2363,6 +2553,8 @@ Telemetry::mutable_value() {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -2384,6 +2576,11 @@ template <> struct is_proto_enum< ::agent_interface::Header_MessageType> : ::std
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::agent_interface::Header_MessageType>() {
   return ::agent_interface::Header_MessageType_descriptor();
+}
+template <> struct is_proto_enum< ::agent_interface::Commands_Id> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::agent_interface::Commands_Id>() {
+  return ::agent_interface::Commands_Id_descriptor();
 }
 template <> struct is_proto_enum< ::agent_interface::CommandWithArguments_State> : ::std::true_type {};
 template <>
